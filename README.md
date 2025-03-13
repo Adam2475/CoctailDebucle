@@ -1,4 +1,4 @@
-Setup Visual Studio Project:
+- Setup Visual Studio Project:
 
 https://learn.microsoft.com/en-us/visualstudio/javascript/tutorial-asp-net-core-with-angular?view=vs-2022#prerequisites
 
@@ -14,7 +14,7 @@ To choose the default browser modify the 'launch.json' fi
 
 ---------------------------------------------------------------
 
-@Install primeng library for frontend:
+- Install primeng library for frontend:
 
 npm install primeng @primeng/themes
 
