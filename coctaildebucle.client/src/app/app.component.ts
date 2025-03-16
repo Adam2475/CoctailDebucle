@@ -11,22 +11,24 @@ interface WeatherForecast {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-/*  imports: [ButtonComponent],*/
+  templateUrl: './html/app.component.html',
   standalone: false,
-  styleUrl: './app.component.css'
+  styleUrl: './css/app.component.css'
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit
+{
   public forecasts: WeatherForecast[] = [];
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.getForecasts();
   }
 
-  getForecasts() {
+  getForecasts()
+  {
     this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;

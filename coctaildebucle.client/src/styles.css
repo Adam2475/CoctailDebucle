@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+body
+{
+  background: linear-gradient(#554845 ,#B67233, #ffffff) no-repeat;
+  /*background-color: #B67233;*/
+}
+
+
+main {
+    min-height:80vh;
+}
+
+body, html
+{
+  max-width: 100%;
+  margin: 0px !important;
+  padding: 0px !important;
+}
