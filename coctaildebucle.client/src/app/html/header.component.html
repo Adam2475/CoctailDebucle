@@ -1,20 +1,19 @@
 
-  <header>
-    <nav>
-      <div class="logo">CoctailDebucle</div>
-      <div class="login-container">
-        <!--<form class="login-form">
-          <input type="text" placeholder="Username" required>
-          <input type="password" placeholder="Password" required>
-          <button type="submit">Login</button>
-        </form>-->
-        
-        <div class="login">
-          <a href="#">
-            <i class="fas fa-user"></i>
-                 <p>login</p>
-          </a>
-        </div>
+<!--<app-popup-form [isVisible]="isPopupVisible"></app-popup-form>-->
+
+<header>
+  <nav>
+    <div class="logo">CoctailDebucle</div>
+    <div class="login-container">
+      <div class="login">
+        <button (click)="popupForm.togglePopup()">
+          <i class="fas fa-user"></i>
+          <p>Login</p>
+        </button>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
+
+<!-- Add Popup Form here -->
+<app-popup-form #popupForm></app-popup-form>
