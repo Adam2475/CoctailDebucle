@@ -132,3 +132,10 @@ nav {
     transform: scale(1);
   }
 }
+
+.clickable {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Keep the original color */
+  cursor: pointer; /* Ensure it's clickable */
+  font-weight: bold; /* Make it stand out */
+}

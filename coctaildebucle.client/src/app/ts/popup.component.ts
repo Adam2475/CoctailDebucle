@@ -53,7 +53,9 @@ export class PopupFormComponent
     /* console.log(`Popup visibility: ${this.isVisible}`);*/
   }
 
-  navigateToSignup() {
-    this.router.navigate(['/signup']); // Change to your actual route
+  navigateToSignup()
+  {
+    this.togglePopup();
+    this.router.navigate(['/signup']);
   }
 }
