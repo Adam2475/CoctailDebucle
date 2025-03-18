@@ -18,6 +18,12 @@ interface WeatherForecast {
 
 export class AppComponent implements OnInit
 {
+  isVisible: boolean = false;
+
+  showDialog() {
+    this.isVisible = true;
+  }
+
   public forecasts: WeatherForecast[] = [];
 
   constructor(private http: HttpClient) {}

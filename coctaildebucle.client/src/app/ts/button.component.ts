@@ -10,7 +10,7 @@ import Aura from '@primeng/themes/aura';
   //template: `<button pButton label="Click Me"></button>`, 
   //template: `<button pButton label="Click Me">ciao</button>`,
   templateUrl: '../html/button.component.html',
-/*  standalone: true, */
+  standalone: true,
   imports: [CommonModule, ButtonModule]
 })
 export class ButtonComponent {

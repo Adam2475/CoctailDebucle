@@ -1,26 +1,24 @@
-<!-- Popup Overlay (conditionally rendered based on isPopupOpen) -->
-<!--<div *ngIf="isPopupOpen" class="popup-overlay" (click)="closePopup($event)">
-  <div class="popup-form">
-    <button class="close-btn" (click)="togglePopup()">×</button>
-    <h2>Register</h2>
-    <form (submit)="registerUser()">
-      <input type="text" [(ngModel)]="username" placeholder="Username" required />
-      <input type="email" [(ngModel)]="email" placeholder="Email" required />
-      <input type="password" [(ngModel)]="password" placeholder="Password" required />
-      <button type="submit">Register</button>
-    </form>
+<div *ngIf="isVisible" class="popup-overlay">
+  <div class="flex flex-col md:flex-row">
+    <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+      <div class="flex flex-col gap-2">
+        <label for="username">Username</label>
+        <input pInputText id="username" type="text" />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="password">Password</label>
+        <input pInputText id="password" type="password" />
+      </div>
+      <div class="flex">
+        <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+      </div>
+    </div>
+    <div class="w-full md:w-2/12">
+      <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+    </div>
+    <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+      <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
+                  (click)="navigateToSignup()" />
+    </div>
   </div>
-</div>-->
-
-
-<div *ngIf="isVisible" class="popup-form">
-  <form [formGroup]="popupForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="username" placeholder="Username" required>
-    <input type="email" formControlName="email" placeholder="Email" required>
-    <input type="password" formControlName="password" placeholder="Password" required>
-    <button type="submit" [disabled]="!popupForm.valid">Submit</button>
-    <div>
-      <a id="forget">Forget password?</a>
-     </div>
-  </form>
 </div>

@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonComponent } from './ts/button.component'
 import { AppRoutingModule } from './app-routing.module';
@@ -8,25 +8,42 @@ import { providePrimeNG } from 'primeng/config';
 import { FormsModule } from '@angular/forms';  // <-- Import FormsModule
 import Aura from '@primeng/themes/aura';
 import { HeaderComponent } from './ts/header.component';
-import { ButtonModule } from 'primeng/button';
 import { FooterComponent } from './ts/footer.component';
 import { PopupFormComponent } from './ts/popup.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { SignupComponent } from './components/signup/signup.component'; // Circular dependency (?)
+
+// PrimeNG Modules
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
     FooterComponent, PopupFormComponent,
     AppRoutingModule, ButtonComponent, HeaderComponent,
-    FormsModule, ReactiveFormsModule, LoginComponent,
-    SignupComponent
+    FormsModule, ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ButtonModule,
+    DialogModule,
+    InputTextModule
   ],
-  providers: [providePrimeNG()], // updated the provider
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideAnimationsAsync(),
+    providePrimeNG({
+    theme: {
+      preset: Aura
+    }
+  })], // updated the provider
   bootstrap: [AppComponent]
 })
 export class AppModule { }

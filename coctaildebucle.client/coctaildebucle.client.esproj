@@ -7,8 +7,4 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\coctaildebucle.client\browser\</BuildOutputFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\app\components\login\" />
-    <Folder Include="src\app\components\signup\" />
-  </ItemGroup>
 </Project>
