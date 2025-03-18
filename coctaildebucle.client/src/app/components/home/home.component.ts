@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DrinkCardsComponent } from '../drink-cards/drink-cards.component'
 
 @Component({
   selector: 'app-home',

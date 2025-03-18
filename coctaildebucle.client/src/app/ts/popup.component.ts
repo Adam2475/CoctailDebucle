@@ -26,8 +26,8 @@ import { DividerModule } from 'primeng/divider';
 })
 export class PopupFormComponent
 {
-  popupForm: FormGroup;
-  isVisible: boolean = false; // Track visibility of the popup form
+  popupForm: FormGroup; // to store Form data
+  isVisible: boolean = false;
 
   constructor(private router: Router)
   {

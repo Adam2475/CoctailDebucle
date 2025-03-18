@@ -20,12 +20,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HomeComponent } from './components/home/home.component';
+import { DrinkCardsComponent } from './components/drink-cards/drink-cards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     HomeComponent,
+    DrinkCardsComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
