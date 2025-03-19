@@ -13,14 +13,21 @@ export class DrinkCardsComponent implements OnInit
 
   constructor(private cocktailService: CocktailService) { }
 
-  ngOnInit(): void
-  {
-    // Make sure your API call returns the expected data structure
-    this.cocktailService.getDrinks().subscribe((data: any) =>
-    {
-      this.drinks = data.drinks; // Adjust based on your API response structure
+  ngOnInit(): void {
+    this.cocktailService.getDrinks().subscribe((data: any) => {
+      if (data.drinks && data.drinks.length > 0) {
+        this.drinks = this.getRandomDrinks(data.drinks, 9);
+      }
     }, error => {
       console.error('Error fetching drinks:', error);
     });
+  }
+
+  private getRandomDrinks(drinks: any[], count: number): any[] {
+    if (drinks.length <= count) return drinks; // Return all if less than 9
+
+    return drinks
+      .sort(() => 0.5 - Math.random()) // Shuffle array
+      .slice(0, count); // Get first `count` elements
   }
 }
