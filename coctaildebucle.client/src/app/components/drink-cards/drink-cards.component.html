@@ -1,6 +1,9 @@
 <div class="drink-container">
   <div class="drink-card" *ngFor="let drink of drinks">
-    <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
-    <h3>{{ drink.strDrink }}</h3>
+    <!-- Make the entire card clickable -->
+    <button class="drink-card-link" (click)="goToDetails(drink.idDrink)">
+      <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
+      <h3>{{ drink.strDrink }}</h3>
+    </button>
   </div>
 </div>

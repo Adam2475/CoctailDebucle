@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CocktailService } from '../../services/cocktail.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drink-cards',
@@ -11,7 +12,7 @@ export class DrinkCardsComponent implements OnInit
 {
   drinks: any[] = []; // Array to hold drink data
 
-  constructor(private cocktailService: CocktailService) { }
+  constructor(private cocktailService: CocktailService, private router: Router) { }
 
   ngOnInit(): void {
     this.cocktailService.getDrinks().subscribe((data: any) => {
@@ -29,5 +30,14 @@ export class DrinkCardsComponent implements OnInit
     return drinks
       .sort(() => 0.5 - Math.random()) // Shuffle array
       .slice(0, count); // Get first `count` elements
+  }
+
+  goToDetails(id: string | undefined): void {
+    if (!id) {
+      console.error('Error: idDrink is undefined!');
+      return;
+    }
+    console.log('Navigating to cocktail ID:', id);
+    this.router.navigate(['/cocktail', id]);
   }
 }

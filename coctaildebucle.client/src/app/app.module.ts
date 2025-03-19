@@ -3,6 +3,7 @@ import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonComponent } from './ts/button.component'
 import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { providePrimeNG } from 'primeng/config';
 import { FormsModule } from '@angular/forms';  // <-- Import FormsModule
@@ -21,13 +22,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HomeComponent } from './components/home/home.component';
 import { DrinkCardsComponent } from './components/drink-cards/drink-cards.component';
+import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     HomeComponent,
-    DrinkCardsComponent
+    DrinkCardsComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
@@ -35,7 +37,7 @@ import { DrinkCardsComponent } from './components/drink-cards/drink-cards.compon
     AppRoutingModule, ButtonComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule,
     BrowserModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, CocktailDetailComponent,
     ButtonModule,
     DialogModule,
     InputTextModule

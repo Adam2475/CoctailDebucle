@@ -7,15 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class CocktailService
 {
-
   private apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink'; // Example endpoint to fetch drinks
-  //private apiUrl = 'http://localhost:5000/api/cocktail'; // URL to your ASP.NET API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Method to fetch drinks
   getDrinks(): Observable<any>
   {
     return this.http.get<any>(this.apiUrl);
+  }
+
+  getCocktailDetails(id: string): Observable<any>
+  {
+    return this.http.get(`${this.apiUrl}/lookup.php?i=${id}`);
+  }
+
+  getDrinkById(id: string): Observable<any>
+  {
+    return this.http.get<any>(`${this.apiUrl}/lookup.php?i=${id}`);
   }
 }
