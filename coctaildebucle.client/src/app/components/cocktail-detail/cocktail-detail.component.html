@@ -1,10 +1,10 @@
-<div *ngIf="drink" class="cocktail-detail">
-  <h1>{{ drink.strDrink }}</h1>
-  <img [src]="drink.strDrinkThumb" [alt]="drink.strDrink" />
+<div *ngIf="cocktail; else noData" class="cocktail-detail">
+  <h1>{{ cocktail.strDrink }}</h1>
+  <img [src]="cocktail.strDrinkThumb" [alt]="cocktail.strDrink" />
 
-  <h3>Category: {{ drink.strCategory }}</h3>
-  <h3>Glass: {{ drink.strGlass }}</h3>
-  <p><strong>Instructions:</strong> {{ drink.strInstructions }}</p>
+  <h3>Category: {{ cocktail.strCategory }}</h3>
+  <h3>Glass: {{ cocktail.strGlass }}</h3>
+  <p><strong>Instructions:</strong> {{ cocktail.strInstructions }}</p>
 
   <h3>Ingredients:</h3>
   <ul>
@@ -15,3 +15,8 @@
 
   <button (click)="goBack()">⬅ Back</button>
 </div>
+
+<ng-template #noData>
+  <p>⚠️ No cocktail found for the provided ID. Please try again later.</p>
+  <button (click)="goBack()">⬅ Back</button>
+</ng-template>

@@ -22,8 +22,13 @@ export class CocktailService
     return this.http.get(`${this.apiUrl}/lookup.php?i=${id}`);
   }
 
-  getDrinkById(id: string): Observable<any>
-  {
-    return this.http.get<any>(`${this.apiUrl}/lookup.php?i=${id}`);
+  //getDrinkById(id: string): Observable<any>
+  //{
+  //  return this.http.get<any>(`${this.apiUrl}/lookup.php?i=${id}`);
+  //}
+  getDrinkById(id: string): Observable<any> {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    console.log("API URL:", url);  // Log the URL to check if it's correct
+    return this.http.get<any>(url);
   }
 }
