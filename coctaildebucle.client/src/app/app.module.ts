@@ -13,6 +13,7 @@ import { FooterComponent } from './ts/footer.component';
 import { PopupFormComponent } from './ts/popup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component'; // Circular dependency (?)
+import { CocktailService } from './services/cocktail.service'; 
 
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
@@ -43,6 +44,7 @@ import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-d
     InputTextModule
   ],
   providers: [
+    CocktailService, // Added cocktail service to providers
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
     providePrimeNG({

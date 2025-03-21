@@ -22,13 +22,19 @@ export class CocktailService
     return this.http.get(`${this.apiUrl}/lookup.php?i=${id}`);
   }
 
-  //getDrinkById(id: string): Observable<any>
-  //{
-  //  return this.http.get<any>(`${this.apiUrl}/lookup.php?i=${id}`);
-  //}
-  getDrinkById(id: string): Observable<any> {
+  getDrinkById(id: string): Observable<any>
+  {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     console.log("API URL:", url);  // Log the URL to check if it's correct
     return this.http.get<any>(url);
+  }
+
+  //getCocktailByName(name: string): Observable<any> {
+  //  return this.http.get<any>(`http://localhost:62695/api/cocktails/search?name=${name}`);
+  //}
+
+  getCocktailByName(name: string): Observable<any>
+  {
+    return this.http.get<any>(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
   }
 }

@@ -8,7 +8,7 @@
 
     <div id="content-wrapper">
       <div class="image-wrapper">
-        <img id="shadow-svg" src="bg2.svg" alt="Shadow"/>
+        <img id="shadow-svg" src="bg2.svg" alt="Shadow" />
         <div class="image-section">
           <img src="coctails.jpg" alt="coctails" id="mainimg" />
         </div>
@@ -16,7 +16,26 @@
     </div>
   </div>
 
-  <br/>
+
+  <h1> Searching something in particular?</h1>
+  <br />
+  <br />
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchQuery" (keyup)="onSearch()" placeholder="Search for a drink..." />
+  </div>
+
+  <div class="results">
+    <div class="drink-container">
+      <div class="drink-card" *ngFor="let drink of drinks">
+        <a [routerLink]="['/cocktail', drink.idDrink]">
+          <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
+          <h3>{{ drink.strDrink }}</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <br />
 
   <h1 class="drink-announcement">
     Some drinks you could like:
