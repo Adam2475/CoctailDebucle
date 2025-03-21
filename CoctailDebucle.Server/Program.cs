@@ -10,7 +10,14 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
+// JSON serializer settings
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
+
 var app = builder.Build();
+
+// Enable CORS
+// In production you need to enable only trusted origins
+app.UseCors(x=>x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
 app.UseCors("AllowAngularApp");
 
