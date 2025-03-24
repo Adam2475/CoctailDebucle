@@ -23,6 +23,7 @@
     "font-awesome": "^4.7.0",
     "jest-editor-support": "*",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.9",
     "run-script-os": "*",

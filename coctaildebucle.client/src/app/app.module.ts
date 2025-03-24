@@ -28,7 +28,6 @@ import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-d
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
     HomeComponent,
     DrinkCardsComponent,
   ],
@@ -37,10 +36,10 @@ import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-d
     FooterComponent, PopupFormComponent,
     AppRoutingModule, ButtonComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule,
-    BrowserModule,
+    BrowserModule, FormsModule,
     BrowserAnimationsModule, CocktailDetailComponent,
     ButtonModule,
-    DialogModule,
+    DialogModule, SignupComponent,
     InputTextModule
   ],
   providers: [

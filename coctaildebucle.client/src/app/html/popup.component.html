@@ -1,27 +1,33 @@
 <div *ngIf="isVisible" class="popup-overlay">
   <div class="flex flex-col md:flex-row">
     <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
-      <div class="flex flex-col gap-2">
-        <label for="username">Username</label>
-        <input pInputText id="username" type="text" />
+      <!--<div class="flex flex-col gap-2">
+      <label for="username">Username</label>
+      <input pInputText id="username" type="text" />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="password">Password</label>
+      <input pInputText id="password" type="password" />
+    </div>
+    <div class="flex">
+      <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+    </div>
+  </div>-->
+      <form (submit)="login()">
+        <input [(ngModel)]="username" placeholder="Username" name="username" required>
+        <input [(ngModel)]="password" type="password" placeholder="Password" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+
+      <div class="w-full md:w-2/12">
+        <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
       </div>
-      <div class="flex flex-col gap-2">
-        <label for="password">Password</label>
-        <input pInputText id="password" type="password" />
+      <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+        <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
+                  (click)="navigateToSignup()" />
+        <div class="form-inline fr mt-4">
+          <a id="forget">Forgot Password?</a>
+        </div>
       </div>
-      <div class="flex">
-        <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
-      </div>
     </div>
-    <div class="w-full md:w-2/12">
-      <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
-    </div>
-    <div class="w-full md:w-5/12 flex items-center justify-center py-5">
-      <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
-                  (click)="navigateToSignup()"/>
-    <div class="form-inline fr mt-4">
-      <a id="forget">Forgot Password?</a>
-    </div>
-    </div>
-  </div>
 </div>
