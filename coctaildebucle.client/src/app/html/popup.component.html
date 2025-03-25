@@ -1,18 +1,6 @@
 <div *ngIf="isVisible" class="popup-overlay">
   <div class="flex flex-col md:flex-row">
     <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
-      <!--<div class="flex flex-col gap-2">
-      <label for="username">Username</label>
-      <input pInputText id="username" type="text" />
-    </div>
-    <div class="flex flex-col gap-2">
-      <label for="password">Password</label>
-      <input pInputText id="password" type="password" />
-    </div>
-    <div class="flex">
-      <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
-    </div>
-  </div>-->
       <form (submit)="login()">
         <input [(ngModel)]="username" placeholder="Username" name="username" required>
         <input [(ngModel)]="password" type="password" placeholder="Password" name="password" required>
@@ -31,3 +19,4 @@
       </div>
     </div>
 </div>
+

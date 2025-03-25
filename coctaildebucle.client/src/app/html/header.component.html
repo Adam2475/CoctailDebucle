@@ -5,14 +5,16 @@
     </div>
     <div class="login-container">
       <div class="login">
-        <button (click)="popupForm.togglePopup()">
+        <button *ngIf="!isLoggedIn" (click)="popupForm.togglePopup()">
           <i class="fas fa-user"></i>
           <p>Login</p>
         </button>
+        <div *ngIf="isLoggedIn">
+          <p>User logged in!</p>
+          <!--<button (click)="logout()">Logout</button>-->
+        </div>
       </div>
     </div>
   </nav>
 </header>
-
-<!-- Add Popup Form here -->
 <app-popup-form #popupForm></app-popup-form>

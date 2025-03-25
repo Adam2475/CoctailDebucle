@@ -27,17 +27,6 @@ namespace CoctailDebucle.Server.Controllers
             _context = context;
         }
         [HttpPost("register")]
-
-        // Registration Endpoint
-        //public async Task<IActionResult> Register ([FromBody] User user)
-        //{
-        //    if (_context.Users.Any(u=>u.Username == user.Username))
-        //            return BadRequest("Username already exists");
-        //    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        //    _context.Users.Add(user);
-        //    await _context.SaveChangesAsync();
-        //    return Ok("User Registered Suuccessfully!");
-        //}
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -69,15 +58,17 @@ namespace CoctailDebucle.Server.Controllers
         }
 
         // Login Endpoint
-        [HttpGet("login")]
-        public IActionResult Login([FromBody] User loginUser)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginModel loginUser)
         {
+            // Look for the user based on the provided username.
             var user = _context.Users.FirstOrDefault(u => u.Username == loginUser.Username);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(loginUser.PasswordHash, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginUser.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials");
 
+            // Create JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Your_Secret_Key_123"); // Store in appsettings.json
+            var key = Encoding.ASCII.GetBytes("YourSuperLongSecretKey@1234567890"); // Store in appsettings.json
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Username) }),

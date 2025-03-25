@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 // PrimeNG Modules
@@ -20,7 +21,8 @@ import { AuthService } from '../services/auth.service';
     BrowserAnimationsModule,
     ButtonModule,
     DialogModule, FormsModule,
-    InputTextModule],
+    InputTextModule,
+    ],
   templateUrl: '../html/popup.component.html',
   styleUrls: ['../css/popup.component.css']
 })
@@ -28,10 +30,11 @@ export class PopupFormComponent
 {
   popupForm: FormGroup; // to store Form data
   isVisible: boolean = false;
-  username = '';
-  password = '';
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private router: Router, private authService: AuthService)
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient)
   {
       this.popupForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -61,11 +64,31 @@ export class PopupFormComponent
     this.router.navigate(['/signup']);
   }
 
-  login() {
+  //login() {
+  //  // Replace 'your-api-endpoint' with your actual backend login URL
+  //  this.http.post<{ token: string }>('http://localhost:5000/api/auth/login', {
+  //    username: this.username,
+  //    password: this.password
+  //  }).subscribe({
+  //    next: (response) => {
+  //      const tokenFromBackend = response.token; // Extract token from response
+  //      this.authService.login(tokenFromBackend); // Store token and update UI
+  //    },
+  //    error: (error) => {
+  //      this.errorMessage = 'Login failed! Please check your credentials.';
+  //      console.error('Login error:', error);
+  //    }
+  //  });
+  //}
+
+ login() {
     this.authService.login({ username: this.username, password: this.password })
       .subscribe(response => {
         localStorage.setItem('token', response.token);
         console.log('Login successful');
+        // Optionally, update a shared login state or emit an event
+      }, error => {
+        console.error('Login failed:', error);
       });
   }
 }

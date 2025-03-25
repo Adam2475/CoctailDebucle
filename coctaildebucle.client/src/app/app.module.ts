@@ -6,15 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { providePrimeNG } from 'primeng/config';
-import { FormsModule } from '@angular/forms';  // <-- Import FormsModule
+import { FormsModule } from '@angular/forms';
 import Aura from '@primeng/themes/aura';
 import { HeaderComponent } from './ts/header.component';
 import { FooterComponent } from './ts/footer.component';
 import { PopupFormComponent } from './ts/popup.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './components/signup/signup.component'; // Circular dependency (?)
+import { SignupComponent } from './components/signup/signup.component';
 import { CocktailService } from './services/cocktail.service'; 
-
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';

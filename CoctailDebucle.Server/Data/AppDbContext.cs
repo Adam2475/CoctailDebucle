@@ -5,8 +5,15 @@ namespace CoctailDebucle.Server.Data
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    // Define primary key for the User entity
+        //    modelBuilder.Entity<User>().HasKey(u => u.Id);
+
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }
 
