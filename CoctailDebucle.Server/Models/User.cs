@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 // Setting up Database context
-namespace CoctailDebucle.Server
+namespace CoctailDebucle.Server.Models
 {
     public class User
     {

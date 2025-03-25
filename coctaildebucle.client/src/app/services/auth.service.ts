@@ -9,12 +9,12 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService
 {
   private apiUrl = 'https://localhost:7047/api/auth';
-  //private loggedIn = new BehaviorSubject<boolean>(false); // Default: false
+  private loggedIn = new BehaviorSubject<boolean>(false); // Default: false
   //isLoggedIn$ = this.loggedIn.asObservable(); // Observable to track changes
   constructor(private http: HttpClient)
   {
     //// Check if token exists on page refresh
-    //const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     //if (token) {
     //  this.loggedIn.next(true);
     //}
@@ -32,6 +32,8 @@ export class AuthService
   //}
   login(credentials: any): Observable<any>
   {
+    //localStorage.setItem('token', token);
+    //this.loggedIn.next(true);
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 

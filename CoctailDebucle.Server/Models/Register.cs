@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoctailDebucle.Server
+namespace CoctailDebucle.Server.Models
 {
     public class RegisterModel
     {

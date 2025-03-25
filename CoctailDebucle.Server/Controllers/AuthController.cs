@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
+using CoctailDebucle.Server.Models;
 
 // MVC : Model - View - Controller
 namespace CoctailDebucle.Server.Controllers
@@ -32,8 +33,8 @@ namespace CoctailDebucle.Server.Controllers
             if (ModelState.IsValid)
             {
                 // Check if username already exists
-                var existingUser = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == model.Username);
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
+
                 if (existingUser != null)
                 {
                     return BadRequest("Username is already taken.");
@@ -76,7 +77,8 @@ namespace CoctailDebucle.Server.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
+            //console.log(token.ToString());
+            
             return Ok(new { Token = tokenHandler.WriteToken(token) });
         }
     }
