@@ -17,18 +17,22 @@ export class HeaderComponent
 {
   @ViewChild(PopupFormComponent) popupForm!: PopupFormComponent; // Access PopupFormComponent
   isLoggedIn: boolean = false;
+  token: string = '';
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {
-    // Subscribe to login state changes
-    //this.authService.isLoggedIn$.subscribe(status => {
-    //  this.isLoggedIn = status;
-    //});
+  handleLogin(token: string): void
+  {
+    this.token = token;
+    this.isLoggedIn = true;
+    // Additional logic can go here, such as notifying other parts of the app
+    console.log('Token received in header:', token);
   }
 
-
-  //logout() {
-  //  this.authService.logout();
-  //}
+  handleLogout(): void
+  {
+    this.token = '';
+    this.isLoggedIn = false;
+    console.log('Header component received logout event.');
+  }
 }

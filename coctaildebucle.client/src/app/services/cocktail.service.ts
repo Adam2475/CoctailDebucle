@@ -29,10 +29,6 @@ export class CocktailService
     return this.http.get<any>(url);
   }
 
-  //getCocktailByName(name: string): Observable<any> {
-  //  return this.http.get<any>(`http://localhost:62695/api/cocktails/search?name=${name}`);
-  //}
-
   getCocktailByName(name: string): Observable<any>
   {
     return this.http.get<any>(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);

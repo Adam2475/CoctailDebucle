@@ -11,10 +11,14 @@
         </button>
         <div *ngIf="isLoggedIn">
           <p>User logged in!</p>
-          <!--<button (click)="logout()">Logout</button>-->
+          <button (click)="popupForm.logout()">Logout</button>
         </div>
       </div>
     </div>
   </nav>
 </header>
-<app-popup-form #popupForm></app-popup-form>
+<!-- Bind both login and logout events -->
+<app-popup-form #popupForm
+  (loginSuccessful)="handleLogin($event)"
+  (logoutSuccessful)="handleLogout()">
+</app-popup-form>
