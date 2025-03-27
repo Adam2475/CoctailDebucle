@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,16 +13,22 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent
-{
+export class HomeComponent {
   searchQuery: string = '';
   drinks: any[] = [];
+  categories: string[] = [];
+  ingredients: string[] = [];
+  selectedCategory: string = '';
+  selectedIngredient: string = '';
   isLoggedIn: boolean = false;
-  // Injecting the service into the constructor.
+
+
   constructor(private http: HttpClient, private cocktailService: CocktailService, private router: Router) { }
 
   ngOnInit() {
     this.checkLogin();
+    this.loadCategories();
+    this.loadIngredients();
   }
 
   checkLogin() {
@@ -46,17 +54,42 @@ export class HomeComponent
     return this.http.get<any>(url);
   }
 
-  onSearch()
-  {
-    if (this.searchQuery.length > 2)
-    {
-      this.cocktailService.getCocktailByName(this.searchQuery).subscribe(response => {
+  loadCategories() {
+    this.cocktailService.getCategories().subscribe(response => {
+      this.categories = response.drinks
+        .map((c: any) => c.strCategory)
+        .sort(); // Ordina alfabeticamente
+    });
+  }
+
+  loadIngredients() {
+    this.cocktailService.getIngredients().subscribe(response => {
+      this.ingredients = response.drinks
+        .map((i: any) => i.strIngredient1)
+        .sort(); // Ordina alfabeticamente
+    });
+  }
+
+
+  //onSearch()
+  //{
+  //  if (this.searchQuery.length > 2)
+  //  {
+  //    this.cocktailService.getCocktailByName(this.searchQuery).subscribe(response => {
+  //      this.drinks = response.drinks || [];
+  //    });
+  //  }
+  //  else
+  //  {
+  //    this.drinks = [];
+  //  }
+  //}
+
+  // Modifichiamo la funzione di ricerca per supportare più filtri
+  onSearch() {
+    this.cocktailService.searchCocktails(this.searchQuery, this.selectedCategory, this.selectedIngredient)
+      .subscribe(response => {
         this.drinks = response.drinks || [];
       });
-    }
-    else
-    {
-      this.drinks = [];
-    }
   }
 }
