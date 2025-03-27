@@ -18,8 +18,10 @@ export class HomeComponent {
   drinks: any[] = [];
   categories: string[] = [];
   ingredients: string[] = [];
+  glasses: string[] = [];
   selectedCategory: string = '';
   selectedIngredient: string = '';
+  selectedGlass: string = '';
   isLoggedIn: boolean = false;
 
 
@@ -29,6 +31,7 @@ export class HomeComponent {
     this.checkLogin();
     this.loadCategories();
     this.loadIngredients();
+    this.loadGlasses();
   }
 
   checkLogin() {
@@ -70,6 +73,11 @@ export class HomeComponent {
     });
   }
 
+  loadGlasses() {
+    this.cocktailService.getGlasses().subscribe(response => {
+      this.glasses = response.drinks.map((g: any) => g.strGlass).sort();
+    });
+  }
 
   //onSearch()
   //{
@@ -87,8 +95,12 @@ export class HomeComponent {
 
   // Modifichiamo la funzione di ricerca per supportare più filtri
   onSearch() {
-    this.cocktailService.searchCocktails(this.searchQuery, this.selectedCategory, this.selectedIngredient)
-      .subscribe(response => {
+    this.cocktailService.searchCocktails(
+      this.searchQuery,
+      this.selectedCategory,
+      this.selectedIngredient,
+      this.selectedGlass
+    ).subscribe(response => {
         this.drinks = response.drinks || [];
       });
   }

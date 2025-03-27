@@ -37,6 +37,12 @@ consider using a shared authentication service or state management (e.g., RxJS B
       <option value="">All Ingredients</option>
       <option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient }}</option>
     </select>
+
+    <select id="glass" [(ngModel)]="selectedGlass" (change)="onSearch()">
+      <option value="">All Glasses</option>
+      <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
+    </select>
+
   </div>
 
 
