@@ -24,10 +24,27 @@ consider using a shared authentication service or state management (e.g., RxJS B
 
   <h1> Searching something in particular?</h1>
   <br />
-  <br />
+
   <div class="search-bar">
     <input type="text" [(ngModel)]="searchQuery" (keyup)="onSearch()" placeholder="Search for a drink..." />
+
+    <select [(ngModel)]="selectedCategory" (change)="onSearch()">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <select [(ngModel)]="selectedIngredient" (change)="onSearch()">
+      <option value="">All Ingredients</option>
+      <option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient }}</option>
+    </select>
+
+    <select id="glass" [(ngModel)]="selectedGlass" (change)="onSearch()">
+      <option value="">All Glasses</option>
+      <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
+    </select>
+
   </div>
+
 
   <div class="results">
     <div class="drink-container">
