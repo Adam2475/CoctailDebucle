@@ -38,7 +38,6 @@ export class HomeComponent {
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
-  // Optionally, create a logout method to remove the token.
   logout() {
     localStorage.removeItem('token');
     this.isLoggedIn = false;
@@ -79,21 +78,6 @@ export class HomeComponent {
     });
   }
 
-  //onSearch()
-  //{
-  //  if (this.searchQuery.length > 2)
-  //  {
-  //    this.cocktailService.getCocktailByName(this.searchQuery).subscribe(response => {
-  //      this.drinks = response.drinks || [];
-  //    });
-  //  }
-  //  else
-  //  {
-  //    this.drinks = [];
-  //  }
-  //}
-
-  // Modifichiamo la funzione di ricerca per supportare più filtri
   onSearch() {
     this.cocktailService.searchCocktails(
       this.searchQuery,
