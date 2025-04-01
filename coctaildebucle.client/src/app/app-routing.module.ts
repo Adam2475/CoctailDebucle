@@ -5,7 +5,7 @@ import { HeaderComponent } from './ts/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-detail.component'
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'cocktail/:id', component: CocktailDetailComponent }

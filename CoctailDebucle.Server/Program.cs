@@ -26,6 +26,11 @@ builder.Services.AddCors(options =>
 //Configure Swagger
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
+
 
 // JSON serializer settings
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
@@ -34,6 +39,22 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+
+// Ideally ensures that files are served correctly
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// Redirect Angular routes to index.html
+//app.Use(async (context, next) =>
+//{
+//    var path = context.Request.Path.Value;
+//    if (!path.StartsWith("/api") && !path.Contains("."))
+//    {
+//        context.Request.Path = "/index.html";
+//    }
+//    await next();
+//});
 
 // Enable CORS
 // In production you need to enable only trusted origins

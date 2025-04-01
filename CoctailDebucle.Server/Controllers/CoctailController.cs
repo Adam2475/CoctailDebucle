@@ -1,7 +1,14 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using CoctailDebucle.Server.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CoctailDebucle.Server.Models;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -12,11 +19,13 @@ using System.Threading.Tasks;
 public class CocktailController : ControllerBase
 {
     private readonly HttpClient _httpClient;
-    public CocktailController(HttpClient httpClient)
+    private readonly AppDbContext _context;
+    public CocktailController(HttpClient httpClient, AppDbContext context)
     {
         _httpClient = httpClient;
+        _context = context;
     }
-
+    // Get API drinkss
     [HttpGet]
     public async Task<IActionResult> GetDrinks([FromQuery] string name)
     {
