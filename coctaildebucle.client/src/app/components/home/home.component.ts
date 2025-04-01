@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,23 +13,31 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent
-{
+export class HomeComponent {
   searchQuery: string = '';
   drinks: any[] = [];
+  categories: string[] = [];
+  ingredients: string[] = [];
+  glasses: string[] = [];
+  selectedCategory: string = '';
+  selectedIngredient: string = '';
+  selectedGlass: string = '';
   isLoggedIn: boolean = false;
-  // Injecting the service into the constructor.
+
+
   constructor(private http: HttpClient, private cocktailService: CocktailService, private router: Router) { }
 
   ngOnInit() {
     this.checkLogin();
+    this.loadCategories();
+    this.loadIngredients();
+    this.loadGlasses();
   }
 
   checkLogin() {
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
-  // Optionally, create a logout method to remove the token.
   logout() {
     localStorage.removeItem('token');
     this.isLoggedIn = false;
@@ -46,17 +56,36 @@ export class HomeComponent
     return this.http.get<any>(url);
   }
 
-  onSearch()
-  {
-    if (this.searchQuery.length > 2)
-    {
-      this.cocktailService.getCocktailByName(this.searchQuery).subscribe(response => {
+  loadCategories() {
+    this.cocktailService.getCategories().subscribe(response => {
+      this.categories = response.drinks
+        .map((c: any) => c.strCategory)
+        .sort(); // Ordina alfabeticamente
+    });
+  }
+
+  loadIngredients() {
+    this.cocktailService.getIngredients().subscribe(response => {
+      this.ingredients = response.drinks
+        .map((i: any) => i.strIngredient1)
+        .sort(); // Ordina alfabeticamente
+    });
+  }
+
+  loadGlasses() {
+    this.cocktailService.getGlasses().subscribe(response => {
+      this.glasses = response.drinks.map((g: any) => g.strGlass).sort();
+    });
+  }
+
+  onSearch() {
+    this.cocktailService.searchCocktails(
+      this.searchQuery,
+      this.selectedCategory,
+      this.selectedIngredient,
+      this.selectedGlass
+    ).subscribe(response => {
         this.drinks = response.drinks || [];
       });
-    }
-    else
-    {
-      this.drinks = [];
-    }
   }
 }

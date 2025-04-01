@@ -10,7 +10,7 @@
           <p>Login</p>
         </button>
         <div *ngIf="isLoggedIn">
-          <p>User logged in!</p>
+          <button *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()">Mio Profilo</button>
           <button (click)="popupForm.logout()">Logout</button>
         </div>
       </div>
@@ -19,6 +19,6 @@
 </header>
 <!-- Bind both login and logout events -->
 <app-popup-form #popupForm
-  (loginSuccessful)="handleLogin($event)"
-  (logoutSuccessful)="handleLogout()">
+                (loginSuccessful)="handleLogin($event)"
+                (logoutSuccessful)="handleLogout()">
 </app-popup-form>

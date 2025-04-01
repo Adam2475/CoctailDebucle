@@ -23,12 +23,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HomeComponent } from './components/home/home.component';
 import { DrinkCardsComponent } from './components/drink-cards/drink-cards.component';
 import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-detail.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DrinkCardsComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,

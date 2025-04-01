@@ -36,7 +36,7 @@ export class CocktailDetailComponent implements OnInit {
             this.cocktail = null; // Set to null if no valid data found
           }
         },
-        (error) => {
+        (error: any) => {
           console.error("❌ Error fetching drink details:", error);
         }
       );
