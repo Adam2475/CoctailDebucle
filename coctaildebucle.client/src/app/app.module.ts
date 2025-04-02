@@ -30,7 +30,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     AppComponent,
     HomeComponent,
     DrinkCardsComponent,
-    UserProfileComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,

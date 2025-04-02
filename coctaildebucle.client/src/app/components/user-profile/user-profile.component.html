@@ -1,9 +1,23 @@
 <div class="profile-container">
   <h2>Il Mio Profilo</h2>
 
+  <h2>Favorite Drinks</h2>
   <section class="favorites">
-    <h3>Drink Preferiti</h3>
-    <p>Non hai ancora preferiti. Cercane qualcuno!</p>
+    <div *ngIf="favoriteDrinks.length > 0; else noFavorites">
+      <h2>Your Favorite Drinks</h2>
+      <ul>
+        <li *ngFor="let drink of favoriteDrinks">
+          <a [routerLink]="['/cocktail', drink.idDrink]">
+            <img [src]="drink.strDrinkThumb" alt="{{ drink.name }}" />
+            <h3>{{ drink.name }}</h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #noFavorites>
+      <p>You have no favorite drinks yet.</p>
+    </ng-template>
   </section>
 
   <section class="created-drinks">

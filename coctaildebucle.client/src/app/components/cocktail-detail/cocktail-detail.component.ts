@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CocktailService } from '../../services/cocktail.service';
 import { NgIf, NgFor } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cocktail-detail',
@@ -10,15 +15,22 @@ import { NgIf, NgFor } from '@angular/common';
   imports: [NgIf, NgFor],
   styleUrls: ['./cocktail-detail.component.css']
 })
-export class CocktailDetailComponent implements OnInit {
-  cocktail: any; // <-- Ensure it's named consistently
-
+export class CocktailDetailComponent implements OnInit
+{
+  cocktail: any;
+  drinkId: number | null = null;
+  userId: number | null = null;
+  successMessage: string = '';
+  errorMessage: string = '';
   constructor(
     private route: ActivatedRoute,
-    private cocktailService: CocktailService
+    private cocktailService: CocktailService,
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     const id = this.route.snapshot.paramMap.get('id'); // Get ID from URL
     console.log("Cocktail ID from route:", id);
 
@@ -57,5 +69,22 @@ export class CocktailDetailComponent implements OnInit {
 
   goBack(): void {
     window.history.back(); // Navigate back
+  }
+
+  addToFavorites() {
+    if (this.userId && this.drinkId) {
+      this.userService.addFavoriteDrink(this.userId, this.drinkId).subscribe(
+        (response) => {
+          this.successMessage = "Drink added to favorites! 🎉";
+          this.errorMessage = ''; // Clear any previous errors
+        },
+        (error) => {
+          this.errorMessage = "Failed to add to favorites. " + error.error;
+          this.successMessage = ''; // Clear any previous success messages
+        }
+      );
+    } else {
+      this.errorMessage = "User ID or Drink ID is missing!";
+    }
   }
 }
