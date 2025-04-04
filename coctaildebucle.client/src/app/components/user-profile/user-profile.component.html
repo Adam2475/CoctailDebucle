@@ -1,13 +1,11 @@
 <!-- ✅ Only one instance -->
 
-<!--<app-gdpr-banner
+<app-gdpr-banner
        [showBanner]="showGdprBanner"
        (consentChanged)="onConsentChanged($event)">
-</app-gdpr-banner>-->
+</app-gdpr-banner>
 
 <main>
-
-  <app-gdpr-banner></app-gdpr-banner>
 
   <h2>Il Mio Profilo</h2>
 
@@ -19,15 +17,18 @@
   <section *ngIf="consentGiven" class="favorites">
     <h2>Favorite Drinks</h2>
     <ul *ngIf="favoriteDrinks.length > 0; else noFavorites">
-      <li *ngFor="let drink of favoriteDrinks">
-        {{ drink.name }} - {{ drink.category }}
-      </li>
+      <div *ngFor="let drink of favoriteDrinks">
+        <a>{{ drink.name }} - {{ drink.category }}</a>
+      </div>
     </ul>
 
     <ng-template #noFavorites>
       <p>You have no favorite drinks yet.</p>
     </ng-template>
   </section>
-
+  
+  <div *ngIf="consentGiven">
+    <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
+  </div>
 
 </main>

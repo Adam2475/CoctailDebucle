@@ -18,6 +18,9 @@ export class GdprService {
   }
 
   // your other methods like getConsent, giveConsent, etc.
+  updateConsent(userId: number, consent: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${userId}/consent`, { gdprConsent: consent });
+  }
 
   getConsent(userId: number): Observable<{ gdprConsent: boolean }> {
     return this.http.get<{ gdprConsent: boolean }>(`${this.apiUrl}/${userId}/consent`);

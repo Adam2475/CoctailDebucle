@@ -70,15 +70,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     }
   }
 
-  onConsentChanged(given: boolean): void {
+  onConsentChanged(given: boolean): void
+  {
     this.showGdprBanner = !given;
     console.log('Consent Given:', given);
-
-    //if (given) {
-    //  this.loadFavoriteDrinks();
-    //} else {
-    //  this.favoriteDrinks = [];  // Optional: Clear drinks if consent withdrawn
-    //}
   }
 
   loadFavoriteDrinks(): void {
@@ -93,6 +88,25 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           console.error('Error fetching favorite drinks:', error);
         }
       );
+    }
+  }
+
+  withdrawConsent(): void {
+    if (this.userId) {
+      this.gdprService.withdrawConsent(this.userId).subscribe(
+        () => {
+          console.log("Consent withdrawn successfully");
+          this.consentGiven = false;
+          this.showGdprBanner = true;
+          this.favoriteDrinks = []; // Optionally clear drinks
+          window.location.reload();
+        },
+        (error) => {
+          console.error("Error withdrawing consent:", error);
+        }
+      );
+    } else {
+      console.error("Cannot withdraw consent: userId is null");
     }
   }
 }

@@ -50,16 +50,8 @@ export class GdprBannerComponent implements OnInit, OnChanges
     }
   }
 
-  //giveConsent(): void {
-  //  this.consentChanged.emit(true);  // Emit consent given
-  //  console.log("consent given");
-  //}
-
-  //withdrawConsent(): void {
-  //  this.consentChanged.emit(false);  // Emit consent withdrawn
-  //  console.log("consent withdrawn");
-  //}
-  giveConsent(): void {
+  giveConsent(): void
+  {
     if (this.userId) {
       this.gdprService.giveConsent(this.userId).subscribe({
         next: () => {
@@ -67,6 +59,7 @@ export class GdprBannerComponent implements OnInit, OnChanges
           this.showBanner = false;
           this.consentChanged.emit(true);  // Notify parent component
           console.log("Consent given and saved to backend");
+          window.location.reload();
         },
         error: (err) => {
           console.error("Error saving consent:", err);
@@ -76,21 +69,21 @@ export class GdprBannerComponent implements OnInit, OnChanges
       console.warn("User ID is missing, cannot save consent");
     }
   }
+
   withdrawConsent(): void {
-    if (this.userId) {
-      this.gdprService.withdrawConsent(this.userId).subscribe({
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.gdprService.updateConsent(userId, false).subscribe({
         next: () => {
-          this.consentGiven = false;
-          this.showBanner = true;
-          this.consentChanged.emit(false);  // Notify parent component
-          console.log("Consent withdrawn and updated on backend");
+          this.consentChanged.emit(false);  // Notify parent
+          console.log("Consent withdrawn");
         },
-        error: (err) => {
-          console.error("Error withdrawing consent:", err);
+        error: (error) => {
+          console.error("Error withdrawing consent:", error);
         }
       });
     } else {
-      console.warn("User ID is missing, cannot withdraw consent");
+      console.error("Cannot withdraw consent - userId is null");
     }
   }
 }

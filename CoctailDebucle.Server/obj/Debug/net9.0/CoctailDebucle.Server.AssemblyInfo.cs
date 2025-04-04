@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoctailDebucle.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f944c94be08a34385ebabe1c90f50c6fe27161b2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baf4917ce05d4cf1e0a0d92d0cba98879c0f7f55")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoctailDebucle.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoctailDebucle.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

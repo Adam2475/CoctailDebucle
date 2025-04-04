@@ -148,7 +148,20 @@ namespace CoctailDebucle.Server.Controllers
             user.GdprConsent = false;
             await _context.SaveChangesAsync();
 
-            return Ok("GDPR consent withdrawn.");
+            return Ok();
+        }
+
+        [HttpPut("{id}/consent")]
+        public async Task<IActionResult> UpdateConsent(int id, [FromBody] GdprConsentDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+                return NotFound();
+
+            user.GdprConsent = dto.GdprConsent;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
     }
