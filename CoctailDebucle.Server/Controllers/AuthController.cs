@@ -62,11 +62,9 @@ namespace CoctailDebucle.Server.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel loginUser)
         {
-            // Look for the user based on the provided username.
             var user = _context.Users.FirstOrDefault(u => u.Username == loginUser.Username);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginUser.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
-
+               return Unauthorized("Invalid credentials");
             // Create JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("YourSuperLongSecretKey@1234567890"); // Store in appsettings.json
@@ -77,9 +75,8 @@ namespace CoctailDebucle.Server.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            //console.log(token.ToString());
-            
-            return Ok(new { Token = tokenHandler.WriteToken(token) });
+            Console.WriteLine("User ID from controller: " + user.Id);
+            return Ok(new { Token = tokenHandler.WriteToken(token), UserId = user.Id });
         }
     }
 }

@@ -11,8 +11,12 @@ export class UserService
 
   constructor(private http: HttpClient) { }
 
-  getUserFavorites(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${userId}/favorites/`);
+  //getUserFavorites(userId: number): Observable<any[]> {
+  //  return this.http.get<any[]>(`${this.apiUrl}/${userId}/favorites/`);
+  //}
+  // In your userService
+  getUserFavorites(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${userId}/favorites`);
   }
   addFavoriteDrink(userId: number, drinkId: number): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/${userId}/favorites/${drinkId}`, {});

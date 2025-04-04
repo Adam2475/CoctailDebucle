@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './components/signup/signup.component';
-import { HeaderComponent } from './ts/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { CocktailDetailComponent } from './components/cocktail-detail/cocktail-detail.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';

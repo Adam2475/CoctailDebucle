@@ -12,6 +12,8 @@ namespace CoctailDebucle.Server.Models
         [Required, MaxLength(50)]
         public string Username { get; set; }
 
+        public bool GdprConsent { get; set; } // ✅ Store GDPR consent
+
         [Required, MaxLength(255)]
         public string PasswordHash { get; set; }
 

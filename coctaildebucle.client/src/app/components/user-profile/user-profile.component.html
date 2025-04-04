@@ -1,27 +1,33 @@
-<div class="profile-container">
+<!-- ✅ Only one instance -->
+
+<!--<app-gdpr-banner
+       [showBanner]="showGdprBanner"
+       (consentChanged)="onConsentChanged($event)">
+</app-gdpr-banner>-->
+
+<main>
+
+  <app-gdpr-banner></app-gdpr-banner>
+
   <h2>Il Mio Profilo</h2>
 
-  <h2>Favorite Drinks</h2>
-  <section class="favorites">
-    <div *ngIf="favoriteDrinks.length > 0; else noFavorites">
-      <h2>Your Favorite Drinks</h2>
-      <ul>
-        <li *ngFor="let drink of favoriteDrinks">
-          <a [routerLink]="['/cocktail', drink.idDrink]">
-            <img [src]="drink.strDrinkThumb" alt="{{ drink.name }}" />
-            <h3>{{ drink.name }}</h3>
-          </a>
-        </li>
-      </ul>
-    </div>
+
+  <div *ngIf="!consentGiven">
+    <p>You need to accept GDPR consent to view your favorite drinks.</p>
+  </div>
+
+  <section *ngIf="consentGiven" class="favorites">
+    <h2>Favorite Drinks</h2>
+    <ul *ngIf="favoriteDrinks.length > 0; else noFavorites">
+      <li *ngFor="let drink of favoriteDrinks">
+        {{ drink.name }} - {{ drink.category }}
+      </li>
+    </ul>
 
     <ng-template #noFavorites>
       <p>You have no favorite drinks yet.</p>
     </ng-template>
   </section>
 
-  <section class="created-drinks">
-    <h3>Drink Creati</h3>
-    <p>Non hai ancora creato nessun drink.</p>
-  </section>
-</div>
+
+</main>

@@ -1,0 +1,24 @@
+{
+  "Version": 1,
+  "Hash": "13M7NBYQrahvd8BbtTmv3y51vwVSSQQXFx74oHhToIE=",
+  "Source": "CoctailDebucle.Server",
+  "BasePath": "_content/CoctailDebucle.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\39334\\Desktop\\TerranovaChallenge\\CoctailDebucle\\coctaildebucle.client\\coctaildebucle.client.esproj",
+      "Version": 2,
+      "Source": "coctaildebucle.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

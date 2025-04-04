@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ButtonComponent } from './ts/button.component'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './html/app.component.html',
+  templateUrl: './app.component.html',
   standalone: false,
-  styleUrl: './css/app.component.css'
+  styleUrl: './app.component.css'
 })
 
 export class AppComponent implements OnInit
@@ -21,7 +20,7 @@ export class AppComponent implements OnInit
 
   ngOnInit()
   {
-    console.log("app is working");
+    /*console.log("app is working");*/
   }
 
   title = 'coctaildebucle.client';

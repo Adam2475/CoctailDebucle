@@ -76,6 +76,81 @@ namespace CoctailDebucle.Server.Controllers
             return Ok("Drink removed from favorites.");
         }
 
+        //[HttpPost("{userId}/consent")]
+        //public async Task<IActionResult> UpdateGdprConsent(int userId, [FromBody] bool consent)
+        //{
+        //    var user = await _context.Users.FindAsync(userId);
+        //    if (user == null)
+        //    {
+        //        return NotFound("User not found.");
+        //    }
+
+        //    user.GdprConsent = consent;
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok("GDPR consent updated.");
+        //}
+        [HttpPost("{userId}/consent")]
+        public async Task<IActionResult> UpdateGdprConsent(int userId, [FromBody] bool consentGiven)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            user.GdprConsent = consentGiven;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "GDPR consent updated successfully." });
+        }
+
+        //[HttpGet("{userId}/consent")]
+        //public async Task<IActionResult> GetGdprConsent(int userId)
+        //{
+        //    var user = await _context.Users.FindAsync(userId);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound("User not found.");
+        //    }
+
+        //    return Ok(new { gdprConsent = user.GdprConsent });
+        //}
+        [HttpGet("{userId}/consent")]
+        public async Task<IActionResult> GetConsent(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound("User not found.");
+
+            return Ok(new { gdprConsent = user.GdprConsent });
+        }
+
+        //[HttpPost("{userId}/consent")]
+        //public async Task<IActionResult> GiveConsent(int userId)
+        //{
+        //    var user = await _context.Users.FindAsync(userId);
+        //    if (user == null) return NotFound("User not found.");
+
+        //    user.GdprConsent = true;
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok("GDPR consent given.");
+        //}
+
+        [HttpDelete("{userId}/consent")]
+        public async Task<IActionResult> WithdrawConsent(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound("User not found.");
+
+            user.GdprConsent = false;
+            await _context.SaveChangesAsync();
+
+            return Ok("GDPR consent withdrawn.");
+        }
+
     }
 
 }
