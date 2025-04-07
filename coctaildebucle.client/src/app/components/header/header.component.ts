@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { PopupFormComponent } from '../popup/popup.component';
 import { Router, NavigationEnd } from '@angular/router';  // Import Router for navigation
 import { NgIf } from '@angular/common';
@@ -13,13 +13,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 
-export class HeaderComponent
+export class HeaderComponent implements OnInit, AfterViewInit
 {
   @ViewChild(PopupFormComponent) popupForm!: PopupFormComponent; // Access PopupFormComponent
   isLoggedIn: boolean = false;
   currentUrl: string = '';
   token: string = '';
-  userId: number | null = null;
   isAdmin: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -34,30 +33,44 @@ export class HeaderComponent
     });
   }
 
+  ngAfterViewInit() {
+    this.checkAdminStatus(); 
+  }
+
+  // Check if the logged-in user is an admin
+  checkAdminStatus() {
+    if (this.isLoggedIn) {
+      this.authService.getUser().subscribe(user => {
+        if (user.role > 0) {
+          this.isAdmin = true; // User is an admin
+        } else {
+          this.isAdmin = false; // User is not an admin
+          console.log("User is not an admin!");
+        }
+      });
+    }
+  }
+
   checkLogin() {
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
+  // Navigate to User profile page
   navigateToProfile() {
-    this.router.navigate(['/profile']); // 🔥 Porta alla pagina utente
+    this.router.navigate(['/profile']);
+  }
+
+  // Navigate to Admin profile page
+  navigateToAdmin() {
+    this.router.navigate(['/admin']);
   }
 
   handleLogin(token: string): void
   {
     this.token = token;
     this.isLoggedIn = true;
-    // Additional logic can go here, such as notifying other parts of the app
     console.log('Token received in header:', token);
-    this.authService.getUser().subscribe(user => {
-      //console.log('User object: ', user);
-      //console.log('User Role: ', user.role);
-      if (user.role > 0) {
-        this.isAdmin = true;
-      }
-      else {
-        console.log("user not admin!");
-      }
-    });
+    this.checkAdminStatus(); 
   }
 
   handleLogout(): void

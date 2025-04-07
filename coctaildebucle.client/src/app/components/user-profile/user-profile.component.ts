@@ -9,6 +9,7 @@ import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs'
 import { ChangeDetectorRef } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,7 +31,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     private authService: AuthService,
     private gdprService: GdprService,
     private router: Router,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         }
       );
     }
+  }
+
+  goBack(): void {
+    this.location.back(); // Navigate back to the previous page
   }
 
   withdrawConsent(): void {

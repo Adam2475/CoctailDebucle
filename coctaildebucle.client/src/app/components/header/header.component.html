@@ -10,7 +10,7 @@
           <p>Login</p>
         </button>
         <div *ngIf="isLoggedIn">
-          <button *ngIf="isAdmin"> Admin </button>
+          <button *ngIf="isAdmin" (click)="navigateToAdmin()"> Admin </button>
           <button *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()">Mio Profilo</button>
           <button (click)="popupForm.logout()">Logout</button>
         </div>
