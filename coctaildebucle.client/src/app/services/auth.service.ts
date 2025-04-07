@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -48,6 +49,20 @@ export class AuthService
     const payload = token.split('.')[1];
     const decodedPayload = atob(payload);
     return JSON.parse(decodedPayload);
+  }
+
+  // Fetch the user details from the backend
+  getUser(): Observable<any> {
+    const userId = this.getUserId(); // Get the user ID from localStorage or state
+    if (userId) {
+      return this.http.get<any>(`${this.apiUrl}/${userId}`).pipe(
+        catchError(error => {
+          console.error('Error fetching user data:', error);
+          return of(null); // Return an empty observable if there's an error
+        })
+      );
+    }
+    return of(null); // Return an empty observable if userId is null
   }
 
   getUserId(): number | null

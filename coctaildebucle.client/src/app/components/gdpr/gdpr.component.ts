@@ -46,7 +46,7 @@ export class GdprBannerComponent implements OnInit, OnChanges
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['showBanner']) {
-      console.log('showBanner has changed:', this.showBanner);
+      /*console.log('showBanner has changed:', this.showBanner);*/
     }
   }
 

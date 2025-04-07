@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using CoctailDebucle.Server.Data;
 using CoctailDebucle.Server.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
+// using Entity Framework and dependency injection with a DbContext
 namespace CoctailDebucle.Server.Controllers
 {
     [Route("api/users")]
@@ -27,7 +26,6 @@ namespace CoctailDebucle.Server.Controllers
             {
                 return NotFound("User or Drink not found.");
             }
-
             // Check if the drink is already in favorites
             if (_context.UserFavoriteDrinks.Any(ufd => ufd.UserId == userId && ufd.DrinkId == drinkId))
             {
@@ -76,20 +74,6 @@ namespace CoctailDebucle.Server.Controllers
             return Ok("Drink removed from favorites.");
         }
 
-        //[HttpPost("{userId}/consent")]
-        //public async Task<IActionResult> UpdateGdprConsent(int userId, [FromBody] bool consent)
-        //{
-        //    var user = await _context.Users.FindAsync(userId);
-        //    if (user == null)
-        //    {
-        //        return NotFound("User not found.");
-        //    }
-
-        //    user.GdprConsent = consent;
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok("GDPR consent updated.");
-        //}
         [HttpPost("{userId}/consent")]
         public async Task<IActionResult> UpdateGdprConsent(int userId, [FromBody] bool consentGiven)
         {
@@ -106,18 +90,6 @@ namespace CoctailDebucle.Server.Controllers
             return Ok(new { message = "GDPR consent updated successfully." });
         }
 
-        //[HttpGet("{userId}/consent")]
-        //public async Task<IActionResult> GetGdprConsent(int userId)
-        //{
-        //    var user = await _context.Users.FindAsync(userId);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound("User not found.");
-        //    }
-
-        //    return Ok(new { gdprConsent = user.GdprConsent });
-        //}
         [HttpGet("{userId}/consent")]
         public async Task<IActionResult> GetConsent(int userId)
         {
@@ -126,18 +98,6 @@ namespace CoctailDebucle.Server.Controllers
 
             return Ok(new { gdprConsent = user.GdprConsent });
         }
-
-        //[HttpPost("{userId}/consent")]
-        //public async Task<IActionResult> GiveConsent(int userId)
-        //{
-        //    var user = await _context.Users.FindAsync(userId);
-        //    if (user == null) return NotFound("User not found.");
-
-        //    user.GdprConsent = true;
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok("GDPR consent given.");
-        //}
 
         [HttpDelete("{userId}/consent")]
         public async Task<IActionResult> WithdrawConsent(int userId)
@@ -151,19 +111,19 @@ namespace CoctailDebucle.Server.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/consent")]
-        public async Task<IActionResult> UpdateConsent(int id, [FromBody] GdprConsentDto dto)
+        [HttpPut("role/{userId}")]
+        public async Task<IActionResult> UpdateUserRole(int userId, [FromBody] UserRole newRole)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(userId);
             if (user == null)
-                return NotFound();
+            {
+                return NotFound("User not found.");
+            }
 
-            user.GdprConsent = dto.GdprConsent;
+            user.Role = newRole;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok($"User {user.Username}'s role updated to {newRole}");
         }
-
     }
-
 }

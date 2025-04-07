@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CoctailDebucle.Server.Models;
 
-// Setting up Database context
+// User Model
 namespace CoctailDebucle.Server.Models
 {
     public class User
@@ -12,7 +12,7 @@ namespace CoctailDebucle.Server.Models
         [Required, MaxLength(50)]
         public string Username { get; set; }
 
-        public bool GdprConsent { get; set; } // ✅ Store GDPR consent
+        public bool GdprConsent { get; set; }
 
         [Required, MaxLength(255)]
         public string PasswordHash { get; set; }
@@ -21,13 +21,9 @@ namespace CoctailDebucle.Server.Models
         public string Email { get; set; }
         // Many-to-Many: A user can have multiple favorite drinks
         public List<UserFavoriteDrink> FavoriteDrinks { get; set; } = new();
+
+        [Required]
+        public UserRole Role { get; set; } = UserRole.User; // default to regular user
     }
 }
 
-//public class Drink
-//{
-//    public int DrinkID { get; set; }
-//    public string Name { get; set; }
-//    public ICollection<User> FavoritedByUsers { get; set; }
-//    public object Ingredients { get; set; }
-//}

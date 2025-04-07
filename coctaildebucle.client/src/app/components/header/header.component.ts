@@ -19,6 +19,8 @@ export class HeaderComponent
   isLoggedIn: boolean = false;
   currentUrl: string = '';
   token: string = '';
+  userId: number | null = null;
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -46,6 +48,16 @@ export class HeaderComponent
     this.isLoggedIn = true;
     // Additional logic can go here, such as notifying other parts of the app
     console.log('Token received in header:', token);
+    this.authService.getUser().subscribe(user => {
+      //console.log('User object: ', user);
+      //console.log('User Role: ', user.role);
+      if (user.role > 0) {
+        this.isAdmin = true;
+      }
+      else {
+        console.log("user not admin!");
+      }
+    });
   }
 
   handleLogout(): void

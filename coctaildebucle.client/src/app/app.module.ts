@@ -24,12 +24,14 @@ import { GdprBannerComponent } from './components/gdpr/gdpr.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PopupFormComponent } from './components/popup/popup.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DrinkCardsComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,

@@ -34,19 +34,18 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.authService.getUserId(); // ✅ Get user ID from AuthService
-   /* console.log('User ID:', this.userId);*/  // Print the user ID
-    if (this.userId) {
+    // Get Id from AuthService
+    this.userId = this.authService.getUserId();
+    if (this.userId)
+    {
       // Check GDPR consent from DB
       this.gdprService.getConsent(this.userId).subscribe(
         (response) => {
-          console.log('GDPR Consent Response:', response);
           this.consentGiven = response.gdprConsent;
           this.showGdprBanner = !this.consentGiven;
           this.showGdprBanner = true;
           if (this.consentGiven == true)
           {
-            console.log("ciao");
             this.loadFavoriteDrinks();
           }
         },
@@ -73,11 +72,11 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   onConsentChanged(given: boolean): void
   {
     this.showGdprBanner = !given;
-    console.log('Consent Given:', given);
+ /*   console.log('Consent Given:', given);*/
   }
 
   loadFavoriteDrinks(): void {
-    console.log("loading drinks for user: ", this.userId);
+   /* console.log("loading drinks for user: ", this.userId);*/
     if (this.userId) {
       this.userService.getUserFavorites(this.userId).subscribe(
         (drinks) => {

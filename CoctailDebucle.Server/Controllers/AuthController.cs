@@ -13,6 +13,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using CoctailDebucle.Server.Models;
+using Microsoft.Extensions.Logging;
 
 // MVC : Model - View - Controller
 namespace CoctailDebucle.Server.Controllers
@@ -23,9 +24,11 @@ namespace CoctailDebucle.Server.Controllers
     {
         //private IConfiguration _configuration;
         private readonly AppDbContext _context;
-        public AuthController(AppDbContext context)
+        private readonly ILogger<UserController> _logger;
+        public AuthController(AppDbContext context, ILogger<UserController> logger)
         {
             _context = context;
+            _logger = logger;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -56,6 +59,21 @@ namespace CoctailDebucle.Server.Controllers
             }
 
             return BadRequest("Invalid registration data.");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                _logger.LogInformation("User not found with id: {Id}", id);
+                return NotFound();
+            }
+
+            // Log the user data (avoid sensitive information)
+            _logger.LogInformation("Retrieved user: {User}", user);
+            return Ok(user);
         }
 
         // Login Endpoint
