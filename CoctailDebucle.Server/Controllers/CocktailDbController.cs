@@ -77,6 +77,15 @@ namespace CoctailDebucle.Server.Controllers
         [HttpPost("createdrink")]
         public async Task<ActionResult<Drink>> CreateDrink([FromBody] DrinkDTO drinkDto)
         {
+            // Check for duplicate name
+            bool exists = await _context.Drinks
+                .AnyAsync(d => d.Name.ToLower() == drinkDto.Name.ToLower());
+
+            if (exists)
+            {
+                return Conflict(new { message = "A drink with this name already exists." });
+            }
+
             var drink = new Drink
             {
                 Name = drinkDto.Name,
