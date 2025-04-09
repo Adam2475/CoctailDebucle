@@ -24,5 +24,8 @@ namespace CoctailDebucle.Server.Models
         public List<DrinkIngredient> DrinkIngredients { get; set; }
         // Many-to-Many: A drink can be favorited by multiple users
         public List<UserFavoriteDrink> FavoritedByUsers { get; set; } = new();
+
+        // Path for the Db stored image
+        public string? ImagePath { get; set; }
     }
 }

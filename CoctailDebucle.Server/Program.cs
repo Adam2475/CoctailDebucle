@@ -45,21 +45,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Redirect Angular routes to index.html
-//app.Use(async (context, next) =>
-//{
-//    var path = context.Request.Path.Value;
-//    if (!path.StartsWith("/api") && !path.Contains("."))
-//    {
-//        context.Request.Path = "/index.html";
-//    }
-//    await next();
-//});
-
-// Enable CORS
-// In production you need to enable only trusted origins
-//app.UseCors(x=>x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
-
 app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();

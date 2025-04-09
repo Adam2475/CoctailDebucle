@@ -31,6 +31,50 @@
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>
 
+  <div class="create-drink-form">
+    <h2>Create a New Drink</h2>
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <label>
+        Name:
+        <input type="text" name="name" [(ngModel)]="drink.name" required />
+      </label>
+
+      <label>
+        Category:
+        <input type="text" name="category" [(ngModel)]="drink.category" required />
+      </label>
+
+      <label>
+        Glass ID:
+        <input type="number" name="glassId" [(ngModel)]="drink.glassId" required />
+      </label>
+
+      <label>
+        Instructions:
+        <textarea name="instructions" [(ngModel)]="drink.instructions" rows="4" required></textarea>
+      </label>
+
+      <label>
+        Ingredients:
+        <div *ngFor="let ing of drink.ingredients; let i = index">
+          <select [(ngModel)]="ing.ingredientId" [name]="'ingredient_' + i" required>
+            <option *ngFor="let option of availableIngredients" [value]="option.id">{{ option.name }}</option>
+          </select>
+          <input type="text" [(ngModel)]="ing.amount" [name]="'amount_' + i" placeholder="e.g., 2 oz" required />
+          <button type="button" (click)="removeIngredient(i)">Remove</button>
+        </div>
+        <button type="button" (click)="addIngredient()">Add Ingredient</button>
+      </label>
+
+      <label>
+        Upload Image:
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </label>
+
+      <button type="submit">Create Drink</button>
+    </form>
+  </div>
+
   <button (click)="goBack()">Go Back</button>
 
 </main>
