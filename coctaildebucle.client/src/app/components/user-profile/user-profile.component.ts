@@ -3,14 +3,14 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { GdprService } from '../../services/gdpr.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs'
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Observable, switchMap } from 'rxjs';
+import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 
 interface DrinkIngredient {
   ingredientId: number;
@@ -22,13 +22,15 @@ interface DrinkIngredient {
   templateUrl: './user-profile.component.html',
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
-  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule]
+  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
+            ReactiveFormsModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
   @ViewChild(GdprBannerComponent) gdprBanner!: GdprBannerComponent;  // Access GDPR banner
   //////////////////////////////////////
   // Cocktail Import
+  drinkForm!: FormGroup; // Notice the ! after the property name
   drink: any = {
     name: '',
     category: '',
@@ -37,8 +39,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     ingredients: [] as { ingredientId: number, amount: string }[]
   };
   selectedFile: File | null = null;
+  glassList: any[] = [];
   ingredientsInput: string = '[]'; // Store raw JSON from the input
-  ingredients: { ingredientId: number; amount: string }[] = [];
+  /*ingredients: { ingredientId: number; amount: string }[] = [];*/
   //////////////////////////////////////
   favoriteDrinks: any[] = [];
   userId: number | null = null;
@@ -55,6 +58,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     private router: Router,
     private cdr: ChangeDetectorRef,
     private location: Location,
+    private fb: FormBuilder,
     private http: HttpClient
   ) { }
 
@@ -92,11 +96,36 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       error: (err) => console.error('Failed to load ingredients:', err)
     });
 
-    this.ingredients.push({ ingredientId: 0, amount: '' }); // Start with 1 blank row
+    this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses').subscribe({
+      next: (data) => {
+        this.glassList = data;
+        console.log('Loaded glasses:', data);
+      },
+      error: (err) => console.error('Failed to load glasses:', err)
+    });
+
+    /*this.ingredients.push({ ingredientId: 0, amount: '' }); // Start with 1 blank row*/
+    this.drinkForm = this.fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      glassId: [null, Validators.required],
+      instructions: ['', Validators.required],
+      ingredients: this.fb.array([])  // ✅ Proper FormArray setup
+    });
   }
 
-  addIngredient() {
-    this.drink.ingredients.push({ ingredientId: 0, amount: '' });
+  // Getter to access ingredients as FormArray
+  get ingredients(): FormArray {
+    return this.drinkForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient(): void {
+    this.ingredients.push(
+      this.fb.group({
+        ingredientId: [null, Validators.required],
+        amount: ['', Validators.required],
+      })
+    );
   }
 
   removeIngredient(index: number) {
@@ -108,9 +137,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       next: (data) => this.availableIngredients = data,
       error: (err) => console.error('Failed to load ingredients:', err)
     });
-
-    // Optionally start with one blank ingredient
-    this.drink.ingredients.push({ ingredientId: 0, amount: '' });
   }
 
   ngAfterViewInit(): void {
@@ -169,54 +195,46 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.selectedFile = event.target.files[0];
   }
 
-  onSubmit() {
-    //const formData = new FormData();
-    //formData.append('name', this.drink.name);
-    //formData.append('category', this.drink.category);
-    //formData.append('glassId', this.drink.glassId.toString());
-    //formData.append('instructions', this.drink.instructions);
-    console.log("hello world!");
+  uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('ImagePath', imageFile); // must match your DTO property
 
-    //try {
-    //  console.log(this.ingredientsInput)
-    //  const parsedIngredients = JSON.parse(this.ingredientsInput);
-    //  console.log(parsedIngredients)
-    //  formData.append('ingredientsJson', JSON.stringify(parsedIngredients));
-    //} catch (error) {
-    //  alert('Invalid JSON in ingredients field.');
-    //  return;
-    //}
-    //console.log('Ingredients:', this.drink.ingredients);
-    // Send the ingredients directly as a JSON string
-    /* formData.append('ingredientsJson', JSON.stringify(this.drink.ingredients));*/
-    // Map the ingredients to the expected format
+    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
+  }
 
-    //const mappedIngredients = this.drink.ingredients.map((ingredient: DrinkIngredient) => {
-    //  return {
-    //    ingredientId: ingredient.ingredientId, // Only send the ingredientId
-    //    amount: ingredient.amount
-    //  };
-    //});
-    // Send the mapped ingredients as a JSON string
-    //formData.append('ingredients', JSON.stringify(mappedIngredients));
-    //formData.append('ingredientsJson', JSON.stringify(parsedIngredients));
-    /*formData.append('ingredientsJson', JSON.stringify(this.drink.ingredients));*/
-    //const mappedIngredients = this.drink.ingredients.map((ingredient: DrinkIngredient) => ({
-    //  IngredientId: Number(ingredient.ingredientId),
-    //  Amount: ingredient.amount
-    //}));
-    //console.log('Sending Ingredients JSON:', mappedIngredients);
-    //formData.append('ingredientsJson', mappedIngredients);
-    ////formData.append('ingredientsJson', mappedIngredients);
+  onSubmit(): void {
+    if (this.drinkForm.invalid) return;
 
+    const drinkData = this.drinkForm.value;
 
-    //if (this.selectedFile) {
-    //  formData.append('image', this.selectedFile, this.selectedFile.name);
-    //}
+    // 🔁 Convert ingredientId from string to number
+    drinkData.ingredients = drinkData.ingredients.map((ing: any) => ({
+      ingredientId: Number(ing.ingredientId),
+      amount: ing.amount
+    }));
 
-    //this.http.post('https://localhost:7074/api/drinkDb', formData).subscribe({
-    //  next: () => alert('Drink created!'),
-    //  error: err => console.error(err)
-    //});
+    // 🥤 First create the drink
+    this.userService.createDrink(drinkData).subscribe({
+      next: (response) => {
+        console.log('Drink created successfully:', response);
+
+        console.log(drinkData.glassId); // should log the selected glass ID
+
+        // 📸 If an image was selected, upload it
+        if (this.selectedFile && response.id) {
+          this.uploadDrinkImage(response.id, this.selectedFile).subscribe({
+            next: () => {
+              console.log('Image uploaded successfully');
+            },
+            error: (err) => {
+              console.error('Image upload failed:', err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Drink creation failed:', err);
+      }
+    });
   }
 }

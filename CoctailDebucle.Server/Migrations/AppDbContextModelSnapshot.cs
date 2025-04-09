@@ -37,7 +37,6 @@ namespace CoctailDebucle.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Instructions")

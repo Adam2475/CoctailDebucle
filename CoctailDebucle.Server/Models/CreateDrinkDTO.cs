@@ -17,6 +17,6 @@ namespace CoctailDebucle.Server.Models
         // Accept a JSON string for ingredients
         [Required]
         public string Ingredients { get; set; }
-        public IFormFile Image { get; set; }  // the uploaded image
+        public IFormFile? Image { get; set; }  // the uploaded image
     }
 }

@@ -2,6 +2,6 @@
 {
     public class ImageUploadDTO
     {
-        public IFormFile ImagePath { get; set; }
+        public IFormFile? ImagePath { get; set; }
     }
 }

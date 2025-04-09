@@ -38,6 +38,12 @@ namespace CoctailDebucle.Server.Controllers
             return Ok(ingredients);
         }
 
+        [HttpGet("glasses")]
+        public async Task<ActionResult<IEnumerable<Glass>>> GetGlasses()
+        {
+            var glasses = await _context.Glasses.ToListAsync();
+            return Ok(glasses);
+        }
         // Get all drinks with ingredients
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Drink>>> GetDbDrinks()
@@ -67,136 +73,8 @@ namespace CoctailDebucle.Server.Controllers
                 return drink;
             }
 
-        //[HttpPost]
-        //[ProducesResponseType(typeof(CreateDrinkDTO), StatusCodes.Status201Created)]
-        //public async Task<ActionResult<Drink>> CreateDrink([FromForm] CreateDrinkDTO drinkDto)
-        //{
-        //    // Deserialize ingredients
-        //    List<DrinkIngredientDto> ingredients;
-        //    try
-        //    {
-        //        ingredients = JsonSerializer.Deserialize<List<DrinkIngredientDto>>(drinkDto.IngredientsJson);
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest("Invalid ingredients format.");
-        //    }
-
-        //    // Save image to wwwroot/images
-        //    string fileName = null;
-        //    if (drinkDto.Image != null && drinkDto.Image.Length > 0)
-        //    {
-        //        fileName = Guid.NewGuid().ToString() + Path.GetExtension(drinkDto.Image.FileName);
-        //        var filePath = Path.Combine("wwwroot/images", fileName);
-        //        using (var stream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            await drinkDto.Image.CopyToAsync(stream);
-        //        }
-        //    }
-
-        //    // Build drink entity
-        //    var drink = new Drink
-        //    {
-        //        Name = drinkDto.Name,
-        //        Category = drinkDto.Category,
-        //        GlassId = drinkDto.GlassId,
-        //        Instructions = drinkDto.Instructions,
-        //        ImagePath = fileName != null ? "/images/" + fileName : null,
-        //        DrinkIngredients = ingredients.Select(i => new DrinkIngredient
-        //        {
-        //            IngredientId = i.IngredientId,
-        //            Amount = i.Amount
-        //        }).ToList()
-        //    };
-
-        //    _context.Drinks.Add(drink);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetDbDrink), new { id = drink.Id }, drink);
-        //}
-        //}
         // Add a new drink with ingredients
-        //[HttpPost]
-        //public async Task<ActionResult<Drink>> CreateDrink([FromForm] CreateDrinkDTO drinkDto)
-        //{
-        //    List<DrinkIngredientDTO> ingredients;
-        //    try
-        //    {
-        //        var options = new JsonSerializerOptions
-        //        {
-        //            PropertyNameCaseInsensitive = true
-        //        };
-        //        //Console.WriteLine("Ingredients from the controller: ", drinkDto.IngredientsJson);
-        //        ingredients = JsonSerializer.Deserialize<List<DrinkIngredientDTO>>(drinkDto.IngredientsJson);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Invalid ingredients format. Error: {ex.Message}");
-        //    }
-        //    var drink = new Drink
-        //    {
-        //        Name = drinkDto.Name,
-        //        Category = drinkDto.Category,
-        //        GlassId = drinkDto.GlassId,
-        //        Instructions = drinkDto.Instructions,
-        //        DrinkIngredients = ingredients.Select(i => new DrinkIngredient
-        //        {
-        //            IngredientId = i.IngredientId,
-        //            Amount = i.Amount
-        //        }).ToList()
-
-        //    };
-
-        //    _context.Drinks.Add(drink);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetDbDrink), new { id = drink.Id }, drink);
-        //}
-
-        //[HttpPost]
-        //public async Task<ActionResult<Drink>> CreateDrink([FromForm] DrinkDTO drinkDto)
-        //{
-        //    List<DrinkIngredientDto> ingredients;
-        //    //ingredients = System.Text.Json.JsonSerializer.Deserialize<List<DrinkIngredientDto>>(drinkDto.Ingredients);
-        //    ingredients = JsonConvert.DeserializeObject<List<DrinkIngredientDto>>(drinkDto.Ingredients);
-        //    var drink = new Drink
-        //    {
-        //        Name = drinkDto.Name,
-        //        Category = drinkDto.Category,
-        //        GlassId = drinkDto.GlassId,
-        //        Instructions = drinkDto.Instructions,
-        //        DrinkIngredients = ingredients.Select(i => new DrinkIngredient
-        //        {
-        //            IngredientId = i.IngredientId,
-        //            Amount = i.Amount
-        //        }).ToList()
-        ////DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
-        ////{
-        ////    IngredientId = i.IngredientId,
-        ////    Amount = i.Amount
-        ////}).ToList()
-        //    };
-
-        //    //Save image to wwwroot/images
-        //    //string fileName = null;
-        //    //if (drinkDto.Image != null && drinkDto.Image.Length > 0)
-        //    //{
-        //    //    fileName = Guid.NewGuid().ToString() + Path.GetExtension(drinkDto.Image.FileName);
-        //    //    var filePath = Path.Combine("wwwroot/images", fileName);
-        //    //    using (var stream = new FileStream(filePath, FileMode.Create))
-        //    //    {
-        //    //        await drinkDto.Image.CopyToAsync(stream);
-        //    //    }
-        //    //}
-
-        //    _context.Drinks.Add(drink);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetDbDrink), new { id = drink.Id }, drink);
-        //}
-
-        // Add a new drink with ingredients
-        [HttpPost]
+        [HttpPost("createdrink")]
         public async Task<ActionResult<Drink>> CreateDrink([FromBody] DrinkDTO drinkDto)
         {
             var drink = new Drink
@@ -249,7 +127,6 @@ namespace CoctailDebucle.Server.Controllers
             {
                 return NotFound();
             }
-
             drink.ImagePath = "/images/" + image.FileName;
             await _context.SaveChangesAsync();
 

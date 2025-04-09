@@ -31,49 +31,70 @@
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>
 
-  <div class="create-drink-form">
-    <h2>Create a New Drink</h2>
-    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-      <label>
-        Name:
-        <input type="text" name="name" [(ngModel)]="drink.name" required />
-      </label>
+  <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
+    <!-- Drink Name -->
+    <div>
+      <label for="name">Drink Name:</label>
+      <input id="name" type="text" formControlName="name" required />
+    </div>
 
-      <label>
-        Category:
-        <input type="text" name="category" [(ngModel)]="drink.category" required />
-      </label>
+    <!-- Category -->
+    <div>
+      <label for="category">Category:</label>
+      <input id="category" type="text" formControlName="category" required />
+    </div>
 
-      <label>
-        Glass ID:
-        <input type="number" name="glassId" [(ngModel)]="drink.glassId" required />
-      </label>
+    <!-- Glass ID -->
+    <div class="form-group">
+      <label for="glass">Select Glass</label>
+      <select id="glass" class="form-control" formControlName="glassId">
+        <option [ngValue]="null" disabled selected>-- Select a glass --</option>
+        <option *ngFor="let glass of glassList" [value]="glass.id">
+          {{ glass.name }}
+        </option>
+      </select>
+    </div>
 
-      <label>
-        Instructions:
-        <textarea name="instructions" [(ngModel)]="drink.instructions" rows="4" required></textarea>
-      </label>
+    <!-- Instructions -->
+    <div>
+      <label for="instructions">Instructions:</label>
+      <textarea id="instructions" formControlName="instructions" required></textarea>
+    </div>
 
-      <label>
-        Ingredients:
-        <div *ngFor="let ing of drink.ingredients; let i = index">
-          <select [(ngModel)]="ing.ingredientId" [name]="'ingredient_' + i" required>
-            <option *ngFor="let option of availableIngredients" [value]="option.id">{{ option.name }}</option>
-          </select>
-          <input type="text" [(ngModel)]="ing.amount" [name]="'amount_' + i" placeholder="e.g., 2 oz" required />
-          <button type="button" (click)="removeIngredient(i)">Remove</button>
-        </div>
-        <button type="button" (click)="addIngredient()">Add Ingredient</button>
-      </label>
+    <!-- Dynamic Ingredients -->
+    <div formArrayName="ingredients">
+      <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
 
-      <label>
-        Upload Image:
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-      </label>
+        <!-- Ingredient dropdown -->
+        <label for="ingredientId">Ingredient</label>
+        <select formControlName="ingredientId" required>
+          <option value="">-- Select Ingredient --</option>
+          <option *ngFor="let ing of availableIngredients" [value]="ing.id">{{ ing.name }}</option>
+        </select>
 
-      <button type="submit">Create Drink</button>
-    </form>
-  </div>
+        <!-- Amount input -->
+        <label for="amount">Amount</label>
+        <input formControlName="amount" placeholder="e.g. 1 oz" required />
+
+        <!-- Remove button -->
+        <button type="button" (click)="ingredients.removeAt(i)">Remove</button>
+      </div>
+    </div>
+
+    <!-- Add ingredient button -->
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+
+    <!--<input type="text" formControlName="amount" placeholder="Amount" class="form-control" />-->
+
+    <!-- Image Upload -->
+    <div>
+      <label for="file">Image:</label>
+      <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit">Create Drink</button>
+  </form>
 
   <button (click)="goBack()">Go Back</button>
 

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoctailDebucle.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250408164452_JsonIngredients")]
-    partial class JsonIngredients
+    [Migration("20250409105405_OptionalImage")]
+    partial class OptionalImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,6 @@ namespace CoctailDebucle.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Instructions")
