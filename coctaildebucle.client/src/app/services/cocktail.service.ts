@@ -38,38 +38,48 @@ export class CocktailService {
   }
 
   // Cerca i cocktail combinando nome, categoria e ingrediente
-  searchCocktails(name: string, category: string, ingredient: string, glass: string): Observable<{ drinks: Drink[] }> {
+  searchCocktails(name: string, category: string, ingredients: string, glass: string): Observable<{ drinks: Drink[] }> {
     let nameObs = name ? this.getCocktailByName(name) : of({ drinks: null });
     let categoryObs = category ? this.http.get<{ drinks: Drink[] }>(`${this.apiUrl}/filter.php?c=${category}`) : of({ drinks: null });
-    let ingredientObs = ingredient ? this.http.get<{ drinks: Drink[] }>(`${this.apiUrl}/filter.php?i=${ingredient}`) : of({ drinks: null });
     let glassObs = glass ? this.http.get<{ drinks: Drink[] }>(`${this.apiUrl}/filter.php?g=${glass}`) : of({ drinks: null });
 
+    // modifica per admin: se ci sono più ingredienti, fai una forkJoin di tutte le chiamate filter.php?i=...
+    let ingredientList = ingredients ? ingredients.split(',') : [];
+    let ingredientObs = ingredientList.length > 0
+      ? forkJoin(ingredientList.map(ing =>
+        this.http.get<{ drinks: Drink[] | null }>(`${this.apiUrl}/filter.php?i=${ing}`)
+      ))
+      : of([]);
+
     return forkJoin([nameObs, categoryObs, ingredientObs, glassObs]).pipe(
-      map(([nameRes, categoryRes, ingredientRes, glassRes]) => {
+      map(([nameRes, categoryRes, ingredientResponses, glassRes]) => {
         let nameDrinks = nameRes.drinks || [];
         let categoryDrinks = categoryRes.drinks || [];
-        let ingredientDrinks = ingredientRes.drinks || [];
         let glassDrinks = glassRes.drinks || [];
 
-        // 🛠 Se nessun filtro è applicato, ritorna una lista vuota
-        if (!name && !category && !ingredient && !glass) {
+        //modifica per admin:  Unisci i risultati di tutti gli ingredienti (evita null)
+        let ingredientDrinks = (ingredientResponses as any[])
+          .flatMap(res => res.drinks || []);
+
+        // Se nessun filtro è attivo, ritorna lista vuota
+        if (!name && !category && ingredientList.length === 0 && !glass) {
           return { drinks: [] };
         }
 
-        // 🛠 Se almeno un filtro ha 0 risultati, l'output deve essere vuoto
+        // Se uno qualsiasi dei filtri ha 0 risultati, ritorna lista vuota
         if (
           (name && nameDrinks.length === 0) ||
           (category && categoryDrinks.length === 0) ||
-          (ingredient && ingredientDrinks.length === 0) ||
+          (ingredientList.length > 0 && ingredientDrinks.length === 0) ||
           (glass && glassDrinks.length === 0)
         ) {
           return { drinks: [] };
         }
 
-        // 🛠 Creiamo la lista attiva con solo i filtri che hanno dati
-        let activeLists = [nameDrinks, categoryDrinks, ingredientDrinks, glassDrinks].filter(list => list.length > 0);
+        // Intersezione tra tutti i risultati
+        let activeLists = [nameDrinks, categoryDrinks, ingredientDrinks, glassDrinks]
+          .filter(list => list.length > 0);
 
-        // 🛠 Intersezione tra tutte le liste attive
         let filteredDrinks = activeLists.reduce((acc, list) =>
           acc.filter(drink => list.some(d => d.idDrink === drink.idDrink)),
           activeLists[0] || []
@@ -79,5 +89,6 @@ export class CocktailService {
       })
     );
   }
+
 
 }
