@@ -1,1 +1,56 @@
-<p>admin works!</p>
+<main class="content">
+
+  <!-- Sezione Crea Menu -->
+  <section class="create-menu">
+    <h1>Crea Menu</h1>
+    <h3>Scegli Ingredienti</h3>
+
+    <div class="ingredient-tags">
+      <span *ngFor="let ingredient of ingredients"
+            (click)="toggleIngredient(ingredient)"
+            [ngClass]="{'tag': true, 'selected': selectedIngredients.includes(ingredient)}">
+        {{ ingredient }}
+      </span>
+    </div>
+
+    <button class="preview-button" (click)="fetchPreview()">Mostra Anteprima</button>
+  </section>
+
+  <!-- Sezione Anteprima Menu -->
+  <!-- Sezione Anteprima Menu se risultati 0 -->
+  <section class="preview-menu" *ngIf="previewDrinks.length === 0 && selectedIngredients.length >= 2">
+    <p class="no-results">La ricerca non ha prodotto risultati.</p>
+  </section>
+
+  <!-- Sezione Anteprima Menu se risultati > 0 -->
+  <section class="preview-menu" *ngIf="previewDrinks.length > 0">
+    <h2>Anteprima Menu</h2>
+
+    <div class="menu-actions">
+      <div class="left-buttons">
+        <button (click)="removeSelected()">Rimuovi selezionati</button>
+        <button (click)="selectAll()">Seleziona tutti</button>
+      </div>
+      <div class="right-buttons">
+        <button (click)="publishMenu()">Pubblica menu</button>
+      </div>
+    </div>
+
+    <div class="drink-container">
+      <div class="drink-card selectable"
+           *ngFor="let drink of previewDrinks"
+           [class.selected-card]="selectedDrinks.includes(drink.idDrink)">
+
+        <div class="select-box" (click)="toggleDrinkSelection(drink.idDrink)">
+          <span *ngIf="selectedDrinks.includes(drink.idDrink)">✔</span>
+        </div>
+
+        <a [routerLink]="['/cocktail', drink.idDrink]">
+          <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
+          <h3>{{ drink.strDrink }}</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
