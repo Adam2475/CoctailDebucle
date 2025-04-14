@@ -13,6 +13,14 @@ export class CocktailService {
 
   constructor(private http: HttpClient) { }
 
+  updateDrink(id: number, drinkData: any) {
+    return this.http.put(`/api/drinkDb/${id}`, drinkData);
+  }
+
+  deleteDrink(id: number) {
+    return this.http.delete(`/api/drinkDb/${id}`);
+  }
+
   getCocktailByName(name: string): Observable<{ drinks: Drink[] | null }> {
     return this.http.get<{ drinks: Drink[] | null }>(`${this.apiUrl}/search.php?s=${name}`);
   }
@@ -89,6 +97,5 @@ export class CocktailService {
       })
     );
   }
-
 
 }

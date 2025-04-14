@@ -42,6 +42,38 @@
     font-weight: bold;
   }
 
-    .create-drink-form button:hover {
+    .create-drink-form button:hover
+    {
       background-color: #45a049;
     }
+
+    #created-header
+    {
+        margin-bottom:2em;
+    }
+
+    .user-drinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .drink-card {
+      width: 200px;
+      background: transparent;
+      border: 2px solid #554845;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+      text-align: center;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+  .drink-card:hover
+  {
+    transform: scale(1.05);
+  }

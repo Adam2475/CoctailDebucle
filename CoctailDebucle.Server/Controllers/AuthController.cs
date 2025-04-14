@@ -48,7 +48,7 @@ namespace CoctailDebucle.Server.Controllers
                 {
                     Username = model.Username,
                     Email = model.Email,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
                     Name = model.Name,
                     Surname = model.Surname,
                     BirthDate = model.BirthDate,

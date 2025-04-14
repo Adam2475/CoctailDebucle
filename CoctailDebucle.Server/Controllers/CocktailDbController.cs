@@ -91,6 +91,7 @@ namespace CoctailDebucle.Server.Controllers
                 Name = drinkDto.Name,
                 Category = drinkDto.Category,
                 GlassId = drinkDto.GlassId,
+                UserId = drinkDto.UserId,
                 Instructions = drinkDto.Instructions,
                 DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
                 {
@@ -100,9 +101,63 @@ namespace CoctailDebucle.Server.Controllers
             };
 
             _context.Drinks.Add(drink);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // error line
 
             return CreatedAtAction(nameof(GetDbDrink), new { id = drink.Id }, drink);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDrink(int id, [FromBody] DrinkDTO drinkDto)
+        {
+            var drink = await _context.Drinks
+                .Include(d => d.DrinkIngredients)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (drink == null)
+            {
+                return NotFound("Drink not found.");
+            }
+
+            // Update basic fields
+            drink.Name = drinkDto.Name;
+            drink.Category = drinkDto.Category;
+            drink.GlassId = drinkDto.GlassId;
+            // dont change the user Id
+            //drink.UserId = drinkDto.UserId;
+            drink.Instructions = drinkDto.Instructions;
+
+            // Update ingredients
+            _context.DrinkIngredients.RemoveRange(drink.DrinkIngredients); // Remove old ones
+            drink.DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
+            {
+                IngredientId = i.IngredientId,
+                Amount = i.Amount,
+                DrinkId = id
+            }).ToList();
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDrink(int id)
+        {
+            var drink = await _context.Drinks
+                .Include(d => d.DrinkIngredients)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (drink == null)
+            {
+                return NotFound("Drink not found.");
+            }
+
+            // Remove related ingredients first
+            _context.DrinkIngredients.RemoveRange(drink.DrinkIngredients);
+
+            _context.Drinks.Remove(drink);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
         [HttpPost("uploadImage/{drinkId}")]
@@ -114,9 +169,7 @@ namespace CoctailDebucle.Server.Controllers
                 return BadRequest("No image file provided.");
 
 
-            // ✅ Define the upload folder
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
-            // ✅ Make sure the directory exists
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
@@ -137,9 +190,28 @@ namespace CoctailDebucle.Server.Controllers
                 return NotFound();
             }
             drink.ImagePath = "/images/" + image.FileName;
+            var imageRelativePath = $"/images/{image.FileName}";
+            var imageUrl = $"{Request.Scheme}://{Request.Host}{imageRelativePath}";
             await _context.SaveChangesAsync();
 
-            return Ok(new { Message = "Image uploaded successfully." });
+            return Ok(new { 
+                Message = "Image uploaded successfully.",
+                ImageUrl = imageUrl  // return public URL to the frontend
+            });
+        }
+
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<Drink>>> GetDrinksByUserId(int userId)
+        {
+            var drinks = await _context.Drinks
+                .Where(d => d.UserId == userId)
+                .Include(d => d.Glass)
+                .Include(d => d.DrinkIngredients)
+                    .ThenInclude(di => di.Ingredient)
+                .ToListAsync();
+
+            return Ok(drinks);
         }
     }
 }

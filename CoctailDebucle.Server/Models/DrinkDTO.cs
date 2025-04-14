@@ -31,6 +31,8 @@ namespace CoctailDebucle.Server.Models
 
         public List<DrinkIngredientDto> Ingredients { get; set; }
 
+        public int UserId { get; set; }
+
         public IFormFile? ImagePath { get; set; }  // the uploaded image
     }
 

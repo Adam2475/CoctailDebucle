@@ -11,6 +11,8 @@ namespace CoctailDebucle.Server.Data
         public DbSet<Glass> Glasses { get; set; } // Add Glass entity
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UserFavoriteDrink> UserFavoriteDrinks { get; set; }
+        // Add this for the join table between Drinks and Ingredients
+        public DbSet<DrinkIngredient> DrinkIngredients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +45,13 @@ namespace CoctailDebucle.Server.Data
                     .HasOne(ufd => ufd.Drink)
                     .WithMany(d => d.FavoritedByUsers)
                     .HasForeignKey(ufd => ufd.DrinkId);
+
+            modelBuilder.Entity<Drink>()
+                    .HasOne(d => d.User)
+                    .WithMany(u => u.Drinks)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);  // This avoids the cascade issue
+
         }
     }
 }

@@ -34,6 +34,8 @@ namespace CoctailDebucle.Server.Models
 
         [Required]
         public UserRole Role { get; set; } = UserRole.User; // default to regular user
+
+        public ICollection<Drink> Drinks { get; set; }  // 1 user - many drinks
     }
 }
 

@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { GdprService } from '../../services/gdpr.service';
+import { CocktailService } from '../../services/cocktail.service';
 import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
@@ -10,6 +11,7 @@ import { BehaviorSubject } from 'rxjs'
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
+import { JsonPipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 
 interface DrinkIngredient {
@@ -22,29 +24,34 @@ interface DrinkIngredient {
   templateUrl: './user-profile.component.html',
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
-  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
-            ReactiveFormsModule]
+  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule, JsonPipe,
+    ReactiveFormsModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
   @ViewChild(GdprBannerComponent) gdprBanner!: GdprBannerComponent;  // Access GDPR banner
-  //////////////////////////////////////
+  ////////////////////////
   // Cocktail Import
-  drinkForm!: FormGroup; // Notice the ! after the property name
+  ////////////////////////
+  drinkForm!: FormGroup;
+  userId: number | null = null;
+  editingDrink: any = null;
+  editForm!: FormGroup;
   drink: any = {
     name: '',
     category: '',
     glassId: 0,
     instructions: '',
-    ingredients: [] as { ingredientId: number, amount: string }[]
+    userId: this.userId,
+    ingredients: [] as { ingredientId: number, amount: string }[],
   };
   selectedFile: File | null = null;
   glassList: any[] = [];
   ingredientsInput: string = '[]'; // Store raw JSON from the input
-  /*ingredients: { ingredientId: number; amount: string }[] = [];*/
   //////////////////////////////////////
+  editingDrinkId: number | null = null
   favoriteDrinks: any[] = [];
-  userId: number | null = null;
+  userDrinks: any[] = [];
   showGdprBanner: boolean = false;
   consentGiven: boolean = false; // Define consentGiven here
   selectedIngredients: any[] = []; // Array to hold the selected ingredients for the drink
@@ -54,6 +61,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private drinkService: CocktailService,
     private gdprService: GdprService,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -83,6 +91,17 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.showGdprBanner = true; // Default to showing banner if error occurs
         }
       );
+      this.http.get<any[]>(`https://localhost:7047/api/drinkDb/user/${this.userId}`)
+        .subscribe({
+          next: (data) => {
+            this.userDrinks = data;
+            //console.log("crated drinks: ", this.userDrinks);
+          },
+          error: (err) => {
+            console.error('Error fetching drinks:', err);
+          }
+        });
+
     } else {
       console.error("User ID is null, cannot check consent");
       this.showGdprBanner = true;  // Default to showing banner if userId is null
@@ -91,7 +110,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients').subscribe({
       next: (data) => {
         this.availableIngredients = data;
-        console.log('Loaded ingredients:', data);
+       // console.log('Loaded ingredients:', data);
       },
       error: (err) => console.error('Failed to load ingredients:', err)
     });
@@ -99,7 +118,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses').subscribe({
       next: (data) => {
         this.glassList = data;
-        console.log('Loaded glasses:', data);
+        //console.log('Loaded glasses:', data);
       },
       error: (err) => console.error('Failed to load glasses:', err)
     });
@@ -114,7 +133,18 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
-  // Getter to access ingredients as FormArray
+  ngAfterViewInit(): void {
+    // Ensure that the gdprBanner is available and then modify its showBanner property
+    if (this.gdprBanner) {
+      /*console.log('GDPR Banner Initialized:', this.gdprBanner);*/
+    } else {
+      console.warn('GDPR Banner is not yet initialized');
+    }
+  }
+
+  /////////////////////////
+  // Ingredients Methods
+  /////////////////////////
   get ingredients(): FormArray {
     return this.drinkForm.get('ingredients') as FormArray;
   }
@@ -139,14 +169,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
-  ngAfterViewInit(): void {
-    // Ensure that the gdprBanner is available and then modify its showBanner property
-    if (this.gdprBanner) {
-      /*console.log('GDPR Banner Initialized:', this.gdprBanner);*/
-    } else {
-      console.warn('GDPR Banner is not yet initialized');
-    }
-  }
+  /////////////////////////
+  // Gdpr Consent Methods
+  /////////////////////////
 
   onConsentChanged(given: boolean): void
   {
@@ -166,6 +191,13 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         }
       );
     }
+  }
+
+  loadDrinks(): void {
+    this.drinkService.getDrinks().subscribe({
+      next: (data) => this.drink = data,
+      error: (err) => console.error('Error loading drinks:', err)
+    });
   }
 
   goBack(): void {
@@ -212,16 +244,18 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       amount: ing.amount
     }));
 
+    // forgot injecting userId to creation
+    drinkData.userId = this.userId;
+
     this.userService.createDrink(drinkData).subscribe({
       next: (response) => {
         console.log('Drink created successfully:', response);
-
-        console.log(drinkData.glassId); // should log the selected glass ID
-
         if (this.selectedFile && response.id) {
           this.uploadDrinkImage(response.id, this.selectedFile).subscribe({
             next: () => {
               console.log('Image uploaded successfully');
+              // Add the created drink to the UI
+              this.userDrinks.push(response);
             },
             error: (err) => {
               console.error('Image upload failed:', err);
@@ -230,8 +264,63 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         }
       },
       error: (err) => {
+        console.log(this.userId)
         console.error('Drink creation failed:', err);
       }
     });
+  }
+
+  onDeleteDrink(drinkId: number): void {
+    if (!confirm("Are you sure you want to delete this drink?")) return;
+
+    this.userService.deleteDrink(drinkId).subscribe({
+      next: () => {
+        console.log(`Drink ${drinkId} deleted`);
+        this.userDrinks = this.userDrinks.filter(d => d.id !== drinkId);
+      },
+      error: err => {
+        console.error("Failed to delete drink:", err);
+      }
+    });
+  }
+
+  deleteDrink(id: number) {
+    if (confirm('Are you sure you want to delete this drink?')) {
+      this.drinkService.deleteDrink(id).subscribe(() => {
+        this.loadDrinks(); // refresh
+      });
+    }
+  }
+
+  editDrink(drink: any) {
+    this.editingDrink = drink;
+
+    this.editForm.patchValue({
+      name: drink.name,
+      category: drink.category,
+      glassId: drink.glassId,
+      instructions: drink.instructions,
+      // Ingredients will be handled separately if needed
+    });
+  }
+
+  submitEdit() {
+    const updatedDrink = {
+      ...this.editForm.value,
+      userId: this.editingDrink.userId,
+      ingredients: this.editingDrink.drinkIngredients.map((i: any) => ({
+        ingredientId: i.ingredient.id,
+        amount: i.amount
+      }))
+    };
+
+    this.drinkService.updateDrink(this.editingDrink.id, updatedDrink).subscribe(() => {
+      this.editingDrink = null;
+      this.loadDrinks();
+    });
+  }
+
+  cancelEdit() {
+    this.editingDrink = null;
   }
 }

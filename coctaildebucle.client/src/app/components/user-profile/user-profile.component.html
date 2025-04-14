@@ -85,7 +85,6 @@
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
 
     <!--<input type="text" formControlName="amount" placeholder="Amount" class="form-control" />-->
-
     <!-- Image Upload -->
     <div>
       <label for="file">Image:</label>
@@ -95,6 +94,40 @@
     <!-- Submit Button -->
     <button type="submit">Create Drink</button>
   </form>
+
+  <h2 id="created-header">
+    Your Created Drinks
+  </h2>
+  <div class="user-drinks" *ngIf="userDrinks.length > 0">
+    <div class="drink-card" *ngFor="let drink of userDrinks">
+      <h3>{{ drink.name }}</h3>
+
+      <ul>
+        <li *ngFor="let ingredient of drink.drinkIngredients">
+          {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
+        </li>
+      </ul>
+
+      <!-- Debug Logging -->
+      <!--<pre>{{ drink | json }}</pre>-->
+      <!-- IMAGE DISPLAY -->
+      <img *ngIf="drink.imagePath"
+           [src]="'https://localhost:7047' + drink.imagePath"
+           alt="{{ drink.name }} image"
+           width="200"
+           height="200"
+           style="object-fit: cover; border-radius: 8px;" />
+      <!-- 🟠 Action buttons -->
+      <button (click)="editDrink(drink)">Modify</button>
+      <button (click)="deleteDrink(drink.id)">Delete</button>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="userDrinks.length === 0">
+    <p>You haven't created any drinks yet.</p>
+  </div>
 
   <button (click)="goBack()">Go Back</button>
 

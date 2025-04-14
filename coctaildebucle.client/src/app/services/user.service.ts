@@ -15,6 +15,10 @@ export class UserService
     return this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses');
   }
 
+  deleteDrink(drinkData: any): Observable<any> {
+    return this.http.delete<any>('https://localhost:7047/api/drinkdb/createdrink', drinkData);
+  }
+
   createDrink(drinkData: any): Observable<any> {
     return this.http.post<any>('https://localhost:7047/api/drinkdb/createdrink', drinkData);
   }

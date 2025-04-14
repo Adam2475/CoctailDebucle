@@ -25,6 +25,10 @@ namespace CoctailDebucle.Server.Models
         // Many-to-Many: A drink can be favorited by multiple users
         public List<UserFavoriteDrink> FavoritedByUsers { get; set; } = new();
 
+        // One-to-Many: Multiple drinks can be created by a single user
+        public int UserId { get; set; }        // foreign key
+        public User User { get; set; }         // navigation property
+
         // Path for the Db stored image
         public string? ImagePath { get; set; }
     }
