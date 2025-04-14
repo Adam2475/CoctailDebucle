@@ -10,6 +10,16 @@ namespace CoctailDebucle.Server.Models
         public int Id { get; set; }
 
         [Required, MaxLength(50)]
+        public string Name { get; set; }
+
+        [Required, MaxLength(50)]
+        public string Surname { get; set; }
+
+        [Required]
+
+        public DateTime BirthDate { get; set; }
+
+        [Required, MaxLength(50)]
         public string Username { get; set; }
 
         public bool GdprConsent { get; set; }

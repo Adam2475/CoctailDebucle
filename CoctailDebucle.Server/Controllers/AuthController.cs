@@ -49,11 +49,14 @@ namespace CoctailDebucle.Server.Controllers
                     Username = model.Username,
                     Email = model.Email,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    BirthDate = model.BirthDate,
                 };
 
                 // Save user to the database
                 _context.Users.Add(user);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // error line
 
                 return Ok(new { message = "Registration successful" });
             }

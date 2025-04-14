@@ -45,7 +45,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   //////////////////////////////////////
   favoriteDrinks: any[] = [];
   userId: number | null = null;
-  showGdprBanner: boolean = false;  // ✅ To control banne visibility
+  showGdprBanner: boolean = false;
   consentGiven: boolean = false; // Define consentGiven here
   selectedIngredients: any[] = []; // Array to hold the selected ingredients for the drink
   ingredientsList: any[] = []; // This will hold the list of ingredients fetched from the API
@@ -110,7 +110,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       category: ['', Validators.required],
       glassId: [null, Validators.required],
       instructions: ['', Validators.required],
-      ingredients: this.fb.array([])  // ✅ Proper FormArray setup
+      ingredients: this.fb.array([])
     });
   }
 
@@ -207,20 +207,17 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
     const drinkData = this.drinkForm.value;
 
-    // 🔁 Convert ingredientId from string to number
     drinkData.ingredients = drinkData.ingredients.map((ing: any) => ({
       ingredientId: Number(ing.ingredientId),
       amount: ing.amount
     }));
 
-    // 🥤 First create the drink
     this.userService.createDrink(drinkData).subscribe({
       next: (response) => {
         console.log('Drink created successfully:', response);
 
         console.log(drinkData.glassId); // should log the selected glass ID
 
-        // 📸 If an image was selected, upload it
         if (this.selectedFile && response.id) {
           this.uploadDrinkImage(response.id, this.selectedFile).subscribe({
             next: () => {

@@ -20,7 +20,10 @@ export class SignupComponent {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
+      BirthDate: ['', [Validators.required]]
     });
   }
 
@@ -42,7 +45,10 @@ export class SignupComponent {
     const registerData = {
       username: this.formControls['username'].value,
       email: this.formControls['email'].value,
-      password: this.formControls['password'].value
+      password: this.formControls['password'].value,
+      name: this.formControls['name'].value,
+      surname: this.formControls['surname'].value,
+      BirthDate: this.formControls['BirthDate'].value
     };
 
     this.http.post('https://localhost:7047/api/auth/register', registerData)
