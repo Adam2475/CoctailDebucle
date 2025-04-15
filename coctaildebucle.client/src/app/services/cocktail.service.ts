@@ -14,11 +14,11 @@ export class CocktailService {
   constructor(private http: HttpClient) { }
 
   updateDrink(id: number, drinkData: any) {
-    return this.http.put(`/api/drinkDb/${id}`, drinkData);
+    return this.http.put(`https://localhost:7047/api/drinkDb/${id}`, drinkData);
   }
 
   deleteDrink(id: number) {
-    return this.http.delete(`/api/drinkDb/${id}`);
+    return this.http.delete(`https://localhost:7047/api/drinkDb/${id}`);
   }
 
   getCocktailByName(name: string): Observable<{ drinks: Drink[] | null }> {

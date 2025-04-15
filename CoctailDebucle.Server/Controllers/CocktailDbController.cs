@@ -200,7 +200,6 @@ namespace CoctailDebucle.Server.Controllers
             });
         }
 
-
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<Drink>>> GetDrinksByUserId(int userId)
         {

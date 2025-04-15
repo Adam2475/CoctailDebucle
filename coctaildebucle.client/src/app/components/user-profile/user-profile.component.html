@@ -107,9 +107,6 @@
           {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
         </li>
       </ul>
-
-      <!-- Debug Logging -->
-      <!--<pre>{{ drink | json }}</pre>-->
       <!-- IMAGE DISPLAY -->
       <img *ngIf="drink.imagePath"
            [src]="'https://localhost:7047' + drink.imagePath"
