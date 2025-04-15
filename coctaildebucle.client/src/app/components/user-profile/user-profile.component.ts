@@ -58,6 +58,13 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   ingredientsList: any[] = []; // This will hold the list of ingredients fetched from the API
   private apiUrl = 'https://localhost:7047/api/users';
   availableIngredients: any[] = [];
+  /////////////////////////////////
+  // Cocktail Modification Form
+  /////////////////////////////////
+  selectedDrink: any = null;
+  modifyForm!: FormGroup;
+  ingredientOptions: { id: number; name: string }[] = [];
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -131,6 +138,17 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       instructions: ['', Validators.required],
       ingredients: this.fb.array([])
     });
+
+    // Initialize the modify form (fields same as create form)
+    this.modifyForm = this.fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      glassId: [null, Validators.required],
+      instructions: ['', Validators.required],
+      ingredients: this.fb.array([])  // Initialize the ingredients as an empty arra
+    });
+
+    this.fetchIngredientOptions();
   }
 
   ngAfterViewInit(): void {
@@ -145,6 +163,20 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   /////////////////////////
   // Ingredients Methods
   /////////////////////////
+
+  fetchIngredientOptions() {
+    this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients')
+      .subscribe({
+        next: (data) => {
+          this.ingredientOptions = data;
+        },
+        error: (err) => {
+          console.error('Failed to load ingredient options', err);
+        }
+      });
+  }
+
+  // for creation
   get ingredients(): FormArray {
     return this.drinkForm.get('ingredients') as FormArray;
   }
@@ -166,6 +198,47 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients').subscribe({
       next: (data) => this.availableIngredients = data,
       error: (err) => console.error('Failed to load ingredients:', err)
+    });
+  }
+
+  // for modification
+  get modifyIngredients(): FormArray {
+    return this.modifyForm.get('ingredients') as FormArray;
+  }
+
+  addModifyIngredient(): void {
+    // Add an empty ingredient to the modify form if needed
+    this.modifyIngredients.push(
+      this.fb.group({
+        ingredientId: [null, Validators.required],
+        amount: ['', Validators.required],
+      })
+    );
+  }
+
+  removeModifyIngredient(index: number): void {
+    this.modifyIngredients.removeAt(index);
+  }
+
+  initializeModifyIngredients(): void {
+    // This function should initialize ingredients in modify form
+    const ingredientsArray = this.selectedDrink?.drinkIngredients || [];
+
+    // Add existing ingredients to modify form
+    ingredientsArray.forEach((ingredient: { ingredientId: number, amount: string }) => {
+      this.modifyIngredients.push(
+        this.fb.group({
+          ingredientId: [ingredient.ingredientId, Validators.required],
+          amount: [ingredient.amount, Validators.required],
+        })
+      );
+    });
+  }
+
+  createIngredient(ingredient?: any): FormGroup {
+    return this.fb.group({
+      ingredientId: [ingredient?.ingredientId || '', Validators.required],
+      amount: [ingredient?.amount || '', Validators.required]
     });
   }
 
@@ -223,6 +296,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     }
   }
 
+  ////////////////////////////
+  // Drink Creation Methods
+  ////////////////////////////
+
+  getUserDrinks(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`https://localhost:7047/api/drinkDb/user/${userId}`);
+  }
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
@@ -232,6 +313,20 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     formData.append('ImagePath', imageFile); // must match your DTO property
 
     return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
+  }
+
+  fetchUserDrinks() {
+    if (!this.userId) return;
+
+    this.getUserDrinks(this.userId).subscribe({
+      next: (drinks) => {
+        console.log("Fetched drinks:", drinks);
+        this.userDrinks = drinks;
+      },
+      error: (err) => {
+        console.error("Failed to fetch drinks:", err);
+      }
+    });
   }
 
   onSubmit(): void {
@@ -254,8 +349,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.uploadDrinkImage(response.id, this.selectedFile).subscribe({
             next: () => {
               console.log('Image uploaded successfully');
-              // Add the created drink to the UI
+              // Add the created drink to the UI and refresh
               this.userDrinks.push(response);
+              this.fetchUserDrinks();
             },
             error: (err) => {
               console.error('Image upload failed:', err);
@@ -277,6 +373,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       next: () => {
         console.log(`Drink ${drinkId} deleted`);
         this.userDrinks = this.userDrinks.filter(d => d.id !== drinkId);
+        this.fetchUserDrinks();
       },
       error: err => {
         console.error("Failed to delete drink:", err);
@@ -287,40 +384,89 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   deleteDrink(id: number) {
     if (confirm('Are you sure you want to delete this drink?')) {
       this.drinkService.deleteDrink(id).subscribe(() => {
-        this.loadDrinks(); // refresh
+        //this.loadDrinks(); // refresh
+        this.fetchUserDrinks(); 
       });
     }
   }
 
-  editDrink(drink: any) {
-    this.editingDrink = drink;
-
-    this.editForm.patchValue({
-      name: drink.name,
-      category: drink.category,
-      glassId: drink.glassId,
-      instructions: drink.instructions,
-      // Ingredients will be handled separately if needed
-    });
-  }
-
-  submitEdit() {
-    const updatedDrink = {
-      ...this.editForm.value,
-      userId: this.editingDrink.userId,
-      ingredients: this.editingDrink.drinkIngredients.map((i: any) => ({
-        ingredientId: i.ingredient.id,
-        amount: i.amount
-      }))
-    };
-
-    this.drinkService.updateDrink(this.editingDrink.id, updatedDrink).subscribe(() => {
-      this.editingDrink = null;
-      this.loadDrinks();
-    });
-  }
-
   cancelEdit() {
     this.editingDrink = null;
+  }
+
+  /////////////////////////////////
+  // Drink Modification Methods
+  /////////////////////////////////
+
+  onModifyClick(drink: any): void {
+    this.selectedDrink = drink;
+
+    // Patch basic values:
+    this.modifyForm.patchValue({
+      name: drink.name,
+      category: drink.category,
+      instructions: drink.instructions,
+      glassId: drink.glassId
+    });
+
+    // Populate the FormArray for ingredients (do not clear if there are already controls):
+    const ingredientsControl = this.modifyForm.get('ingredients') as FormArray;
+
+    if (ingredientsControl.length === 0) {
+      // If no ingredients are present, clear and add them
+      drink.drinkIngredients.forEach((di: any) => {
+        ingredientsControl.push(this.fb.group({
+          ingredientId: [di.ingredient?.id || di.ingredientId, Validators.required],
+          amount: [di.amount, Validators.required]
+        }));
+      });
+    }
+  }
+
+  cancelModification(): void {
+    this.selectedDrink = null;
+    this.modifyForm.reset();
+  }
+
+  loadDrinkData(drink: any) {
+    this.modifyForm.patchValue({
+      name: drink.name,
+      category: drink.category,
+      instructions: drink.instructions,
+      glassId: drink.glassId
+    });
+
+    const ingredientArray = this.modifyForm.get('ingredients') as FormArray;
+    ingredientArray.clear();
+    drink.ingredients.forEach((i: any) => {
+      ingredientArray.push(this.createIngredient(i));
+    });
+  }
+
+  submitModification(drinkId: number): void {
+    if (!this.modifyForm.valid) return;
+
+    const formValue = this.modifyForm.value;
+    const ingredients = formValue.ingredients || []; // fallback if undefined
+
+    const payload = {
+      name: this.modifyForm.value.name,
+      category: this.modifyForm.value.category,
+      instructions: this.modifyForm.value.instructions,
+      glassId: this.modifyForm.value.glassId,
+      ingredients: this.modifyForm.value.ingredients.map((ing: any) => ({
+        ingredientId: ing.ingredientId,
+        amount: ing.amount
+      }))
+    };
+    //console.log("object passed: ", this.modifyForm);
+    this.http.put(`https://localhost:7047/api/drinkDb/${drinkId}`, payload).subscribe({
+      next: () => {
+        console.log('Update success');
+        this.fetchUserDrinks();   
+        this.selectedDrink = null; 
+      },
+      error: err => console.error('Update failed:', err)
+    });
   }
 }

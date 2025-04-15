@@ -1,14 +1,11 @@
 <!-- ✅ Only one instance -->
-
-<app-gdpr-banner
-       [showBanner]="showGdprBanner"
-       (consentChanged)="onConsentChanged($event)">
+<app-gdpr-banner [showBanner]="showGdprBanner"
+                 (consentChanged)="onConsentChanged($event)">
 </app-gdpr-banner>
 
 <main>
 
   <h2>Il Mio Profilo</h2>
-
 
   <div *ngIf="!consentGiven">
     <p>You need to accept GDPR consent to view your favorite drinks.</p>
@@ -31,6 +28,7 @@
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>
 
+  <!-- Create Drink Form -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
     <!-- Drink Name -->
     <div>
@@ -64,7 +62,6 @@
     <!-- Dynamic Ingredients -->
     <div formArrayName="ingredients">
       <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
-
         <!-- Ingredient dropdown -->
         <label for="ingredientId">Ingredient</label>
         <select formControlName="ingredientId" required>
@@ -84,7 +81,6 @@
     <!-- Add ingredient button -->
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
 
-    <!--<input type="text" formControlName="amount" placeholder="Amount" class="form-control" />-->
     <!-- Image Upload -->
     <div>
       <label for="file">Image:</label>
@@ -95,6 +91,7 @@
     <button type="submit">Create Drink</button>
   </form>
 
+  <!-- List of Created Drinks -->
   <h2 id="created-header">
     Your Created Drinks
   </h2>
@@ -115,11 +112,9 @@
            height="200"
            style="object-fit: cover; border-radius: 8px;" />
       <!-- 🟠 Action buttons -->
-      <button (click)="editDrink(drink)">Modify</button>
+      <button (click)="onModifyClick(drink)">Modify</button>
       <button (click)="deleteDrink(drink.id)">Delete</button>
-
     </div>
-
   </div>
 
   <div *ngIf="userDrinks.length === 0">
@@ -127,5 +122,57 @@
   </div>
 
   <button (click)="goBack()">Go Back</button>
+
+  <!-- Modify Drink Form (shown as an overlay or inline) -->
+  <div class="modify-form-overlay" *ngIf="selectedDrink">
+    <div class="modify-form">
+      <h2>Modify Drink</h2>
+      <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
+        <!-- Drink Name -->
+        <div>
+          <label for="mod-name">Drink Name:</label>
+          <input id="mod-name" type="text" formControlName="name" required />
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label for="mod-category">Category:</label>
+          <input id="mod-category" type="text" formControlName="category" required />
+        </div>
+
+        <!-- Glass ID -->
+        <div class="form-group">
+          <label for="mod-glass">Select Glass</label>
+          <select id="mod-glass" class="form-control" formControlName="glassId">
+            <option [ngValue]="null" disabled selected>-- Select a glass --</option>
+            <option *ngFor="let glass of glassList" [value]="glass.id">
+              {{ glass.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Instructions -->
+        <div>
+          <label for="mod-instructions">Instructions:</label>
+          <textarea id="mod-instructions" formControlName="instructions" required></textarea>
+        </div>
+
+        <!-- Modify Ingredients -->
+        <div *ngIf="selectedDrink" formArrayName="ingredients">
+          <div *ngFor="let ing of modifyIngredients.controls; let i = index" [formGroupName]="i">
+            <select formControlName="ingredientId">
+              <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
+            </select>
+            <input formControlName="amount" placeholder="Amount" />
+            <button type="button" (click)="removeModifyIngredient(i)">Remove</button>
+          </div>
+          <button type="button" (click)="addModifyIngredient()">Add Ingredient</button>
+        </div>
+
+        <button type="submit">Save Changes</button>
+        <button type="button" (click)="cancelModification()">Cancel</button>
+      </form>
+    </div>
+  </div>
 
 </main>
