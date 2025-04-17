@@ -1,13 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
-body
+@font-face
 {
-  background: linear-gradient(#554845 ,#B67233, #ffffff) no-repeat;
-  /*background-color: #B67233;*/
+  font-family: 'Garamond';
+  src: url('./assets/fonts/EBGaramond-Regular.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
 }
 
+@font-face
+{
+  font-family: 'Garamond-Semi';
+  src: url('./assets/fonts/EBGaramond-SemiBold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 
-main {
+:root {
+  --form-color: #F5F5DC;
+}
+
+body
+{
+  font-family: 'Garamond';
+  background: linear-gradient(#554845,#B67233, var(--form-color)) no-repeat;
+}
+
+main
+{
     min-height:80vh;
 }
 

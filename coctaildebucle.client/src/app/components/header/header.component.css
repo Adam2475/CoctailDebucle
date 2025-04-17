@@ -1,69 +1,84 @@
-/* General Reset */
-* {
+*
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
 }
 
-/* Header Styling */
-header {
+header
+{
   background: #222;
   color: white;
-  padding: 15px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 1);
 }
 
-/* Navbar Styling */
-nav {
+nav
+{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+ /* padding: 0 20px;*/
 }
 
 /* Logo */
-.logo {
-  font-size: 24px;
+.p-button
+{
+    background-color:#333 !important;
+    background: #333 !important;
+}
+
+.p-ripple {
+  background-color: #333;
+}
+
+.logo
+{
+  font-size: 2em;
   font-weight: bold;
   color: #f8b400;
 }
 
-/* Login Container */
-.login-container {
+/* Navigation Buttons */
+
+.loginButton
+{
+    background-color:whitesmoke !important;
+    background: #333 !important;
+    color:#333 !important;
+}
+
+.loginButton:hover
+{
+    transform:scale(1.1,1.1);
+}
+
+.login-container
+{
   display: flex;
   align-items: center;
 }
 
-/* Login Button */
-.login a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: white;
-  text-decoration: none;
-  background: #f8b400;
-  padding: 8px 15px;
-  border-radius: 5px;
-  transition: 0.3s;
+.login a:hover
+{
+  background: #d49400;
 }
-
-  .login a:hover {
-    background: #d49400;
-  }
 
 /* FontAwesome Icon */
-.login i {
+.login i
+{
   font-size: 18px;
 }
 
 /* Login Text */
-.login p {
+.login p
+{
   font-size: 16px;
 }
 
 /* Popup Overlay (Hidden by Default) */
-.popup-overlay {
+.popup-overlay
+{
   display: none;
   position: fixed;
   top: 0;
@@ -76,7 +91,8 @@ nav {
 }
 
 /* Popup Box */
-.popup-content {
+.popup-content
+{
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -105,7 +121,8 @@ nav {
 }
 
 /* Submit Button */
-.popup-content button {
+.popup-content button
+{
   width: 100%;
   padding: 10px;
   background: #f8b400;
@@ -116,12 +133,14 @@ nav {
   cursor: pointer;
 }
 
-  .popup-content button:hover {
-    background: #d49400;
-  }
+.popup-content button:hover
+{
+  background: #d49400;
+}
 
 /* Fade-in Animation */
-@keyframes fadeIn {
+@keyframes fadeIn
+{
   from {
     opacity: 0;
     transform: scale(0.9);
@@ -133,7 +152,8 @@ nav {
   }
 }
 
-.clickable {
+.clickable
+{
   text-decoration: none; /* Remove underline */
   color: inherit; /* Keep the original color */
   cursor: pointer; /* Ensure it's clickable */

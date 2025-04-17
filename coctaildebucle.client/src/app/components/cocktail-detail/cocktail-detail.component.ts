@@ -55,7 +55,8 @@ export class CocktailDetailComponent implements OnInit
     }
   }
 
-  getIngredients(): string[] {
+  getIngredients(): string[]
+  {
     let ingredients: string[] = [];
     for (let i = 1; i <= 15; i++) {
       const ingredient = this.cocktail[`strIngredient${i}`]; // Changed from `this.drink`
@@ -67,24 +68,18 @@ export class CocktailDetailComponent implements OnInit
     return ingredients;
   }
 
-  goBack(): void {
+  goBack(): void
+  {
     window.history.back(); // Navigate back
   }
 
-  addToFavorites() {
-    if (this.userId && this.drinkId) {
-      this.userService.addFavoriteDrink(this.userId, this.drinkId).subscribe(
-        (response) => {
-          this.successMessage = "Drink added to favorites! 🎉";
-          this.errorMessage = ''; // Clear any previous errors
-        },
-        (error) => {
-          this.errorMessage = "Failed to add to favorites. " + error.error;
-          this.successMessage = ''; // Clear any previous success messages
-        }
-      );
-    } else {
-      this.errorMessage = "User ID or Drink ID is missing!";
-    }
+  addToFavorites()
+  {
+    console.log("drink info: ", this.cocktail);
+    //const apiDrink = this.cocktail;
+
+    //const dto = {
+
+    //}
   }
 }

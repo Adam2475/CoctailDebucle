@@ -6,7 +6,10 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { providePrimeNG } from 'primeng/config';
 import { FormsModule } from '@angular/forms';
+import Material from '@primeng/themes/material';
 import Aura from '@primeng/themes/aura';
+import Lara from '@primeng/themes/lara';
+import Nora from '@primeng/themes/nora';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component';
 import { CocktailService } from './services/cocktail.service'; 
@@ -31,14 +34,13 @@ import { AdminComponent } from './components/admin/admin.component';
     AppComponent,
     HomeComponent,
     DrinkCardsComponent,
-    AdminComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
     FooterComponent, PopupFormComponent,
     AppRoutingModule, HeaderComponent,
     FormsModule, ReactiveFormsModule,
-    BrowserModule, FormsModule,
+    BrowserModule, FormsModule, AdminComponent,
     BrowserAnimationsModule, CocktailDetailComponent,
     ButtonModule,
     DialogModule, SignupComponent,
@@ -49,10 +51,12 @@ import { AdminComponent } from './components/admin/admin.component';
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
     providePrimeNG({
-    theme: {
-      preset: Aura
-    }
-  })], // updated the provider
+      theme:
+      {
+        preset: Material
+      }
+    })
+  ], // updated the provider
   bootstrap: [AppComponent]
 })
 export class AppModule { }

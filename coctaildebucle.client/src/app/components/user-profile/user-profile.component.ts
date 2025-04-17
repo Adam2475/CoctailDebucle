@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs'
+import { ButtonModule } from 'primeng/button';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
@@ -25,7 +25,7 @@ interface DrinkIngredient {
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule, JsonPipe,
-    ReactiveFormsModule]
+    ReactiveFormsModule, ButtonModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {

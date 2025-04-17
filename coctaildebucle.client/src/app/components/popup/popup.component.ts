@@ -12,14 +12,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DividerModule } from 'primeng/divider';
 import { AuthService } from '../../services/auth.service';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-popup-form',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf,
-    DividerModule,
+    DividerModule, 
     BrowserAnimationsModule,
-    ButtonModule,
+    ButtonModule, InputGroupModule, InputGroupAddonModule,
     DialogModule, FormsModule,
     InputTextModule,
     ],

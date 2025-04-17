@@ -13,6 +13,8 @@ export class CocktailService {
 
   constructor(private http: HttpClient) { }
 
+  // DB Cocktail methods
+
   updateDrink(id: number, drinkData: any) {
     return this.http.put(`https://localhost:7047/api/drinkDb/${id}`, drinkData);
   }
@@ -20,6 +22,8 @@ export class CocktailService {
   deleteDrink(id: number) {
     return this.http.delete(`https://localhost:7047/api/drinkDb/${id}`);
   }
+
+  // API Cocktail methods 
 
   getCocktailByName(name: string): Observable<{ drinks: Drink[] | null }> {
     return this.http.get<{ drinks: Drink[] | null }>(`${this.apiUrl}/search.php?s=${name}`);
@@ -96,6 +100,10 @@ export class CocktailService {
         return { drinks: filteredDrinks };
       })
     );
+  }
+
+  getDrinkDetails(id: string) {
+    return this.http.get<any>(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   }
 
 }

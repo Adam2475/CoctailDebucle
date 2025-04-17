@@ -1,4 +1,3 @@
-<!-- ✅ Only one instance -->
 <app-gdpr-banner [showBanner]="showGdprBanner"
                  (consentChanged)="onConsentChanged($event)">
 </app-gdpr-banner>
@@ -30,19 +29,14 @@
 
   <!-- Create Drink Form -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
-    <!-- Drink Name -->
     <div>
       <label for="name">Drink Name:</label>
       <input id="name" type="text" formControlName="name" required />
     </div>
-
-    <!-- Category -->
     <div>
       <label for="category">Category:</label>
       <input id="category" type="text" formControlName="category" required />
     </div>
-
-    <!-- Glass ID -->
     <div class="form-group">
       <label for="glass">Select Glass</label>
       <select id="glass" class="form-control" formControlName="glassId">
@@ -52,8 +46,6 @@
         </option>
       </select>
     </div>
-
-    <!-- Instructions -->
     <div>
       <label for="instructions">Instructions:</label>
       <textarea id="instructions" formControlName="instructions" required></textarea>
@@ -74,7 +66,7 @@
         <input formControlName="amount" placeholder="e.g. 1 oz" required />
 
         <!-- Remove button -->
-        <button type="button" (click)="ingredients.removeAt(i)">Remove</button>
+        <p-button type="button" (click)="ingredients.removeAt(i)">Remove</p-button>
       </div>
     </div>
 

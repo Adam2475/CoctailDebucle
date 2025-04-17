@@ -4,11 +4,12 @@ import { Router, NavigationEnd } from '@angular/router';  // Import Router for n
 import { NgIf } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [PopupFormComponent, NgIf, CommonModule],
+  imports: [PopupFormComponent, NgIf, CommonModule, ButtonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })

@@ -1,10 +1,18 @@
-.section1
+
+/* Main Section */
+.mainSection
 {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 3em;
   padding: 2em;
+}
+
+.textSection
+{
+  margin-right: 2em;
+  margin-top: 2em;
 }
 
 #content-wrapper
@@ -16,6 +24,8 @@
   margin-left: 5em;
 }
 
+/* Main Image */
+
 .image-section
 {
   position: relative;
@@ -26,8 +36,7 @@
   filter: drop-shadow(20px 10px 20px rgba(0, 0, 0, 0.7));
 }
 
-#shadow-svg
-{
+#shadow-svg {
   position: absolute;
   width: 400px;
   height: 400px;
@@ -39,14 +48,7 @@
   pointer-events: none;
 }
 
-.text-section
-{
-  margin-right: 2em;
-  margin-top: 2em;
-}
-
-#mainimg
-{
+#mainimg {
   width: 305px;
   height: 320px;
   object-fit: cover;
@@ -60,6 +62,42 @@
   border: 1px solid black;
 }
 
+/* Image Toggle */
+@media screen and (max-width: 768px)
+{
+  .textSection
+  {
+      width:100%;
+  }
+  #content-wrapper
+  {
+      display:none;
+      margin-left:0em !important;
+  }
+  .image-section
+  {
+    flex-direction: column;
+    display:none;
+  }
+  #mainimg
+  {
+      display:none;
+  }
+  #shadow-svg
+  {
+      display:none;
+  }
+  .mainTitle{
+      width:100%;
+  }
+  .flavourText {
+    width: 100%;
+  }
+}
+
+/*///////////////////////////////*/
+
+/* Drinks Display */
 .drink-announcement
 {
     margin-bottom:1.5em;
