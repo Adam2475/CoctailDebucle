@@ -213,4 +213,59 @@ namespace CoctailDebucle.Server.Controllers
             return Ok(drinks);
         }
     }
+
+    //[HttpPost("save-selection")]
+    //    public async Task<IActionResult> SaveSelection([FromBody] List<DrinkDTO> selectedDrinks)
+    //    {
+    //        if (selectedDrinks == null || !selectedDrinks.Any())
+    //            return BadRequest("No drinks selected.");
+
+    //        // Process the selected drinks
+    //        var userId = GetCurrentUserId(); // Get user id from the current session or authentication
+
+    //        var selection = new Selection
+    //        {
+    //            UserId = userId,
+    //            Drinks = new List<Drink>()
+    //        };
+
+    //        foreach (var drinkDto in selectedDrinks)
+    //        {
+    //            var drink = new Drink
+    //            {
+    //                Name = drinkDto.Name,
+    //                Category = drinkDto.Category,
+    //                GlassId = drinkDto.GlassId,
+    //                Instructions = drinkDto.Instructions,
+    //                UserId = userId,  // Assign to the current user
+    //                ImagePath = drinkDto.ImagePath != null ? SaveImage(drinkDto.ImagePath) : null,  // If image exists, save it
+    //                DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
+    //                {
+    //                    IngredientId = i.IngredientId,
+    //                    Amount = i.Amount
+    //                }).ToList()
+    //            };
+
+    //            selection.Drinks.Add(drink);
+    //        }
+
+    //        _context.Selections.Add(selection); // Add selection to DB
+    //        await _context.SaveChangesAsync();  // Save changes
+
+    //        return Ok("Selection saved successfully.");
+    //    }
+
+    //private string SaveImage(IFormFile image)
+    //    {
+    //        if (image == null) return null;
+
+    //        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Guid.NewGuid().ToString() + Path.GetExtension(image.FileName));
+
+    //        using (var stream = new FileStream(imagePath, FileMode.Create))
+    //        {
+    //            image.CopyTo(stream);
+    //        }
+
+    //        return imagePath; // Return the image path to save in DB
+    //    }
 }

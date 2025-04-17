@@ -14,6 +14,8 @@ namespace CoctailDebucle.Server.Data
         // Add this for the join table between Drinks and Ingredients
         public DbSet<DrinkIngredient> DrinkIngredients { get; set; }
 
+        public DbSet<Selection> Selections { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

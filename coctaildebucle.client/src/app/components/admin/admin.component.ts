@@ -77,4 +77,24 @@ export class AdminComponent implements OnInit {
     return ingredients;
   }
 
+  //////////////////////////////
+  // Drink Selection Methods
+  //////////////////////////////
+
+  selectedDrinks: any[] = [];
+
+  toggleSelection(drink: any): void {
+    const index = this.selectedDrinks.findIndex(d => d.idDrink === drink.idDrink);
+
+    if (index !== -1) {
+      this.selectedDrinks.splice(index, 1);
+    } else {
+      this.selectedDrinks.push(drink);
+    }
+  }
+
+  isSelected(drink: any): boolean {
+    return this.selectedDrinks.some(d => d.idDrink === drink.idDrink);
+  }
+
 }

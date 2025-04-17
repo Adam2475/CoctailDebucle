@@ -1,17 +1,23 @@
 <main class="content">
 
+  <h2>Selected Drinks</h2>
+  <div *ngFor="let drink of selectedDrinks">
+    <strong>{{ drink.strDrink }}</strong>
+  </div>
 
+  <h2>Choose drinks to add to the menù</h2>
   <!-- Main List of Drinks from API -->
   <div class="drink-container">
     <p-card header="{{ cocktail.strDrink }}" class="drink-card" *ngFor="let cocktail of drinks">
-      <a>
-        <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" />
-        <ul class="ingredient-list">
-          <li *ngFor="let ing of cocktail.ingredients">
-            {{ ing.measure }} {{ ing.ingredient }}
-          </li>
-        </ul>
-      </a>
+      <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" />
+      <ul class="ingredient-list">
+        <li *ngFor="let ing of cocktail.ingredients">
+          {{ ing.measure }} {{ ing.ingredient }}
+        </li>
+      </ul>
+      <button (click)="toggleSelection(cocktail)">
+        {{ isSelected(cocktail) ? 'Remove' : 'Select' }}
+      </button>
     </p-card>
   </div>
 
