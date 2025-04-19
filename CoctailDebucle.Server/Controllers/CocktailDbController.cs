@@ -44,7 +44,7 @@ namespace CoctailDebucle.Server.Controllers
             var glasses = await _context.Glasses.ToListAsync();
             return Ok(glasses);
         }
-        // Get all drinks with ingredients
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Drink>>> GetDbDrinks()
         {
@@ -55,7 +55,7 @@ namespace CoctailDebucle.Server.Controllers
 
             return Ok(drinks);
         }
-        // Get a specific drink by ID
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Drink>> GetDbDrink(int id)
             {
@@ -73,7 +73,6 @@ namespace CoctailDebucle.Server.Controllers
                 return drink;
             }
 
-        // Add a new drink with ingredients
         [HttpPost("createdrink")]
         public async Task<ActionResult<Drink>> CreateDrink([FromBody] DrinkDTO drinkDto)
         {
@@ -212,60 +211,59 @@ namespace CoctailDebucle.Server.Controllers
 
             return Ok(drinks);
         }
+
+        /////////////////////////////////////////////////////////////////////////
+        [HttpPost("savedrink")]
+        public async Task<IActionResult> SaveDrink([FromBody] DrinkDTO dto)
+        {
+            // 1. Find the glass by its ID
+            //var allGlasses = await _context.Glasses.ToListAsync();
+            var glass = await _context.Glasses.FirstOrDefaultAsync(g => g.Id == dto.GlassId);
+            if (glass == null)
+            {
+                return BadRequest($"Glass with ID '{dto.GlassId}' not found.");
+            }
+
+            // 2. Create the drink
+            var newDrink = new Drink
+            {
+                Name = dto.Name,
+                Category = dto.Category,
+                Instructions = dto.Instructions,
+                GlassId = glass.Id, // Use the GlassId directly from the DTO
+                UserId = dto.UserId // ADD THIS LINE
+            };
+
+            _context.Drinks.Add(newDrink);
+            await _context.SaveChangesAsync(); // Save to generate the Drink's ID
+
+            // 3. Find and link ingredients
+            foreach (var ing in dto.Ingredients)
+            {
+                // Ensure that the IngredientId exists in the database
+                var dbIngredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == ing.IngredientId);
+                if (dbIngredient != null)
+                {
+                    var link = new DrinkIngredient
+                    {
+                        DrinkId = newDrink.Id,
+                        IngredientId = dbIngredient.Id,
+                        Amount = ing.Amount
+                    };
+
+                    _context.DrinkIngredients.Add(link);
+                }
+                else
+                {
+                    return BadRequest($"Ingredient with ID '{ing.IngredientId}' not found.");
+                }
+            }
+
+            // Save all changes (Drink and DrinkIngredients)
+            await _context.SaveChangesAsync();
+
+            // Return the created drink object
+            return Ok(newDrink);
+        }
     }
-
-    //[HttpPost("save-selection")]
-    //    public async Task<IActionResult> SaveSelection([FromBody] List<DrinkDTO> selectedDrinks)
-    //    {
-    //        if (selectedDrinks == null || !selectedDrinks.Any())
-    //            return BadRequest("No drinks selected.");
-
-    //        // Process the selected drinks
-    //        var userId = GetCurrentUserId(); // Get user id from the current session or authentication
-
-    //        var selection = new Selection
-    //        {
-    //            UserId = userId,
-    //            Drinks = new List<Drink>()
-    //        };
-
-    //        foreach (var drinkDto in selectedDrinks)
-    //        {
-    //            var drink = new Drink
-    //            {
-    //                Name = drinkDto.Name,
-    //                Category = drinkDto.Category,
-    //                GlassId = drinkDto.GlassId,
-    //                Instructions = drinkDto.Instructions,
-    //                UserId = userId,  // Assign to the current user
-    //                ImagePath = drinkDto.ImagePath != null ? SaveImage(drinkDto.ImagePath) : null,  // If image exists, save it
-    //                DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
-    //                {
-    //                    IngredientId = i.IngredientId,
-    //                    Amount = i.Amount
-    //                }).ToList()
-    //            };
-
-    //            selection.Drinks.Add(drink);
-    //        }
-
-    //        _context.Selections.Add(selection); // Add selection to DB
-    //        await _context.SaveChangesAsync();  // Save changes
-
-    //        return Ok("Selection saved successfully.");
-    //    }
-
-    //private string SaveImage(IFormFile image)
-    //    {
-    //        if (image == null) return null;
-
-    //        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Guid.NewGuid().ToString() + Path.GetExtension(image.FileName));
-
-    //        using (var stream = new FileStream(imagePath, FileMode.Create))
-    //        {
-    //            image.CopyTo(stream);
-    //        }
-
-    //        return imagePath; // Return the image path to save in DB
-    //    }
 }

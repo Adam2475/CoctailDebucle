@@ -13,7 +13,9 @@ export class CocktailService {
 
   constructor(private http: HttpClient) { }
 
+  //////////////////////////
   // DB Cocktail methods
+  //////////////////////////
 
   updateDrink(id: number, drinkData: any) {
     return this.http.put(`https://localhost:7047/api/drinkDb/${id}`, drinkData);
@@ -23,7 +25,9 @@ export class CocktailService {
     return this.http.delete(`https://localhost:7047/api/drinkDb/${id}`);
   }
 
-  // API Cocktail methods 
+  ///////////////////////////
+  // API Cocktail methods
+  ///////////////////////////
 
   getCocktailByName(name: string): Observable<{ drinks: Drink[] | null }> {
     return this.http.get<{ drinks: Drink[] | null }>(`${this.apiUrl}/search.php?s=${name}`);
@@ -41,6 +45,10 @@ export class CocktailService {
     return this.http.get<any>(`${this.apiUrl}/list.php?c=list`);
   }
 
+  //////////////////////////////////////////////
+  // Ingredient and glassed getter and setter
+  //////////////////////////////////////////////
+
   getIngredients(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/list.php?i=list`);
   }
@@ -48,6 +56,24 @@ export class CocktailService {
   getGlasses(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/list.php?g=list`);
   }
+
+  getAllIngredients() {
+    return this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients');
+  }
+
+  getAllGlasses() {
+    return this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses');
+  }
+
+  saveIngredients(ingredients: { name: string }[]) {
+    return this.http.post('https://localhost:7047/api/drinkDb/ingredients', ingredients);
+  }
+
+  saveGlasses(glasses: { name: string }[]) {
+    return this.http.post('https://localhost:7047/api/drinkDb/glasses', glasses);
+  }
+
+  ///////////////////////////////////////////////////////////////
 
   // Cerca i cocktail combinando nome, categoria e ingrediente
   searchCocktails(name: string, category: string, ingredients: string, glass: string): Observable<{ drinks: Drink[] }> {

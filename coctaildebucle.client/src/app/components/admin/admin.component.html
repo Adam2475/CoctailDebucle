@@ -4,6 +4,7 @@
   <div *ngFor="let drink of selectedDrinks">
     <strong>{{ drink.strDrink }}</strong>
   </div>
+    <button (click)="submitSelection()">Submit Selection</button>
 
   <h2>Choose drinks to add to the menù</h2>
   <!-- Main List of Drinks from API -->

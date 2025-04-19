@@ -12,7 +12,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
     map(user => {
       if (user && user.role > 0) {
         // User is an admin
-        console.log("User is admin: ", user);
+/*        console.log("User is admin: ", user);*/
         return true; // Allow access
       } else {
         // User is not an admin
