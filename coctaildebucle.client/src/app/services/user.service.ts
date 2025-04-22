@@ -23,14 +23,15 @@ export class UserService
     return this.http.post<any>('https://localhost:7047/api/drinkdb/createdrink', drinkData);
   }
 
-  //getUserFavorites(userId: number): Observable<any[]> {
-  //  return this.http.get<any[]>(`${this.apiUrl}/${userId}/favorites/`);
-  //}
-  // In your userService
   getUserFavorites(userId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${userId}/favorites`);
   }
+
   addFavoriteDrink(userId: number, drinkId: number): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/${userId}/favorites/${drinkId}`, {});
+    return this.http.post(`${this.apiUrl}/${userId}/favorites/${drinkId}`, {}, { responseType: 'text' });
+  }
+
+  removeFavoriteDrink(userId: number, drinkId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${userId}/favorites/${drinkId}`);
   }
 }

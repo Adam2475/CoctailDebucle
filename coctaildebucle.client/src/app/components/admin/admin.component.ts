@@ -10,6 +10,11 @@ import { Observable, Subject, forkJoin, from, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap, switchMap, concatMap, map, toArray, delay } from 'rxjs/operators';
 import { CardModule } from 'primeng/card';
 
+interface SavedDrinkResponse {
+  id: number;
+  name: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-admin',
@@ -137,14 +142,14 @@ export class AdminComponent implements OnInit {
     ).subscribe(({ userId, ingredients, glasses }) => {
       const drinksPayload = this.selectedDrinks.map(drink => {
         const matchedGlass = glasses.find(g => g.name === drink.strGlass);
-        console.log("all ingredients: ", ingredients);
+       // console.log("all ingredients: ", ingredients);
         const mappedIngredients = drink.ingredients
           .map((ing: any) => {
-            console.log('Checking ingredient from drink:', ing.ingredient);
+          /*  console.log('Checking ingredient from drink:', ing.ingredient);*/
             const matchedIng = ingredients.find((dbIng: any) => {
-              console.log('Checking dbIng:', dbIng);
-              console.log('Comparing:', dbIng?.name?.trim(), 'with', ing.ingredient.trim());
-              console.log('Checking dbIng:', dbIng.name);
+              //console.log('Checking dbIng:', dbIng);
+              //console.log('Comparing:', dbIng?.name?.trim(), 'with', ing.ingredient.trim());
+              //console.log('Checking dbIng:', dbIng.name);
               return dbIng.name.trim().toLowerCase() === ing.ingredient.trim().toLowerCase();
             });
             if (!matchedIng) return null;
@@ -154,7 +159,8 @@ export class AdminComponent implements OnInit {
             };
           })
           .filter((ing: any) => ing !== null);
-        console.log(mappedIngredients);
+        //console.log(mappedIngredients);
+        console.log(drink);
         return {
           name: drink.strDrink,
           category: drink.strCategory || 'Unknown',
@@ -162,13 +168,13 @@ export class AdminComponent implements OnInit {
           instructions: drink.strInstructions,
           ingredients: mappedIngredients,
           userId: Number(userId),
-          imagePath: null
+          imagePath: drink.strDrinkThumb || null
         };
       });
 
       forkJoin(
-        drinksPayload.map(payload => 
-          this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)   
+        drinksPayload.map(payload =>
+          this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)
         )
       ).subscribe({
         next: () => console.log('All drinks submitted!'),

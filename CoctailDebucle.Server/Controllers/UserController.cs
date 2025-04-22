@@ -50,7 +50,8 @@ namespace CoctailDebucle.Server.Controllers
                     ufd.Drink.Id,
                     ufd.Drink.Name,
                     ufd.Drink.Category,
-                    ufd.Drink.Instructions
+                    ufd.Drink.Instructions,
+                    ufd.Drink.ImagePath
                 })
                 .ToListAsync();
 
@@ -71,7 +72,7 @@ namespace CoctailDebucle.Server.Controllers
             _context.UserFavoriteDrinks.Remove(favorite);
             await _context.SaveChangesAsync();
 
-            return Ok("Drink removed from favorites.");
+            return NoContent();
         }
 
         [HttpPost("{userId}/consent")]

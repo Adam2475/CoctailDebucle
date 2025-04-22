@@ -64,6 +64,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   selectedDrink: any = null;
   modifyForm!: FormGroup;
   ingredientOptions: { id: number; name: string }[] = [];
+/*  favoriteDrinks$: Observable<Drink[]>;*/
 
   constructor(
     private userService: UserService,
@@ -113,7 +114,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       console.error("User ID is null, cannot check consent");
       this.showGdprBanner = true;  // Default to showing banner if userId is null
     }
-    // Load ingredients from API
+    // Load ingredients from DB
     this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients').subscribe({
       next: (data) => {
         this.availableIngredients = data;
@@ -121,7 +122,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       },
       error: (err) => console.error('Failed to load ingredients:', err)
     });
-
+    // Load glasses from DB
     this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses').subscribe({
       next: (data) => {
         this.glassList = data;
@@ -249,21 +250,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   onConsentChanged(given: boolean): void
   {
     this.showGdprBanner = !given;
-  }
-
-  loadFavoriteDrinks(): void {
-   /* console.log("loading drinks for user: ", this.userId);*/
-    if (this.userId) {
-      this.userService.getUserFavorites(this.userId).subscribe(
-        (drinks) => {
-          this.favoriteDrinks = drinks;
-          console.log('Favorite drinks loaded:', this.favoriteDrinks);
-        },
-        (error) => {
-          console.error('Error fetching favorite drinks:', error);
-        }
-      );
-    }
   }
 
   loadDrinks(): void {
@@ -443,7 +429,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
-  submitModification(drinkId: number): void {
+  submitModification(drinkId: number): void
+  {
     if (!this.modifyForm.valid) return;
 
     const formValue = this.modifyForm.value;
@@ -469,4 +456,75 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       error: err => console.error('Update failed:', err)
     });
   }
+
+
+  ////////////////////////////////
+  // Favorite Methods
+  ////////////////////////////////
+
+  fetchFavoriteDrinks()
+  {
+    const userId = this.authService.getUserId();
+    if (!userId) return;
+
+    this.userService.getUserFavorites(userId).subscribe({
+      next: (favorites) => {
+        console.log("Fetched favorite drinks:", favorites);
+        this.favoriteDrinks = favorites;
+      },
+      error: (err) => {
+        console.error("Failed to fetch favorite drinks:", err);
+      }
+    });
+  }
+
+  loadFavoriteDrinks(): void
+  {
+    /* console.log("loading drinks for user: ", this.userId);*/
+    if (this.userId) {
+      this.userService.getUserFavorites(this.userId).subscribe(
+        (drinks) => {
+          this.favoriteDrinks = drinks;
+          console.log('Favorite drinks loaded:', this.favoriteDrinks);
+        },
+        (error) => {
+          console.error('Error fetching favorite drinks:', error);
+        }
+      );
+    }
+  }
+
+  addToFavorites(drinkId: number)
+  {
+    const userId = this.authService.getUserId(); // however you track user
+    if (userId)
+    {
+      this.userService.addFavoriteDrink(userId, drinkId).subscribe({
+        next: () => {
+          console.log('Drink added to favorites');
+          this.fetchFavoriteDrinks();
+        },
+        error: err => console.error('Failed to add to favorites', err)
+      });
+    }
+  }
+
+  //removeFavoriteDrink(userId: number, drinkId: number): Observable<string> {
+  //  return this.http.delete<string>(`${this.apiUrl}/${userId}/favorites/${drinkId}`);
+  //}
+
+  removeFavorite(drinkId: number)
+  {
+    const userId = this.authService.getUserId(); // however you track user
+    if (userId) {
+      this.userService.removeFavoriteDrink(userId, drinkId).subscribe({
+        next: () => {
+          console.log('Drink  favorites');
+          this.fetchFavoriteDrinks();
+        },
+        error: err => console.error('Failed remove from favorites', err)
+      });
+    }
+  }
+  // ----------------------------------------- //
 }

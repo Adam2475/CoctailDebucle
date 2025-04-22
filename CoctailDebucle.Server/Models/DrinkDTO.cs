@@ -11,7 +11,7 @@
 
         public int UserId { get; set; }
 
-        public IFormFile? ImagePath { get; set; }  // the uploaded image
+        public string? ImagePath { get; set; } // the uploaded image
     }
 
     public class DrinkIngredientDto

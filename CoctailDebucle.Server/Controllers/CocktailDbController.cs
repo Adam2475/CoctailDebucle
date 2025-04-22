@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using CoctailDebucle.Server.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace CoctailDebucle.Server.Controllers
 {
@@ -19,10 +20,13 @@ namespace CoctailDebucle.Server.Controllers
     public class CocktailDbController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public CocktailDbController(AppDbContext context)
+        private readonly ILogger<CocktailDbController> _logger;
+        public CocktailDbController(AppDbContext context, ILogger<CocktailDbController> logger)
         {
             _context = context;
+            _logger = logger;
         }
+
 
         [HttpGet("ingredients")]
         public async Task<ActionResult<IEnumerable<IngredientDTO>>> GetIngredients()
@@ -195,7 +199,7 @@ namespace CoctailDebucle.Server.Controllers
 
             return Ok(new { 
                 Message = "Image uploaded successfully.",
-                ImageUrl = imageUrl  // return public URL to the frontend
+                ImagePath = imageUrl  // return public URL to the frontend
             });
         }
 
@@ -216,6 +220,11 @@ namespace CoctailDebucle.Server.Controllers
         [HttpPost("savedrink")]
         public async Task<IActionResult> SaveDrink([FromBody] DrinkDTO dto)
         {
+            var imagePath = await DownloadImageAsync(dto.ImagePath); // ✅ Use it here
+            Console.WriteLine("Received imagePath: " + dto.ImagePath);
+
+            _logger.LogInformation("Received imagePath: {ImageUrl}", dto.ImagePath);
+
             // 1. Find the glass by its ID
             //var allGlasses = await _context.Glasses.ToListAsync();
             var glass = await _context.Glasses.FirstOrDefaultAsync(g => g.Id == dto.GlassId);
@@ -230,8 +239,9 @@ namespace CoctailDebucle.Server.Controllers
                 Name = dto.Name,
                 Category = dto.Category,
                 Instructions = dto.Instructions,
-                GlassId = glass.Id, // Use the GlassId directly from the DTO
-                UserId = dto.UserId // ADD THIS LINE
+                GlassId = glass.Id,
+                UserId = dto.UserId,
+                ImagePath = imagePath
             };
 
             _context.Drinks.Add(newDrink);
@@ -263,7 +273,29 @@ namespace CoctailDebucle.Server.Controllers
             await _context.SaveChangesAsync();
 
             // Return the created drink object
-            return Ok(newDrink);
+            return Ok(new
+            {
+                id = newDrink.Id,  // ✅ Return the ID
+                name = newDrink.Name,
+                message = "Drink saved successfully"
+            });
+        }
+
+        private async Task<string?> DownloadImageAsync(string imageUrl)
+        {
+            _logger.LogInformation("Received imageUrl: {ImageUrl}------------------------------------------------------------------------------------", imageUrl);
+            //Console.WriteLine("Received imageUrl---------------------------------------------------------------------------------------------: " + imageUrl);
+            if (string.IsNullOrEmpty(imageUrl))
+                return null;
+
+            var client = new HttpClient();
+            var imageBytes = await client.GetByteArrayAsync(imageUrl);
+            var fileName = $"{Guid.NewGuid()}.jpg";
+            var filePath = Path.Combine("wwwroot", "images", fileName);
+            await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
+
+            return $"/images/{fileName}";
         }
     }
+
 }
