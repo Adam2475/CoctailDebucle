@@ -220,8 +220,8 @@ namespace CoctailDebucle.Server.Controllers
         [HttpPost("savedrink")]
         public async Task<IActionResult> SaveDrink([FromBody] DrinkDTO dto)
         {
-            var imagePath = await DownloadImageAsync(dto.ImagePath); // ✅ Use it here
-            Console.WriteLine("Received imagePath: " + dto.ImagePath);
+            var imagePath = await DownloadImageAsync(dto.ImagePath);
+            //Console.WriteLine("Received imagePath: " + dto.ImagePath);
 
             _logger.LogInformation("Received imagePath: {ImageUrl}", dto.ImagePath);
 

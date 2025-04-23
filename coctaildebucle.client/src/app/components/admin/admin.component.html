@@ -1,10 +1,28 @@
 <main class="content">
 
+  <h2>Manage Selections</h2>
+
+  <ul>
+    <li *ngFor="let sel of selectionList">
+      <strong>Selection #{{ sel.id }}</strong>
+      by {{ sel.userName }} | Created: {{ sel.creationDate | date:'short' }}
+      | Drinks: {{ sel.drinkCount }}
+      | <span [ngClass]="sel.isActive ? 'active' : 'inactive'">
+        {{ sel.isActive ? 'Active' : 'Inactive' }}
+      </span>
+      <button (click)="toggleSelectionList(sel.id)">
+        Toggle Active
+      </button>
+      <button (click)="removeSelection(sel.id)">Delete</button>
+    </li>
+  </ul>
+
+
   <h2>Selected Drinks</h2>
   <div *ngFor="let drink of selectedDrinks">
     <strong>{{ drink.strDrink }}</strong>
   </div>
-    <button (click)="submitSelection()">Submit Selection</button>
+  <button (click)="submitSelection()">Submit Selection</button>
 
   <h2>Choose drinks to add to the menù</h2>
   <!-- Main List of Drinks from API -->

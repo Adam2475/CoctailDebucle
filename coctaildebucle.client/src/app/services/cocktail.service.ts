@@ -132,4 +132,16 @@ export class CocktailService {
     return this.http.get<any>(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   }
 
+  getSelections(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7047/api/selection');
+  }
+
+  updateSelection(id: number, updateData: { isActive: boolean }): Observable<any> {
+    return this.http.put(`https://localhost:7047/api/${id}`, updateData);
+  }
+
+  getActiveSelectionDrinks(): Observable<Drink[]> {
+    return this.http.get<Drink[]>('https://localhost:7047/api/selection/active-drinks');
+  }
+
 }

@@ -14,6 +14,6 @@ namespace CoctailDebucle.Server.Models
 
         public bool isActive { get; set; } 
 
-        public List<Drink> Drinks { get; set; } = new List<Drink>();
+        public ICollection<Drink> Drinks { get; set; } = new List<Drink>();
     }
 }

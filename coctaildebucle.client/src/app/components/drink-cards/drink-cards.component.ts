@@ -11,16 +11,23 @@ import { Router } from '@angular/router';
 export class DrinkCardsComponent implements OnInit
 {
   drinks: any[] = []; // Array to hold drink data
+  selDrinks: any[] = [];
 
   constructor(private cocktailService: CocktailService, private router: Router) { }
 
   ngOnInit(): void {
+
+
     this.cocktailService.getDrinks().subscribe((data: any) => {
       if (data.drinks && data.drinks.length > 0) {
         this.drinks = this.getRandomDrinks(data.drinks, 9);
       }
     }, error => {
       console.error('Error fetching drinks:', error);
+    });
+    this.cocktailService.getActiveSelectionDrinks().subscribe({
+      next: (data) => this.selDrinks = data,
+      error: (err) => console.error('Failed to load drinks', err)
     });
   }
 

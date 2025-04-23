@@ -31,5 +31,8 @@ namespace CoctailDebucle.Server.Models
 
         // Path for the Db stored image
         public string? ImagePath { get; set; }
+
+        public int? SelectionId { get; set; }
+        public Selection? Selection { get; set; } // navigation property
     }
 }

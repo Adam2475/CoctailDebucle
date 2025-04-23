@@ -1,9 +1,12 @@
 <div class="drink-container">
-  <!--<div class="drink-card" *ngFor="let cocktail of drinks">
-    <a [routerLink]="['/cocktail', cocktail.idDrink]">
-      <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}"/>
-      <h3>{{ cocktail.strDrink }}</h3>
-    </a>
-  </div>-->
-  <p>wait for the admin to add more drinks</p>
+  <div class="drink-grid">
+    <div *ngFor="let drink of selDrinks" class="drink-card">
+      <img *ngIf="drink.imagePath"
+           [src]="'https://localhost:7047' + drink.imagePath"
+           [alt]="drink.name">
+      <h3>{{ drink.name }}</h3>
+    </div>
+  </div>
+
+  <p *ngIf="selDrinks.length === 0">Wait for the admin to add more drinks</p>
 </div>

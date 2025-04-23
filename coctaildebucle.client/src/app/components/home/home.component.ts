@@ -88,4 +88,5 @@ export class HomeComponent {
         this.drinks = response.drinks || [];
       });
   }
+
 }

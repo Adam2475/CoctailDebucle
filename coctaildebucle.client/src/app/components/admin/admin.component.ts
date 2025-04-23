@@ -25,11 +25,13 @@ interface SavedDrinkResponse {
 })
 export class AdminComponent implements OnInit {
   drinks: any[] = []; // Array to hold drink data
+  selectionList: any[] = [];
+  selectedSelection: any = null;
 
   constructor(private cocktailService: CocktailService, private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit(): void {
-  
+    this.fetchSelectionList();
     this.cocktailService.getDrinks().pipe(
       map((data: any) => this.getRandomDrinks(data.drinks, 9)), // 1. Pick 9 random
       switchMap((drinks: any[]) => {
@@ -58,6 +60,50 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
+  fetchSelectionList() {
+    this.cocktailService.getSelections().subscribe((data: any[]) => {
+      console.log("Selections fetched from API:", data);
+      this.selectionList = data;
+    });
+  }
+
+
+  toggleSelectionList(id: number) {
+  this.http.put<any>(`https://localhost:7047/api/selection/toggle-selection-list/${id}`, {})
+    .subscribe({
+      next: (response) => {
+        const updated = this.selectionList.find(s => s.id === id);
+        if (updated) {
+          updated.isActive = response.isActive;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+}
+
+  onSelectionChange(selectionId: number) {
+    this.selectedSelection = this.selectionList.find(s => s.id === +selectionId);
+  }
+
+  removeSelection(id: number) {
+    // Call the API to delete the selection
+    this.http.delete(`https://localhost:7047/api/selection/${id}`).subscribe({
+      next: (response) => {
+        // If the selection was successfully deleted, remove it from the local list
+        this.selectionList = this.selectionList.filter(s => s.id !== id);
+      },
+      error: (err) => {
+        console.error('Error deleting selection:', err);
+      }
+    });
+  }
+
+  //////////////////////////////////
+  // Selection List Methods
+  //////////////////////////////////
 
   private getRandomDrinks(drinks: any[], count: number): any[]
   {
@@ -95,13 +141,14 @@ export class AdminComponent implements OnInit {
    *          4) generate the payload to save the drink
    *
    * @todo :  split the function
-   *          add images
+   *          
    */
 
   submitSelection(): void
   {
     const uniqueIngredients = new Set<string>();
     const uniqueGlasses = new Set<string>();
+
 
     this.selectedDrinks.forEach(drink => {
       if (drink.strGlass) {
@@ -177,7 +224,23 @@ export class AdminComponent implements OnInit {
           this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)
         )
       ).subscribe({
-        next: () => console.log('All drinks submitted!'),
+        next: (responses) => {
+          console.log('All drinks submitted!');
+
+         
+          const drinkIds = responses.map((res: any) => res.id);
+
+          const selectionPayload = {
+            userId: Number(userId),
+            drinkIds: drinkIds
+          };
+
+          this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
+            .subscribe({
+              next: res => console.log('Selection saved:', res),
+              error: err => console.error('Selection save error:', err)
+            });
+        },
         error: err => console.error('Submission error:', err)
       });
     });
@@ -191,7 +254,7 @@ export class AdminComponent implements OnInit {
   toggleSelection(drink: any): void
   {
     const index = this.selectedDrinks.findIndex(d => d.idDrink === drink.idDrink);
-
+    console.log("ciaone");
     if (index !== -1)
       this.selectedDrinks.splice(index, 1);
     else
@@ -232,5 +295,11 @@ export class AdminComponent implements OnInit {
   isSelected(drink: any): boolean
   {
     return this.selectedDrinks.some(d => d.idDrink === drink.idDrink);
+  }
+
+
+  onSelectionChange2(value: string) {
+    const id = Number(value);
+    this.selectedSelection = this.selectionList.find(s => s.id === id);
   }
 }

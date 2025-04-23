@@ -22,8 +22,6 @@ builder.Services.AddCors(options =>
 });
 
 // Add Swagger services
-//builder.Services.AddEndpointsApiExplorer();
-//Configure Swagger
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>

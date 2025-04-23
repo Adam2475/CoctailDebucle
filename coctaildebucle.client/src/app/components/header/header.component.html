@@ -8,11 +8,21 @@
         <p-button class="loginButton" label="Login" *ngIf="!isLoggedIn" (click)="popupForm.togglePopup()">
           <i class="fas fa-user"></i>
         </p-button>
-        <div *ngIf="isLoggedIn">
-          <p-button label="Admin" *ngIf="isAdmin" (click)="navigateToAdmin()"></p-button>
-          <p-button label="Profile" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()"></p-button>
-          <p-button label="Logout" (click)="popupForm.logout()"></p-button>
+        <div class="nav-buttons" *ngIf="isLoggedIn">
+          <p-button class="nav-button" label="Admin" *ngIf="isAdmin" (click)="navigateToAdmin()"></p-button>
+          <p-button class="nav-button" label="Profile" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()"></p-button>
+          <p-button  class="nav-button" label="Logout" (click)="popupForm.logout()"></p-button>
         </div>
+      </div>
+    </div>
+    <div class="alternate-login">
+      <p-button (click)="toggleNavDropdown()">
+        <i class="pi pi-list"></i>
+      </p-button>
+      <div class="dropdown-menu" *ngIf="showNavDropdown">
+        <p-button class="nav-button" label="Admin" *ngIf="isAdmin" (click)="navigateToAdmin(); toggleNavDropdown()"></p-button>
+        <p-button class="nav-button" label="Profile" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile(); toggleNavDropdown()"></p-button>
+        <p-button class="nav-button" label="Logout" (click)="popupForm.logout(); toggleNavDropdown()"></p-button>
       </div>
     </div>
   </nav>

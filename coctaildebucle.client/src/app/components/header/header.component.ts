@@ -5,11 +5,12 @@ import { NgIf } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ButtonModule } from 'primeng/button';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [PopupFormComponent, NgIf, CommonModule, ButtonModule],
+  imports: [PopupFormComponent, NgIf, CommonModule, ButtonModule, MenubarModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewInit
   currentUrl: string = '';
   token: string = '';
   isAdmin: boolean = false;
+  showNavDropdown: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -32,6 +34,10 @@ export class HeaderComponent implements OnInit, AfterViewInit
         this.currentUrl = event.url;
       }
     });
+  }
+
+  toggleNavDropdown() {
+    this.showNavDropdown = !this.showNavDropdown;
   }
 
   ngAfterViewInit() {

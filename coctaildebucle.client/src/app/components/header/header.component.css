@@ -38,8 +38,17 @@ nav
   font-weight: bold;
   color: #f8b400;
 }
-
+/*////////////////////*/
 /* Navigation Buttons */
+/*////////////////////*/
+
+.nav-buttons {
+    /*background-color:antiquewhite;*/
+}
+
+.nav-button {
+    margin: 0.5em;
+}
 
 .loginButton
 {
@@ -74,6 +83,23 @@ nav
 .login p
 {
   font-size: 16px;
+}
+
+/*/////////////////////*/
+/* Navigation Dropdown */
+/*/////////////////////*/
+
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  margin-top: 2.2em;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  padding: 0.5rem;
 }
 
 /* Popup Overlay (Hidden by Default) */
@@ -158,4 +184,19 @@ nav
   color: inherit; /* Keep the original color */
   cursor: pointer; /* Ensure it's clickable */
   font-weight: bold; /* Make it stand out */
+}
+
+.alternate-login
+{
+    display:none;
+}
+
+@media screen and (max-width: 600px) {
+  .login-container{
+      display:none;
+  }
+
+  .alternate-login {
+    display: flex;
+  }
 }

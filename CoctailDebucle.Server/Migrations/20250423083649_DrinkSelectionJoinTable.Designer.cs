@@ -4,6 +4,7 @@ using CoctailDebucle.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoctailDebucle.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423083649_DrinkSelectionJoinTable")]
+    partial class DrinkSelectionJoinTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +54,6 @@ namespace CoctailDebucle.Server.Migrations
                     b.Property<int?>("SelectionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SelectionId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -62,8 +62,6 @@ namespace CoctailDebucle.Server.Migrations
                     b.HasIndex("GlassId");
 
                     b.HasIndex("SelectionId");
-
-                    b.HasIndex("SelectionId1");
 
                     b.HasIndex("UserId");
 
@@ -219,12 +217,7 @@ namespace CoctailDebucle.Server.Migrations
 
                     b.HasOne("CoctailDebucle.Server.Models.Selection", null)
                         .WithMany("Drinks")
-                        .HasForeignKey("SelectionId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("CoctailDebucle.Server.Models.Selection", "Selection")
-                        .WithMany()
-                        .HasForeignKey("SelectionId1");
+                        .HasForeignKey("SelectionId");
 
                     b.HasOne("CoctailDebucle.Server.Models.User", "User")
                         .WithMany("Drinks")
@@ -233,8 +226,6 @@ namespace CoctailDebucle.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("Glass");
-
-                    b.Navigation("Selection");
 
                     b.Navigation("User");
                 });
