@@ -14,6 +14,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using CoctailDebucle.Server.Models;
 using Microsoft.Extensions.Logging;
+using CoctailDebucle.Server.DTOs;
+using System.Diagnostics;
 
 // MVC : Model - View - Controller
 namespace CoctailDebucle.Server.Controllers
@@ -62,6 +64,42 @@ namespace CoctailDebucle.Server.Controllers
             }
 
             return BadRequest("Invalid registration data.");
+        }
+
+        [HttpPut("update/{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto dto)
+        {
+            /*
+            Debug.WriteLine("DTO ricevuto:");
+            Debug.WriteLine($"Username: {dto.Username}");
+            Debug.WriteLine($"Email: {dto.Email}");
+            Debug.WriteLine($"Password: {dto.Password}");
+            Debug.WriteLine($"Name: {dto.Name}");
+            Debug.WriteLine($"Surname: {dto.Surname}");
+            Debug.WriteLine($"BirthDate: {dto.BirthDate}");
+            */
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            user.Username = dto.Username;
+            user.Email = dto.Email;
+            //ser.GdprConsent = dto.GdprConsent;   //mettere gdpr consent in modulo registrazione?
+            user.Name = dto.Name;
+            user.Surname = dto.Surname;
+            user.BirthDate = dto.BirthDate;
+
+            if (!string.IsNullOrWhiteSpace(dto.Password))
+            {
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok("User updated successfully.");
         }
 
         [HttpGet("{id}")]
