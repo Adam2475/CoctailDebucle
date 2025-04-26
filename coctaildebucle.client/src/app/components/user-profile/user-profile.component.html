@@ -6,6 +6,54 @@
 
   <h2>Il Mio Profilo</h2>
 
+  <!--  Update Profile -->
+  <section class="profile-update" *ngIf="consentGiven">
+    <h3>Aggiorna le tue informazioni</h3>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onProfileUpdate()">
+      <div class="form-group">
+        <label for="name_user">Name</label>
+        <input type="text" id="name_user" formControlName="name" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" formControlName="surname" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="birthDate">Birth Date</label>
+        <input type="date" id="birthDate" formControlName="birthDate" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" />
+      </div>
+
+      <!-- Password change -->
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" formControlName="newPassword" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm New Password</label>
+        <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" class="form-control" />
+        <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Update Profile</button>
+      <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+    </form>
+  </section>
+
   <div *ngIf="!consentGiven">
     <p>You need to accept GDPR consent to view your favorite drinks.</p>
   </div>
@@ -16,95 +64,7 @@
   <section *ngIf="consentGiven" class="favorites">
     <h2>Favorite Drinks</h2>
     <div class="user-drinks" *ngIf="favoriteDrinks.length > 0; else noFavorites">
-        <div class="drink-card" *ngFor="let drink of favoriteDrinks">
-          <h3>{{ drink.name }}</h3>
-
-          <ul>
-            <li *ngFor="let ingredient of drink.drinkIngredients">
-              {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
-            </li>
-          </ul>
-          <!-- IMAGE DISPLAY -->
-          <img *ngIf="drink.imagePath"
-               [src]="'https://localhost:7047' + drink.imagePath"
-               alt="{{ drink.name }} image"
-               width="200"
-               height="200"
-               style="object-fit: cover; border-radius: 8px;" />
-          <button (click)="removeFavorite(drink.id)"> remove from favorites</button>
-        </div>
-      </div>
-      <ng-template #noFavorites>
-        <p>You have no favorite drinks yet.</p>
-      </ng-template>
-  </section>
-
-    <div *ngIf="consentGiven">
-      <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
-    </div>
-
-    <!-- Create Drink Form -->
-    <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="name">Drink Name:</label>
-        <input id="name" type="text" formControlName="name" required />
-      </div>
-      <div>
-        <label for="category">Category:</label>
-        <input id="category" type="text" formControlName="category" required />
-      </div>
-      <div class="form-group">
-        <label for="glass">Select Glass</label>
-        <select id="glass" class="form-control" formControlName="glassId">
-          <option [ngValue]="null" disabled selected>-- Select a glass --</option>
-          <option *ngFor="let glass of glassList" [value]="glass.id">
-            {{ glass.name }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label for="instructions">Instructions:</label>
-        <textarea id="instructions" formControlName="instructions" required></textarea>
-      </div>
-
-      <!-- Dynamic Ingredients -->
-      <div formArrayName="ingredients">
-        <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
-          <!-- Ingredient dropdown -->
-          <label for="ingredientId">Ingredient</label>
-          <select formControlName="ingredientId" required>
-            <option value="">-- Select Ingredient --</option>
-            <option *ngFor="let ing of availableIngredients" [value]="ing.id">{{ ing.name }}</option>
-          </select>
-
-          <!-- Amount input -->
-          <label for="amount">Amount</label>
-          <input formControlName="amount" placeholder="e.g. 1 oz" required />
-
-          <!-- Remove button -->
-          <p-button type="button" (click)="ingredients.removeAt(i)">Remove</p-button>
-        </div>
-      </div>
-
-      <!-- Add ingredient button -->
-      <button type="button" (click)="addIngredient()">Add Ingredient</button>
-
-      <!-- Image Upload -->
-      <div>
-        <label for="file">Image:</label>
-        <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit">Create Drink</button>
-    </form>
-
-    <!-- List of Created Drinks -->
-    <h2 id="created-header">
-      Your Created Drinks
-    </h2>
-    <div class="user-drinks" *ngIf="userDrinks.length > 0">
-      <div class="drink-card" *ngFor="let drink of userDrinks">
+      <div class="drink-card" *ngFor="let drink of favoriteDrinks">
         <h3>{{ drink.name }}</h3>
 
         <ul>
@@ -119,69 +79,157 @@
              width="200"
              height="200"
              style="object-fit: cover; border-radius: 8px;" />
-        <!-- Action buttons -->
-        <button (click)="addToFavorites(drink.id)">Add to Favorites</button>
-        <button (click)="onModifyClick(drink)">Modify</button>
-        <button (click)="deleteDrink(drink.id)">Delete</button>
+        <button (click)="removeFavorite(drink.id)"> remove from favorites</button>
+      </div>
+    </div>
+    <ng-template #noFavorites>
+      <p>You have no favorite drinks yet.</p>
+    </ng-template>
+  </section>
+
+  <div *ngIf="consentGiven">
+    <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
+  </div>
+
+  <!-- Create Drink Form -->
+  <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Drink Name:</label>
+      <input id="name" type="text" formControlName="name" required />
+    </div>
+    <div>
+      <label for="category">Category:</label>
+      <input id="category" type="text" formControlName="category" required />
+    </div>
+    <div class="form-group">
+      <label for="glass">Select Glass</label>
+      <select id="glass" class="form-control" formControlName="glassId">
+        <option [ngValue]="null" disabled selected>-- Select a glass --</option>
+        <option *ngFor="let glass of glassList" [value]="glass.id">
+          {{ glass.name }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="instructions">Instructions:</label>
+      <textarea id="instructions" formControlName="instructions" required></textarea>
+    </div>
+
+    <!-- Dynamic Ingredients -->
+    <div formArrayName="ingredients">
+      <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
+        <!-- Ingredient dropdown -->
+        <label for="ingredientId">Ingredient</label>
+        <select formControlName="ingredientId" required>
+          <option value="">-- Select Ingredient --</option>
+          <option *ngFor="let ing of availableIngredients" [value]="ing.id">{{ ing.name }}</option>
+        </select>
+
+        <!-- Amount input -->
+        <label for="amount">Amount</label>
+        <input formControlName="amount" placeholder="e.g. 1 oz" required />
+
+        <!-- Remove button -->
+        <p-button type="button" (click)="ingredients.removeAt(i)">Remove</p-button>
       </div>
     </div>
 
-    <div *ngIf="userDrinks.length === 0">
-      <p>You haven't created any drinks yet.</p>
+    <!-- Add ingredient button -->
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+
+    <!-- Image Upload -->
+    <div>
+      <label for="file">Image:</label>
+      <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
     </div>
 
-    <button (click)="goBack()">Go Back</button>
+    <!-- Submit Button -->
+    <button type="submit">Create Drink</button>
+  </form>
 
-    <!-- Modify Drink Form (shown as an overlay or inline) -->
-    <div class="modify-form-overlay" *ngIf="selectedDrink">
-      <div class="modify-form">
-        <h2>Modify Drink</h2>
-        <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
-          <!-- Drink Name -->
-          <div>
-            <label for="mod-name">Drink Name:</label>
-            <input id="mod-name" type="text" formControlName="name" required />
-          </div>
+  <!-- List of Created Drinks -->
+  <h2 id="created-header">
+    Your Created Drinks
+  </h2>
+  <div class="user-drinks" *ngIf="userDrinks.length > 0">
+    <div class="drink-card" *ngFor="let drink of userDrinks">
+      <h3>{{ drink.name }}</h3>
 
-          <!-- Category -->
-          <div>
-            <label for="mod-category">Category:</label>
-            <input id="mod-category" type="text" formControlName="category" required />
-          </div>
+      <ul>
+        <li *ngFor="let ingredient of drink.drinkIngredients">
+          {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
+        </li>
+      </ul>
+      <!-- IMAGE DISPLAY -->
+      <img *ngIf="drink.imagePath"
+           [src]="'https://localhost:7047' + drink.imagePath"
+           alt="{{ drink.name }} image"
+           width="200"
+           height="200"
+           style="object-fit: cover; border-radius: 8px;" />
+      <!-- Action buttons -->
+      <button (click)="addToFavorites(drink.id)">Add to Favorites</button>
+      <button (click)="onModifyClick(drink)">Modify</button>
+      <button (click)="deleteDrink(drink.id)">Delete</button>
+    </div>
+  </div>
 
-          <!-- Glass ID -->
-          <div class="form-group">
-            <label for="mod-glass">Select Glass</label>
-            <select id="mod-glass" class="form-control" formControlName="glassId">
-              <option [ngValue]="null" disabled selected>-- Select a glass --</option>
-              <option *ngFor="let glass of glassList" [value]="glass.id">
-                {{ glass.name }}
-              </option>
+  <div *ngIf="userDrinks.length === 0">
+    <p>You haven't created any drinks yet.</p>
+  </div>
+
+  <button (click)="goBack()">Go Back</button>
+
+  <!-- Modify Drink Form (shown as an overlay or inline) -->
+  <div class="modify-form-overlay" *ngIf="selectedDrink">
+    <div class="modify-form">
+      <h2>Modify Drink</h2>
+      <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
+        <!-- Drink Name -->
+        <div>
+          <label for="mod-name">Drink Name:</label>
+          <input id="mod-name" type="text" formControlName="name" required />
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label for="mod-category">Category:</label>
+          <input id="mod-category" type="text" formControlName="category" required />
+        </div>
+
+        <!-- Glass ID -->
+        <div class="form-group">
+          <label for="mod-glass">Select Glass</label>
+          <select id="mod-glass" class="form-control" formControlName="glassId">
+            <option [ngValue]="null" disabled selected>-- Select a glass --</option>
+            <option *ngFor="let glass of glassList" [value]="glass.id">
+              {{ glass.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Instructions -->
+        <div>
+          <label for="mod-instructions">Instructions:</label>
+          <textarea id="mod-instructions" formControlName="instructions" required></textarea>
+        </div>
+
+        <!-- Modify Ingredients -->
+        <div *ngIf="selectedDrink" formArrayName="ingredients">
+          <div *ngFor="let ing of modifyIngredients.controls; let i = index" [formGroupName]="i">
+            <select formControlName="ingredientId">
+              <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
             </select>
+            <input formControlName="amount" placeholder="Amount" />
+            <button type="button" (click)="removeModifyIngredient(i)">Remove</button>
           </div>
+          <button type="button" (click)="addModifyIngredient()">Add Ingredient</button>
+        </div>
 
-          <!-- Instructions -->
-          <div>
-            <label for="mod-instructions">Instructions:</label>
-            <textarea id="mod-instructions" formControlName="instructions" required></textarea>
-          </div>
-
-          <!-- Modify Ingredients -->
-          <div *ngIf="selectedDrink" formArrayName="ingredients">
-            <div *ngFor="let ing of modifyIngredients.controls; let i = index" [formGroupName]="i">
-              <select formControlName="ingredientId">
-                <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
-              </select>
-              <input formControlName="amount" placeholder="Amount" />
-              <button type="button" (click)="removeModifyIngredient(i)">Remove</button>
-            </div>
-            <button type="button" (click)="addModifyIngredient()">Add Ingredient</button>
-          </div>
-
-          <button type="submit">Save Changes</button>
-          <button type="button" (click)="cancelModification()">Cancel</button>
-        </form>
-      </div>
+        <button type="submit">Save Changes</button>
+        <button type="button" (click)="cancelModification()">Cancel</button>
+      </form>
     </div>
+  </div>
 
 </main>

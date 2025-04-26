@@ -64,7 +64,15 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   selectedDrink: any = null;
   modifyForm!: FormGroup;
   ingredientOptions: { id: number; name: string }[] = [];
-/*  favoriteDrinks$: Observable<Drink[]>;*/
+  /*  favoriteDrinks$: Observable<Drink[]>;*/
+
+  ////////////////////////////
+  // Update user
+  ////////////////////////////
+  profileForm!: FormGroup;
+  passwordMismatch: boolean = false;
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private userService: UserService,
@@ -150,7 +158,72 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
 
     this.fetchIngredientOptions();
+    this.initProfileForm();
+    this.loadUserData(); //per aggiornamento dati utente
   }
+
+  ////////////////////////////
+  // Update user
+  ////////////////////////////
+  private initProfileForm(): void {
+    this.profileForm = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      newPassword: [''],
+      confirmNewPassword: ['']
+    });
+  }
+
+  private loadUserData(): void {
+    this.http.get<any>(`https://localhost:7047/api/auth/${this.userId}`).subscribe(user => {
+      const date = new Date(user.birthDate);
+      const formattedDate = date.toISOString().split('T')[0];
+      this.profileForm.patchValue({
+        name: user.name,
+        surname: user.surname,
+        birthDate: formattedDate,
+        username: user.username,
+        email: user.email
+      });
+    });
+  }
+
+  onProfileUpdate(): void {
+    this.passwordMismatch = false;
+
+    const newPass = this.profileForm.get('newPassword')?.value;
+    const confirmPass = this.profileForm.get('confirmNewPassword')?.value;
+
+    if (newPass && newPass !== confirmPass) {
+      this.passwordMismatch = true;
+      return;
+    }
+
+    const updateData: any = {
+      name: this.profileForm.value.name,
+      surname: this.profileForm.value.surname,
+      birthDate: this.profileForm.value.birthDate,
+      username: this.profileForm.value.username,
+      email: this.profileForm.value.email,
+      password: ""
+    };
+
+    if (newPass) {
+      updateData.password = newPass;
+    }
+
+    console.log('Payload inviato:', updateData);//log per payload
+    this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe(
+      res => console.log('Successo:', res),
+      err => console.error('Errore PUT:', err)
+    );
+  }
+  ////////////////////////////
+  // Update user ^^^
+  ////////////////////////////
 
   ngAfterViewInit(): void {
     // Ensure that the gdprBanner is available and then modify its showBanner property
