@@ -172,6 +172,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       birthDate: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      gdprConsent: [false],
       newPassword: [''],
       confirmNewPassword: ['']
     });
@@ -186,7 +187,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         surname: user.surname,
         birthDate: formattedDate,
         username: user.username,
-        email: user.email
+        email: user.email,
+        gdprConsent: this.consentGiven,
       });
     });
   }
@@ -208,6 +210,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       birthDate: this.profileForm.value.birthDate,
       username: this.profileForm.value.username,
       email: this.profileForm.value.email,
+      gdprConsent: !!this.profileForm.value.gdprConsent,
       password: ""
     };
 
@@ -215,12 +218,44 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       updateData.password = newPass;
     }
 
-    console.log('Payload inviato:', updateData);//log per payload
+    console.log('Payload inviato:', updateData);//da commentare prima di consegna
     this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe(
-      res => console.log('Successo:', res),
-      err => console.error('Errore PUT:', err)
+      response => {
+        console.log('Successo aggiornamento profilo:', response);
+      },
+      error => {
+        console.error('Errore aggiornamento profilo:', error);
+      }
     );
+
+    this.consentGiven = this.profileForm.value.gdprConsent;
+    this.onConsentChanged(this.consentGiven);
+    
   }
+
+
+  editableFields = [
+    { label: 'Name', controlName: 'name', type: 'text', editing: false },
+    { label: 'Surname', controlName: 'surname', type: 'text', editing: false },
+    { label: 'Birth Date', controlName: 'birthDate', type: 'date', editing: false },
+    { label: 'Username', controlName: 'username', type: 'text', editing: false },
+    { label: 'Email', controlName: 'email', type: 'email', editing: false },
+    //{ label: 'GDPR Consent', controlName: 'gdprConsent', type: 'checkbox', editing: true }
+  ];
+
+  passwordEditMode = false;
+
+  toggleEdit(field: any): void {
+    field.editing = !field.editing;
+  }
+
+  togglePasswordEdit(): void {
+    this.passwordEditMode = !this.passwordEditMode;
+    if (!this.passwordEditMode) {
+      this.profileForm.patchValue({ newPassword: '', confirmNewPassword: '' });
+    }
+  }
+
   ////////////////////////////
   // Update user ^^^
   ////////////////////////////
@@ -342,7 +377,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         () => {
           console.log("Consent withdrawn successfully");
           this.consentGiven = false;
-          this.showGdprBanner = true;
+          this.showGdprBanner = true;//forse togliere se gestiamo gdpr tutto da modulo informazioni utente
           this.favoriteDrinks = []; // Optionally clear drinks
           window.location.reload();
         },
