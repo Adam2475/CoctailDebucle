@@ -4,55 +4,61 @@
 
 <main>
 
-  <h2>Il Mio Profilo</h2>
+  <h2>My Profile</h2>
 
   <!--  Update Profile -->
-  <section class="profile-update" *ngIf="consentGiven">
-    <h3>Aggiorna le tue informazioni</h3>
+  <section class="profile-update">
+    <h3>Update Your Information</h3>
 
     <form [formGroup]="profileForm" (ngSubmit)="onProfileUpdate()">
-      <div class="form-group">
-        <label for="name_user">Name</label>
-        <input type="text" id="name_user" formControlName="name" class="form-control" />
+      <div class="form-row" *ngFor="let field of editableFields">
+        <label class="form-label">{{ field.label }}</label>
+        <input [type]="field.type"
+               [formControlName]="field.controlName"
+               [readonly]="!field.editing"
+               class="form-control input-fixed" />
+        <button type="button" class="edit-btn" (click)="toggleEdit(field)">
+          {{ field.editing ? 'Cancel' : 'Edit' }}
+        </button>
       </div>
 
-      <div class="form-group">
-        <label for="surname">Surname</label>
-        <input type="text" id="surname" formControlName="surname" class="form-control" />
+      <!-- gdpr field -->
+      <div class="form-row">
+        <label class="form-label">GDPR Consent</label>
+        <input type="checkbox" formControlName="gdprConsent" />
       </div>
 
-      <div class="form-group">
-        <label for="birthDate">Birth Date</label>
-        <input type="date" id="birthDate" formControlName="birthDate" class="form-control" />
+      <!-- password field -->
+      <div class="form-row">
+        <label class="form-label">Current Password</label>
+        <input type="password"
+               value="********"
+               readonly
+               class="form-control input-fixed" />
+        <button type="button" class="edit-btn" (click)="togglePasswordEdit()">
+          {{ passwordEditMode ? 'Cancel' : 'Edit' }}
+        </button>
       </div>
 
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" formControlName="username" class="form-control" />
+      <div *ngIf="passwordEditMode">
+        <div class="form-row">
+          <label class="form-label">New Password</label>
+          <input type="password" id="newPassword" formControlName="newPassword" class="form-control input-fixed" />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Confirm New Password</label>
+          <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" class="form-control input-fixed" />
+          <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="form-control" />
-      </div>
-
-      <!-- Password change -->
-      <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" id="newPassword" formControlName="newPassword" class="form-control" />
-      </div>
-
-      <div class="form-group">
-        <label for="confirmNewPassword">Confirm New Password</label>
-        <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" class="form-control" />
-        <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
-      </div>
-
-      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Update Profile</button>
+      <button type="submit" class="btn btn-primary save-btn" [disabled]="profileForm.invalid">Save Changes</button>
       <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
     </form>
   </section>
+
 
   <div *ngIf="!consentGiven">
     <p>You need to accept GDPR consent to view your favorite drinks.</p>

@@ -85,9 +85,13 @@ namespace CoctailDebucle.Server.Controllers
                 return NotFound("User not found.");
             }
 
+            // Prima di salvare:
+            Console.WriteLine($"Aggiorno consenso GDPR a: {dto.GdprConsent}");
+
+
             user.Username = dto.Username;
             user.Email = dto.Email;
-            //ser.GdprConsent = dto.GdprConsent;   //mettere gdpr consent in modulo registrazione?
+            user.GdprConsent = dto.GdprConsent;   //mettere gdpr consent in modulo registrazione?
             user.Name = dto.Name;
             user.Surname = dto.Surname;
             user.BirthDate = dto.BirthDate;

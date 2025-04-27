@@ -13,7 +13,7 @@ namespace CoctailDebucle.Server.DTOs
 
         public String Password { get; set; }
 
-        //public bool GdprConsent { get; set; }
+        public bool GdprConsent { get; set; }
 
         [Required]
         public string Name { get; set; }
