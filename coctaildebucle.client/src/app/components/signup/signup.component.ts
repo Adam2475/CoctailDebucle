@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,7 @@ export class SignupComponent {
   isSubmitted = false;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
@@ -55,7 +56,10 @@ export class SignupComponent {
       .subscribe(
         response => {
           console.log('Registration successful!', response);
-          // Redirect or show success message here
+          // popup success
+          window.alert('🎉 Congratulations! You successfully registered. Now log in and start exploring!');
+          //redirect to home page
+          this.router.navigate(['/']);
         },
         error => {
           console.error('Registration error', error);
