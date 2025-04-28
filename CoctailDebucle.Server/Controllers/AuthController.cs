@@ -1,35 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-using BCrypt.Net;
-using Microsoft.AspNetCore.Http;
-using System.Data;
-using System.Data.SqlClient;
 using CoctailDebucle.Server.Data;
 using Microsoft.IdentityModel.Tokens;
-//using Microsoft.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using CoctailDebucle.Server.Models;
-using Microsoft.Extensions.Logging;
 using CoctailDebucle.Server.DTOs;
-using System.Diagnostics;
 
-// MVC : Model - View - Controller
+// MCV : Model - Controller - View
 namespace CoctailDebucle.Server.Controllers
 {
     [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        //private IConfiguration _configuration;
+        // Database context Class
+        /* represents a session with your database
+            allows you to query and save data */
+        // Inherits from DbContext from EF Core
+        // handles: SELECT (FindAsync, FirstOrDefaultAsync, ...)
+        //          INSERT (Add, SaveChangesAsync)
+        //          UPDATE
+        //          DELETE
         private readonly AppDbContext _context;
         private readonly ILogger<UserController> _logger;
+
+        // Default Constructor
         public AuthController(AppDbContext context, ILogger<UserController> logger)
         {
-            _context = context;
+            _context = context; // Inject DB Context
             _logger = logger;
         }
         [HttpPost("register")]
@@ -69,16 +69,6 @@ namespace CoctailDebucle.Server.Controllers
         [HttpPut("update/{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto dto)
         {
-            /*
-            Debug.WriteLine("DTO ricevuto:");
-            Debug.WriteLine($"Username: {dto.Username}");
-            Debug.WriteLine($"Email: {dto.Email}");
-            Debug.WriteLine($"Password: {dto.Password}");
-            Debug.WriteLine($"Name: {dto.Name}");
-            Debug.WriteLine($"Surname: {dto.Surname}");
-            Debug.WriteLine($"BirthDate: {dto.BirthDate}");
-            */
-
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {

@@ -19,6 +19,7 @@
     <PackageJsonDependenciesAngularPlatformBrowser Condition="$(PackageJsonDependenciesAngularPlatformBrowser) == ''">^19.2.2</PackageJsonDependenciesAngularPlatformBrowser>
     <PackageJsonDependenciesAngularPlatformBrowserDynamic Condition="$(PackageJsonDependenciesAngularPlatformBrowserDynamic) == ''">^19.2.0</PackageJsonDependenciesAngularPlatformBrowserDynamic>
     <PackageJsonDependenciesAngularRouter Condition="$(PackageJsonDependenciesAngularRouter) == ''">^19.2.0</PackageJsonDependenciesAngularRouter>
+    <PackageJsonDependenciesNgxTranslateCore Condition="$(PackageJsonDependenciesNgxTranslateCore) == ''">^13.0.0</PackageJsonDependenciesNgxTranslateCore>
     <PackageJsonDependenciesFontAwesome Condition="$(PackageJsonDependenciesFontAwesome) == ''">^4.7.0</PackageJsonDependenciesFontAwesome>
     <PackageJsonDependenciesJestEditorSupport Condition="$(PackageJsonDependenciesJestEditorSupport) == ''">*</PackageJsonDependenciesJestEditorSupport>
     <PackageJsonDependenciesJquery Condition="$(PackageJsonDependenciesJquery) == ''">^3.7.1</PackageJsonDependenciesJquery>
