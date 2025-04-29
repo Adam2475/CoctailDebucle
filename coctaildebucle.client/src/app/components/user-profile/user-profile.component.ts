@@ -11,7 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
-import { JsonPipe } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 
 interface DrinkIngredient {
@@ -24,7 +23,7 @@ interface DrinkIngredient {
   templateUrl: './user-profile.component.html',
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
-  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule, JsonPipe,
+  imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
     ReactiveFormsModule, ButtonModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit

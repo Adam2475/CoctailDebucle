@@ -1,4 +1,5 @@
-﻿using CoctailDebucle.Server.Models;
+﻿using System.Reflection;
+using CoctailDebucle.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoctailDebucle.Server.Data
@@ -20,20 +21,21 @@ namespace CoctailDebucle.Server.Data
         {
 
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             // Define many-to-many relationship between Drinks and Ingredients
             modelBuilder.Entity<DrinkIngredient>()
-                .HasKey(di => new { di.DrinkId, di.IngredientId });
+                    .HasKey(di => new { di.DrinkId, di.IngredientId });
 
             modelBuilder.Entity<DrinkIngredient>()
-                .HasOne(di => di.Drink)
-                .WithMany(d => d.DrinkIngredients)
-                .HasForeignKey(di => di.DrinkId);
+                    .HasOne(di => di.Drink)
+                    .WithMany(d => d.DrinkIngredients)
+                    .HasForeignKey(di => di.DrinkId);
 
             modelBuilder.Entity<DrinkIngredient>()
-                .HasOne(di => di.Ingredient)
-                .WithMany(i => i.DrinkIngredients)
-                .HasForeignKey(di => di.IngredientId);
+                    .HasOne(di => di.Ingredient)
+                    .WithMany(i => i.DrinkIngredients)
+                    .HasForeignKey(di => di.IngredientId);
        
             modelBuilder.Entity<UserFavoriteDrink>()
                 .HasKey(ufd => new { ufd.UserId, ufd.DrinkId });
@@ -54,11 +56,18 @@ namespace CoctailDebucle.Server.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.Restrict);  // This avoids the cascade issue
 
-            modelBuilder.Entity<Selection>()
-                    .HasMany(s => s.Drinks)
-                    .WithOne()
-                     .HasForeignKey(d => d.SelectionId)
-                    .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<SelectionDrink>()
+                     .HasKey(sd => new { sd.SelectionId, sd.DrinkId });
+
+            modelBuilder.Entity<SelectionDrink>()
+                    .HasOne(sd => sd.Selection)
+                    .WithMany(s => s.SelectionDrinks)
+                    .HasForeignKey(sd => sd.SelectionId);
+
+            modelBuilder.Entity<SelectionDrink>()
+                    .HasOne(sd => sd.Drink)
+                    .WithMany(d => d.SelectionDrinks)
+                    .HasForeignKey(sd => sd.DrinkId);
         }
     }
 }

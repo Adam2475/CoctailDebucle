@@ -21,14 +21,15 @@ namespace CoctailDebucle.Server.Controllers
         {
             var selections = await _context.Selections
                 .Include(s => s.User)
-                .Include(s => s.Drinks)
+                .Include(s => s.SelectionDrinks)
+                    .ThenInclude(sd => sd.Drink)
                 .Select(s => new
                 {
                     s.Id,
                     UserName = s.User.Name,
                     s.CreationDate,
                     s.isActive,
-                    DrinkCount = s.Drinks.Count
+                    DrinkCount = s.SelectionDrinks.Count
                 })
                 .ToListAsync();
 
@@ -62,7 +63,10 @@ namespace CoctailDebucle.Server.Controllers
                 UserId = selectionDto.UserId,
                 CreationDate = DateTime.Now,
                 isActive = true,
-                Drinks = drinks
+                SelectionDrinks = drinks.Select(d => new SelectionDrink
+                {
+                    DrinkId = d.Id
+                }).ToList()
             };
 
             _context.Selections.Add(selection);
@@ -77,9 +81,10 @@ namespace CoctailDebucle.Server.Controllers
             var selections = await _context.Selections
                 .Where(s => s.isActive)
                 .Include(s => s.User)
-                .Include(s => s.Drinks)
-                .ThenInclude(d => d.DrinkIngredients)
-                .ThenInclude(di => di.Ingredient)
+                .Include(s => s.SelectionDrinks)
+                    .ThenInclude(sd => sd.Drink)
+                        .ThenInclude(d => d.DrinkIngredients)
+                            .ThenInclude(di => di.Ingredient)
                 .ToListAsync();
 
             var result = selections.Select(s => new {
@@ -87,17 +92,21 @@ namespace CoctailDebucle.Server.Controllers
                 s.UserId,
                 UserName = s.User?.Name,
                 s.CreationDate,
-                DrinkCount = s.Drinks.Count,
-                Drinks = s.Drinks.Select(d => new {
-                    d.Id,
-                    d.Name,
-                    d.Category,
-                    d.ImagePath,
-                    Ingredients = d.DrinkIngredients.Select(di => new {
-                        di.IngredientId,
-                        IngredientName = di.Ingredient.IngredientName,
-                        di.Amount
-                    })
+                DrinkCount = s.SelectionDrinks.Count,
+                Drinks = s.SelectionDrinks.Select(sd => {
+                    var d = sd.Drink;
+                    return new
+                    {
+                        d.Id,
+                        d.Name,
+                        d.Category,
+                        d.ImagePath,
+                        Ingredients = d.DrinkIngredients.Select(di => new {
+                            di.IngredientId,
+                            IngredientName = di.Ingredient.IngredientName,
+                            di.Amount
+                        })
+                    };
                 })
             });
 
@@ -121,8 +130,9 @@ namespace CoctailDebucle.Server.Controllers
         {
             var drinks = await _context.Selections
                 .Where(s => s.isActive)
-                .Include(s => s.Drinks)
-                .SelectMany(s => s.Drinks)
+                .Include(s => s.SelectionDrinks)
+                    .ThenInclude(sd => sd.Drink)
+                .SelectMany(s => s.SelectionDrinks.Select(sd => sd.Drink))
                 .Distinct()
                 .Select(d => new DrinkDTO
                 {

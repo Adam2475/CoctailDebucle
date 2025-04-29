@@ -32,7 +32,12 @@ namespace CoctailDebucle.Server.Models
         // Path for the Db stored image
         public string? ImagePath { get; set; }
 
-        public int? SelectionId { get; set; }
-        public Selection? Selection { get; set; } // navigation property
+        //public int? SelectionId { get; set; }
+        //public Selection? Selection { get; set; } // navigation property
+
+        public ICollection<SelectionDrink> SelectionDrinks { get; set; } = new List<SelectionDrink>();
+
+        // For User Created Drinks
+        public bool IsCreatedByUser { get; set; }
     }
 }

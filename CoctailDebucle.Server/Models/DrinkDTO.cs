@@ -12,6 +12,8 @@
         public int UserId { get; set; }
 
         public string? ImagePath { get; set; } // the uploaded image
+
+        public bool IsCreatedByUser { get; set; }
     }
 
     public class DrinkIngredientDto

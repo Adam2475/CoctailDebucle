@@ -5,7 +5,6 @@ namespace CoctailDebucle.Server.Models
     public class RegisterModel
     {
         [Required]
-        //[MinLength(4)]
         public string Username { get; set; }
 
         [Required]
@@ -13,7 +12,6 @@ namespace CoctailDebucle.Server.Models
         public string Email { get; set; }
 
         [Required]
-        //[MinLength(6)]
         public string Password { get; set; }
 
         // Update for profiling

@@ -44,15 +44,12 @@ namespace CoctailDebucle.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsCreatedByUser")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SelectionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SelectionId1")
-                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -60,10 +57,6 @@ namespace CoctailDebucle.Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GlassId");
-
-                    b.HasIndex("SelectionId");
-
-                    b.HasIndex("SelectionId1");
 
                     b.HasIndex("UserId");
 
@@ -147,6 +140,21 @@ namespace CoctailDebucle.Server.Migrations
                     b.ToTable("Selections");
                 });
 
+            modelBuilder.Entity("CoctailDebucle.Server.Models.SelectionDrink", b =>
+                {
+                    b.Property<int>("SelectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DrinkId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SelectionId", "DrinkId");
+
+                    b.HasIndex("DrinkId");
+
+                    b.ToTable("SelectionDrink");
+                });
+
             modelBuilder.Entity("CoctailDebucle.Server.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -217,15 +225,6 @@ namespace CoctailDebucle.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoctailDebucle.Server.Models.Selection", null)
-                        .WithMany("Drinks")
-                        .HasForeignKey("SelectionId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("CoctailDebucle.Server.Models.Selection", "Selection")
-                        .WithMany()
-                        .HasForeignKey("SelectionId1");
-
                     b.HasOne("CoctailDebucle.Server.Models.User", "User")
                         .WithMany("Drinks")
                         .HasForeignKey("UserId")
@@ -233,8 +232,6 @@ namespace CoctailDebucle.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("Glass");
-
-                    b.Navigation("Selection");
 
                     b.Navigation("User");
                 });
@@ -269,6 +266,25 @@ namespace CoctailDebucle.Server.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CoctailDebucle.Server.Models.SelectionDrink", b =>
+                {
+                    b.HasOne("CoctailDebucle.Server.Models.Drink", "Drink")
+                        .WithMany("SelectionDrinks")
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoctailDebucle.Server.Models.Selection", "Selection")
+                        .WithMany("SelectionDrinks")
+                        .HasForeignKey("SelectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Drink");
+
+                    b.Navigation("Selection");
+                });
+
             modelBuilder.Entity("CoctailDebucle.Server.Models.UserFavoriteDrink", b =>
                 {
                     b.HasOne("CoctailDebucle.Server.Models.Drink", "Drink")
@@ -293,6 +309,8 @@ namespace CoctailDebucle.Server.Migrations
                     b.Navigation("DrinkIngredients");
 
                     b.Navigation("FavoritedByUsers");
+
+                    b.Navigation("SelectionDrinks");
                 });
 
             modelBuilder.Entity("CoctailDebucle.Server.Models.Glass", b =>
@@ -307,7 +325,7 @@ namespace CoctailDebucle.Server.Migrations
 
             modelBuilder.Entity("CoctailDebucle.Server.Models.Selection", b =>
                 {
-                    b.Navigation("Drinks");
+                    b.Navigation("SelectionDrinks");
                 });
 
             modelBuilder.Entity("CoctailDebucle.Server.Models.User", b =>

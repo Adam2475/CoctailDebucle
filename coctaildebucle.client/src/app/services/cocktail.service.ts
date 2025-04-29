@@ -140,6 +140,7 @@ export class CocktailService {
     return this.http.put(`https://localhost:7047/api/${id}`, updateData);
   }
 
+
   getActiveSelectionDrinks(): Observable<Drink[]> {
     return this.http.get<Drink[]>('https://localhost:7047/api/selection/active-drinks');
   }

@@ -12,8 +12,9 @@ namespace CoctailDebucle.Server.Models
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
 
-        public bool isActive { get; set; } 
+        public bool isActive { get; set; }
 
-        public ICollection<Drink> Drinks { get; set; } = new List<Drink>();
+        //public ICollection<Drink> Drinks { get; set; } = new List<Drink>();
+        public ICollection<SelectionDrink> SelectionDrinks { get; set; } = new List<SelectionDrink>();
     }
 }
