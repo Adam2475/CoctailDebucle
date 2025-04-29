@@ -64,6 +64,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   selectedDrink: any = null;
   modifyForm!: FormGroup;
   ingredientOptions: { id: number; name: string }[] = [];
+  /*  favoriteDrinks$: Observable<Drink[]>;*/
+  ////////////////////////////
+  // Search Bar Created Drinks
+  ////////////////////////////
+  searchQuery: string = '';
+  filteredUserDrinks: any[] = [];
 
   ////////////////////////////
   // Update user
@@ -110,6 +116,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         .subscribe({
           next: (data) => {
             this.userDrinks = data;
+            this.onSearchQueryChange();
             //console.log("crated drinks: ", this.userDrinks);
           },
           error: (err) => {
@@ -158,7 +165,23 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
     this.fetchIngredientOptions();
     this.initProfileForm();
-    this.loadUserData(); //per aggiornamento dati utente
+    this.loadUserData(); //per form informazioni utente
+    this.filteredUserDrinks = this.userDrinks;//barra ricerca drink creati
+  }
+
+  ////////////////////////////
+  // Search Bar Created Drinks
+  ////////////////////////////
+  onSearchQueryChange() {
+    const query = this.searchQuery.toLowerCase();
+    //se barra ricerca vuota
+    if (!query) {
+      this.filteredUserDrinks = [...this.userDrinks];//mostra tutti drink creati
+    } else {
+      this.filteredUserDrinks = this.userDrinks.filter(drink =>
+        drink.name.toLowerCase().includes(query)
+      );
+    }
   }
 
   ////////////////////////////
@@ -404,6 +427,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       next: (drinks) => {
         console.log("Fetched drinks:", drinks);
         this.userDrinks = drinks;
+        this.onSearchQueryChange();//per ricerca drink creati
       },
       error: (err) => {
         console.error("Failed to fetch drinks:", err);
