@@ -24,7 +24,7 @@ interface SavedDrinkResponse {
   imports: [CommonModule, CardModule],
 })
 export class AdminComponent implements OnInit {
-  drinks: any[] = []; // Array to hold drink data
+  drinks: any[] = [];
   selectionList: any[] = [];
   selectedSelection: any = null;
 
@@ -33,9 +33,8 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSelectionList();
     this.cocktailService.getDrinks().pipe(
-      map((data: any) => this.getRandomDrinks(data.drinks, 9)), // 1. Pick 9 random
+      map((data: any) => this.getRandomDrinks(data.drinks, 9)),
       switchMap((drinks: any[]) => {
-        // 2. Fetch full details for each drink
         const detailRequests = drinks.map(drink =>
           this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
             map(res => res.drinks[0]) // extract full drink details
@@ -44,7 +43,6 @@ export class AdminComponent implements OnInit {
         return forkJoin(detailRequests);
       }),
       map((fullDrinks: any[]) => {
-        // 3. Add extracted ingredients to each drink
         return fullDrinks.map(drink => ({
           ...drink,
           ingredients: this.extractIngredients(drink)
@@ -53,7 +51,6 @@ export class AdminComponent implements OnInit {
     ).subscribe({
       next: (drinksWithIngredients) => {
         this.drinks = drinksWithIngredients;
-       // console.log("Final drink objects:", this.drinks);
       },
       error: (err) => {
         console.error("Error fetching drinks:", err);
@@ -61,7 +58,8 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  fetchSelectionList() {
+  fetchSelectionList()
+  {
     this.cocktailService.getSelections().subscribe((data: any[]) => {
       console.log("Selections fetched from API:", data);
       this.selectionList = data;
@@ -69,7 +67,8 @@ export class AdminComponent implements OnInit {
   }
 
 
-  toggleSelectionList(id: number) {
+  toggleSelectionList(id: number)
+  {
   this.http.put<any>(`https://localhost:7047/api/selection/toggle-selection-list/${id}`, {})
     .subscribe({
       next: (response) => {
@@ -84,11 +83,13 @@ export class AdminComponent implements OnInit {
     });
 }
 
-  onSelectionChange(selectionId: number) {
+  onSelectionChange(selectionId: number)
+  {
     this.selectedSelection = this.selectionList.find(s => s.id === +selectionId);
   }
 
-  removeSelection(id: number) {
+  removeSelection(id: number)
+  {
     // Call the API to delete the selection
     this.http.delete(`https://localhost:7047/api/selection/${id}`).subscribe({
       next: (response) => {

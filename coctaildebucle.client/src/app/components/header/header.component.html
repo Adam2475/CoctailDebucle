@@ -19,10 +19,13 @@
       <p-button (click)="toggleNavDropdown()">
         <i class="pi pi-list"></i>
       </p-button>
-      <div class="dropdown-menu" *ngIf="showNavDropdown">
+      <div class="dropdown-menu" *ngIf="showNavDropdown && isLoggedIn">
         <p-button class="nav-button" label="Admin" *ngIf="isAdmin" (click)="navigateToAdmin(); toggleNavDropdown()"></p-button>
         <p-button class="nav-button" label="Profile" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile(); toggleNavDropdown()"></p-button>
         <p-button class="nav-button" label="Logout" (click)="popupForm.logout(); toggleNavDropdown()"></p-button>
+      </div>
+      <div class="dropdown-menu" *ngIf="showNavDropdown && !isLoggedIn">
+        <p-button class="nav-button" label="Login" (click)="popupForm.togglePopup()"></p-button>
       </div>
     </div>
   </nav>
