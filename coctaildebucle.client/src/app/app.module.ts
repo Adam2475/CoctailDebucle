@@ -28,22 +28,22 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PopupFormComponent } from './components/popup/popup.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { FavoriteDrinksComponent } from './components/favorite-drinks/favorite-drinks.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    DrinkCardsComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
     FooterComponent, PopupFormComponent,
-    AppRoutingModule, HeaderComponent,
-    FormsModule, ReactiveFormsModule,
+    AppRoutingModule, HeaderComponent, CommonModule,
+    FormsModule, ReactiveFormsModule, RouterModule,
     BrowserModule, FormsModule, AdminComponent,
     BrowserAnimationsModule, CocktailDetailComponent,
-    ButtonModule,
-    DialogModule, SignupComponent,
+    ButtonModule, HomeComponent, DrinkCardsComponent,
+    DialogModule, SignupComponent, FavoriteDrinksComponent,
     InputTextModule, GdprBannerComponent, UserProfileComponent,
   ],
   providers: [

@@ -6,6 +6,7 @@ import { CocktailService } from '../../services/cocktail.service';
 import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
+import { FavoriteDrinksComponent } from '../favorite-drinks/favorite-drinks.component';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ChangeDetectorRef } from '@angular/core';
@@ -24,11 +25,11 @@ interface DrinkIngredient {
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
-    ReactiveFormsModule, ButtonModule]
+    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
-  @ViewChild(GdprBannerComponent) gdprBanner!: GdprBannerComponent;  // Access GDPR banner
+  @ViewChild(GdprBannerComponent) gdprBanner!: GdprBannerComponent;
   ////////////////////////
   // Cocktail Import
   ////////////////////////
@@ -46,15 +47,15 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   };
   selectedFile: File | null = null;
   glassList: any[] = [];
-  ingredientsInput: string = '[]'; // Store raw JSON from the input
+  ingredientsInput: string = '[]';
   //////////////////////////////////////
   editingDrinkId: number | null = null
   favoriteDrinks: any[] = [];
   userDrinks: any[] = [];
   showGdprBanner: boolean = false;
-  consentGiven: boolean = false; // Define consentGiven here
-  selectedIngredients: any[] = []; // Array to hold the selected ingredients for the drink
-  ingredientsList: any[] = []; // This will hold the list of ingredients fetched from the API
+  consentGiven: boolean = false;
+  selectedIngredients: any[] = [];
+  ingredientsList: any[] = [];
   private apiUrl = 'https://localhost:7047/api/users';
   availableIngredients: any[] = [];
   /////////////////////////////////
@@ -63,7 +64,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   selectedDrink: any = null;
   modifyForm!: FormGroup;
   ingredientOptions: { id: number; name: string }[] = [];
-  /*  favoriteDrinks$: Observable<Drink[]>;*/
 
   ////////////////////////////
   // Update user
@@ -96,10 +96,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.consentGiven = response.gdprConsent;
           this.showGdprBanner = !this.consentGiven;
           this.showGdprBanner = true;
-          if (this.consentGiven == true)
-          {
-            this.loadFavoriteDrinks();
-          }
+          //if (this.consentGiven == true)
+          //{
+          //  this.loadFavoriteDrinks();
+          //}
         },
         (error) => {
           console.error('Error fetching GDPR consent:', error);
@@ -491,6 +491,38 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.editingDrink = null;
   }
 
+  ////////////////////////////
+  // Favorites Methods
+  ////////////////////////////
+
+  addToFavorites(drinkId: number) {
+    const userId = this.authService.getUserId(); // however you track user
+    if (userId) {
+      this.userService.addFavoriteDrink(userId, drinkId).subscribe({
+        next: () => {
+          console.log('Drink added to favorites');
+          this.fetchFavoriteDrinks();
+        },
+        error: err => console.error('Failed to add to favorites', err)
+      });
+    }
+  }
+
+  fetchFavoriteDrinks() {
+    const userId = this.authService.getUserId();
+    if (!userId) return;
+
+    this.userService.getUserFavorites(userId).subscribe({
+      next: (favorites) => {
+        console.log("Fetched favorite drinks:", favorites);
+        this.favoriteDrinks = favorites;
+      },
+      error: (err) => {
+        console.error("Failed to fetch favorite drinks:", err);
+      }
+    });
+  }
+
   /////////////////////////////////
   // Drink Modification Methods
   /////////////////////////////////
@@ -566,72 +598,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       },
       error: err => console.error('Update failed:', err)
     });
-  }
-
-
-  ////////////////////////////////
-  // Favorite Methods
-  ////////////////////////////////
-
-  fetchFavoriteDrinks()
-  {
-    const userId = this.authService.getUserId();
-    if (!userId) return;
-
-    this.userService.getUserFavorites(userId).subscribe({
-      next: (favorites) => {
-        console.log("Fetched favorite drinks:", favorites);
-        this.favoriteDrinks = favorites;
-      },
-      error: (err) => {
-        console.error("Failed to fetch favorite drinks:", err);
-      }
-    });
-  }
-
-  loadFavoriteDrinks(): void
-  {
-    /* console.log("loading drinks for user: ", this.userId);*/
-    if (this.userId) {
-      this.userService.getUserFavorites(this.userId).subscribe(
-        (drinks) => {
-          this.favoriteDrinks = drinks;
-          console.log('Favorite drinks loaded:', this.favoriteDrinks);
-        },
-        (error) => {
-          console.error('Error fetching favorite drinks:', error);
-        }
-      );
-    }
-  }
-
-  addToFavorites(drinkId: number)
-  {
-    const userId = this.authService.getUserId(); // however you track user
-    if (userId)
-    {
-      this.userService.addFavoriteDrink(userId, drinkId).subscribe({
-        next: () => {
-          console.log('Drink added to favorites');
-          this.fetchFavoriteDrinks();
-        },
-        error: err => console.error('Failed to add to favorites', err)
-      });
-    }
-  }
-
-  removeFavorite(drinkId: number)
-  {
-    const userId = this.authService.getUserId(); // however you track user
-    if (userId) {
-      this.userService.removeFavoriteDrink(userId, drinkId).subscribe({
-        next: () => {
-          console.log('Drink  favorites');
-          this.fetchFavoriteDrinks();
-        },
-        error: err => console.error('Failed remove from favorites', err)
-      });
-    }
   }
   // ----------------------------------------- //
 }

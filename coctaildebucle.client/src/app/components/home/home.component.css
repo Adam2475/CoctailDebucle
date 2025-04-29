@@ -1,5 +1,8 @@
 
+/*///////////////////////*/
 /* Main Section */
+/*///////////////////////*/
+
 .mainSection
 {
   display: flex;
@@ -24,7 +27,9 @@
   margin-left: 5em;
 }
 
+/*///////////////////////*/
 /* Main Image */
+/*///////////////////////*/
 
 .image-section
 {
@@ -62,7 +67,10 @@
   border: 1px solid black;
 }
 
+/*///////////////////////*/
 /* Image Toggle */
+/*///////////////////////*/
+
 @media screen and (max-width: 668px)
 {
   .textSection
@@ -95,13 +103,9 @@
   }
 }
 
-/*///////////////////////////////*/
-
+/*///////////////////////*/
 /* Drinks Display */
-.drink-announcement
-{
-    margin-bottom:1.5em;
-}
+/*///////////////////////*/
 
 .drink-container
 {
@@ -109,7 +113,7 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 0.5em;
 }
 
 .drink-card
@@ -123,29 +127,29 @@
   text-align: center;
 }
 
-  .drink-card:hover
-  {
-    transform: scale(1.05);
-  }
+.drink-card:hover
+{
+  transform: scale(1.05);
+}
 
-  .drink-card a
-  {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 10px;
-  }
+.drink-card a
+{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 10px;
+}
 
-  .drink-card img
-  {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-  }
+.drink-card img
+{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
 
-  .drink-card h3
-  {
-    margin: 10px 0;
-    font-size: 16px;
-  }
+.drink-card h3
+{
+  margin: 10px 0;
+  font-size: 16px;
+}

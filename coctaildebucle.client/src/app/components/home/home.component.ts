@@ -5,13 +5,17 @@ import { Observable } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { FavoriteDrinksComponent } from '../favorite-drinks/favorite-drinks.component';
+import { RouterModule } from '@angular/router';
+import { NgIf, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  standalone: false,
+  standalone: true,
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  imports: [CommonModule, FavoriteDrinksComponent, DrinkCardsComponent, RouterModule, NgFor]
 })
 export class HomeComponent {
   searchQuery: string = '';

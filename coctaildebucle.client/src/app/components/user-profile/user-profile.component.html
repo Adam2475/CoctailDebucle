@@ -64,32 +64,11 @@
     <p>You need to accept GDPR consent to view your favorite drinks.</p>
   </div>
 
+  <app-favorite-drinks> </app-favorite-drinks>
 
 
-  <section *ngIf="consentGiven" class="favorites">
-    <h2>Favorite Drinks</h2>
-    <div class="user-drinks" *ngIf="favoriteDrinks.length > 0; else noFavorites">
-      <div class="drink-card" *ngFor="let drink of favoriteDrinks">
-        <h3>{{ drink.name }}</h3>
+  <br>
 
-        <ul>
-          <li *ngFor="let ingredient of drink.drinkIngredients">
-            {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
-          </li>
-        </ul>
-        <img *ngIf="drink.imagePath"
-             [src]="'https://localhost:7047' + drink.imagePath"
-             alt="{{ drink.name }} image"
-             width="200"
-             height="200"
-             style="object-fit: cover; border-radius: 8px;" />
-        <button (click)="removeFavorite(drink.id)"> remove from favorites</button>
-      </div>
-    </div>
-    <ng-template #noFavorites>
-      <p>You have no favorite drinks yet.</p>
-    </ng-template>
-  </section>
   <div *ngIf="consentGiven">
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>

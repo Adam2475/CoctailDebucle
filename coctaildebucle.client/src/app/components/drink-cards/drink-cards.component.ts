@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CocktailService } from '../../services/cocktail.service';
 import { Router } from '@angular/router';
+import { NgIf, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-drink-cards',
-  standalone: false,
+  standalone: true,
   templateUrl: './drink-cards.component.html',
-  styleUrls: ['./drink-cards.component.css']
+  styleUrls: ['./drink-cards.component.css'],
+  imports: [CommonModule, NgFor]
 })
 export class DrinkCardsComponent implements OnInit
 {
