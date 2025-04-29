@@ -140,8 +140,18 @@
   <h2 id="created-header">
     Your Created Drinks
   </h2>
-  <div class="user-drinks" *ngIf="userDrinks.length > 0">
-    <div class="drink-card" *ngFor="let drink of userDrinks">
+
+  <!-- Barra di ricerca drink creati -->
+  <div style="text-align: center; margin-bottom: 1rem;">
+    <input type="text"
+           [(ngModel)]="searchQuery"
+           (ngModelChange)="onSearchQueryChange()"
+           placeholder="Search your drinks..."
+           style="padding: 0.5rem; width: 300px; border-radius: 5px; border: 1px solid #ccc;" />
+  </div>
+
+  <div class="user-drinks" *ngIf="filteredUserDrinks.length > 0">
+    <div class="drink-card" *ngFor="let drink of filteredUserDrinks">
       <h3>{{ drink.name }}</h3>
 
       <ul>
@@ -161,8 +171,8 @@
     </div>
   </div>
 
-  <div *ngIf="userDrinks.length === 0">
-    <p>You haven't created any drinks yet.</p>
+  <div *ngIf="filteredUserDrinks.length === 0 ">
+    <p>No drinks found matching your search.</p>
   </div>
 
   <button (click)="goBack()">Go Back</button>
