@@ -26,6 +26,7 @@ export class FavoriteDrinksComponent
   userId: number | null = null;
   consentGiven: boolean = false;
   favoriteDrinks: any[] = [];
+  isLoggedIn: boolean = false;
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -40,11 +41,14 @@ export class FavoriteDrinksComponent
 
   ngOnInit(): void {
     this.userId = this.authService.getUserId();
-    if (this.userId) {
+    this.checkLogin();
+    if (this.userId)
+    {
       this.gdprService.getConsent(this.userId).subscribe(
         (response) => {
           this.consentGiven = response.gdprConsent;
-          if (this.consentGiven) {
+          if (this.consentGiven && this.isLoggedIn) {
+            console.log(this.isLoggedIn);
             this.loadFavoriteDrinks();
           }
         },
@@ -55,6 +59,10 @@ export class FavoriteDrinksComponent
     } else {
       console.error("User ID is null, cannot check consent");
     }
+  }
+
+  checkLogin() {
+    this.isLoggedIn = !!localStorage.getItem('token');
   }
 
   loadFavoriteDrinks(): void

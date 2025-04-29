@@ -13,6 +13,9 @@ export class AuthService
   private apiUrl = 'https://localhost:7047/api/auth';
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userIdSubject = new BehaviorSubject<number | null>(null); // Holds user ID
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.getUserId() !== null);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   constructor(private http: HttpClient)
   {
     const token = localStorage.getItem('token');
@@ -38,6 +41,7 @@ export class AuthService
 
           // Optionally, update BehaviorSubject for reactive updates
           this.userIdSubject.next(userId);
+          this.isLoggedInSubject.next(true);
           this.loggedIn.next(true); // Update the logged-in state
         }
       })

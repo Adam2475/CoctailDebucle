@@ -18,9 +18,8 @@ export class DrinkCardsComponent implements OnInit
 
   constructor(private cocktailService: CocktailService, private router: Router) { }
 
-  ngOnInit(): void {
-
-
+  ngOnInit(): void
+  {
     this.cocktailService.getDrinks().subscribe((data: any) => {
       if (data.drinks && data.drinks.length > 0) {
         this.drinks = this.getRandomDrinks(data.drinks, 9);
@@ -34,9 +33,9 @@ export class DrinkCardsComponent implements OnInit
     });
   }
 
-  private getRandomDrinks(drinks: any[], count: number): any[] {
-    if (drinks.length <= count) return drinks; // Return all if less than 9
-
+  private getRandomDrinks(drinks: any[], count: number): any[]
+  {
+    if (drinks.length <= count) return drinks;
     return drinks
       .sort(() => 0.5 - Math.random()) // Shuffle array
       .slice(0, count); // Get first `count` elements

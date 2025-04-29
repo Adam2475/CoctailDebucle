@@ -83,14 +83,17 @@ export class PopupFormComponent
       }, error => {
         console.error('Login failed:', error);
       });
+      window.location.reload();
   }
 
   logout()
   {
     // Clear token from local storage
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     console.log('Logout successful');
     // Emit the logout event so the header can update its state
     this.logoutSuccessful.emit();
+    window.location.reload();
   }
 }

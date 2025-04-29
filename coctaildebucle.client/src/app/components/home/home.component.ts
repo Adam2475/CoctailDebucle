@@ -3,12 +3,14 @@ import { DrinkCardsComponent } from '../drink-cards/drink-cards.component'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FavoriteDrinksComponent } from '../favorite-drinks/favorite-drinks.component';
 import { RouterModule } from '@angular/router';
 import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -29,28 +31,26 @@ export class HomeComponent {
   isLoggedIn: boolean = false;
 
 
-  constructor(private http: HttpClient, private cocktailService: CocktailService, private router: Router) { }
+  constructor(private http: HttpClient, private cocktailService: CocktailService, private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  //private isLoggedInSubject = new BehaviorSubject<boolean>(this.authService.getUserId() !== null);
+
+  ngOnInit()
+  {
     this.checkLogin();
     this.loadCategories();
     this.loadIngredients();
     this.loadGlasses();
   }
 
-  checkLogin() {
+  checkLogin()
+  {
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.isLoggedIn = false;
-    // Optionally, navigate to the login or home page.
-  }
-
   // Navigate to the user's personal page.
-  navigateToProfile() {
-    // e.g., using the router to navigate to '/profile'
+  navigateToProfile()
+  {
     this.router.navigate(['/profile']);
   }
 
@@ -60,7 +60,8 @@ export class HomeComponent {
     return this.http.get<any>(url);
   }
 
-  loadCategories() {
+  loadCategories()
+  {
     this.cocktailService.getCategories().subscribe(response => {
       this.categories = response.drinks
         .map((c: any) => c.strCategory)
@@ -68,7 +69,8 @@ export class HomeComponent {
     });
   }
 
-  loadIngredients() {
+  loadIngredients()
+  {
     this.cocktailService.getIngredients().subscribe(response => {
       this.ingredients = response.drinks
         .map((i: any) => i.strIngredient1)
@@ -82,7 +84,8 @@ export class HomeComponent {
     });
   }
 
-  onSearch() {
+  onSearch()
+  {
     this.cocktailService.searchCocktails(
       this.searchQuery,
       this.selectedCategory,
@@ -92,5 +95,4 @@ export class HomeComponent {
         this.drinks = response.drinks || [];
       });
   }
-
 }

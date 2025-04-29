@@ -1,0 +1,30 @@
+.drink-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 2em;
+  padding: 1em;
+}
+
+.drink-card {
+  width: 200px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+  .drink-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .drink-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
