@@ -66,7 +66,6 @@
 
 
 
-
   <section *ngIf="consentGiven" class="favorites">
     <h2>Favorite Drinks</h2>
     <div class="user-drinks" *ngIf="favoriteDrinks.length > 0; else noFavorites">
@@ -78,7 +77,6 @@
             {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
           </li>
         </ul>
-        <!-- IMAGE DISPLAY -->
         <img *ngIf="drink.imagePath"
              [src]="'https://localhost:7047' + drink.imagePath"
              alt="{{ drink.name }} image"
@@ -92,12 +90,11 @@
       <p>You have no favorite drinks yet.</p>
     </ng-template>
   </section>
-
   <div *ngIf="consentGiven">
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>
 
-  <!-- Create Drink Form -->
+  <!-- Drink Form Section -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Drink Name:</label>
@@ -120,40 +117,26 @@
       <label for="instructions">Instructions:</label>
       <textarea id="instructions" formControlName="instructions" required></textarea>
     </div>
-
-    <!-- Dynamic Ingredients -->
     <div formArrayName="ingredients">
       <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i">
-        <!-- Ingredient dropdown -->
         <label for="ingredientId">Ingredient</label>
         <select formControlName="ingredientId" required>
           <option value="">-- Select Ingredient --</option>
           <option *ngFor="let ing of availableIngredients" [value]="ing.id">{{ ing.name }}</option>
         </select>
-
-        <!-- Amount input -->
         <label for="amount">Amount</label>
         <input formControlName="amount" placeholder="e.g. 1 oz" required />
-
-        <!-- Remove button -->
         <p-button type="button" (click)="ingredients.removeAt(i)">Remove</p-button>
       </div>
     </div>
-
-    <!-- Add ingredient button -->
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
-
-    <!-- Image Upload -->
     <div>
       <label for="file">Image:</label>
       <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
     </div>
-
-    <!-- Submit Button -->
     <button type="submit">Create Drink</button>
   </form>
 
-  <!-- List of Created Drinks -->
   <h2 id="created-header">
     Your Created Drinks
   </h2>
@@ -166,14 +149,12 @@
           {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
         </li>
       </ul>
-      <!-- IMAGE DISPLAY -->
       <img *ngIf="drink.imagePath"
            [src]="'https://localhost:7047' + drink.imagePath"
            alt="{{ drink.name }} image"
            width="200"
            height="200"
            style="object-fit: cover; border-radius: 8px;" />
-      <!-- Action buttons -->
       <button (click)="addToFavorites(drink.id)">Add to Favorites</button>
       <button (click)="onModifyClick(drink)">Modify</button>
       <button (click)="deleteDrink(drink.id)">Delete</button>

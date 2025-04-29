@@ -390,22 +390,11 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   }
 
   ////////////////////////////
-  // Drink Creation Methods
+  // Drink Fetching Methods
   ////////////////////////////
 
   getUserDrinks(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`https://localhost:7047/api/drinkDb/user/${userId}`);
-  }
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('ImagePath', imageFile); // must match your DTO property
-
-    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
   }
 
   fetchUserDrinks() {
@@ -421,6 +410,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       }
     });
   }
+
+  ////////////////////////////
+  // User Drink Creation
+  ////////////////////////////
 
   onSubmit(): void {
     if (this.drinkForm.invalid) return;
@@ -459,6 +452,13 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
+  uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('ImagePath', imageFile); // must match your DTO property
+
+    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
+  }
+
   onDeleteDrink(drinkId: number): void {
     if (!confirm("Are you sure you want to delete this drink?")) return;
 
@@ -472,6 +472,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         console.error("Failed to delete drink:", err);
       }
     });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   deleteDrink(id: number) {
@@ -615,10 +619,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       });
     }
   }
-
-  //removeFavoriteDrink(userId: number, drinkId: number): Observable<string> {
-  //  return this.http.delete<string>(`${this.apiUrl}/${userId}/favorites/${drinkId}`);
-  //}
 
   removeFavorite(drinkId: number)
   {

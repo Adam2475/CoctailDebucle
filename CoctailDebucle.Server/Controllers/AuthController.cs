@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using CoctailDebucle.Server.Models;
 using CoctailDebucle.Server.DTOs;
+using Microsoft.Extensions.Configuration;
 
 // MCV : Model - Controller - View
 namespace CoctailDebucle.Server.Controllers
@@ -26,11 +27,15 @@ namespace CoctailDebucle.Server.Controllers
         private readonly AppDbContext _context;
         private readonly ILogger<UserController> _logger;
 
+        // injecting appsettings as configuration
+        private readonly IConfiguration _configuration;
+
         // Default Constructor
-        public AuthController(AppDbContext context, ILogger<UserController> logger)
+        public AuthController(AppDbContext context, ILogger<UserController> logger, IConfiguration configuration)
         {
             _context = context; // Inject DB Context
             _logger = logger;
+            _configuration = configuration;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -120,7 +125,7 @@ namespace CoctailDebucle.Server.Controllers
                return Unauthorized("Invalid credentials");
             // Create JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("YourSuperLongSecretKey@1234567890"); // Store in appsettings.json
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Username) }),

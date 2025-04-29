@@ -96,6 +96,7 @@ namespace CoctailDebucle.Server.Controllers
                 GlassId = drinkDto.GlassId,
                 UserId = drinkDto.UserId,
                 Instructions = drinkDto.Instructions,
+                IsCreatedByUser = true,
                 DrinkIngredients = drinkDto.Ingredients.Select(i => new DrinkIngredient
                 {
                     IngredientId = i.IngredientId,
@@ -207,7 +208,7 @@ namespace CoctailDebucle.Server.Controllers
         public async Task<ActionResult<IEnumerable<Drink>>> GetDrinksByUserId(int userId)
         {
             var drinks = await _context.Drinks
-                .Where(d => d.UserId == userId)
+                .Where(d => d.UserId == userId && d.IsCreatedByUser == true)
                 .Include(d => d.Glass)
                 .Include(d => d.DrinkIngredients)
                     .ThenInclude(di => di.Ingredient)

@@ -20,14 +20,11 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 0.2em;
-  margin: 0.5em;
+  margin: auto;
   border-radius: 0.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 1);
   background-color: #F5F5DC;
 }
-
-
-
 
   /* custom drinks section */
   .user-drinks
