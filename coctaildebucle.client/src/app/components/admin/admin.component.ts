@@ -9,6 +9,8 @@ import { Drink } from '../../models/drink.model';
 import { Observable, Subject, forkJoin, from, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap, switchMap, concatMap, map, toArray, delay } from 'rxjs/operators';
 import { CardModule } from 'primeng/card';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+
 
 
 async function encodeImageFileAsURL(image: File): Promise<string> {
@@ -33,41 +35,53 @@ interface SavedDrinkResponse {
   standalone: true,
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  imports: [CommonModule, CardModule],
+  imports: [CommonModule, CardModule, FormsModule, ReactiveFormsModule],
 })
 export class AdminComponent implements OnInit {
   drinks: any[] = [];
   selectionList: any[] = [];
   selectedSelection: any = null;
+  //multi-parameter searchbar
+  searchQuery: string = '';
+  categories: string[] = [];
+  ingredients: string[] = [];
+  glasses: string[] = [];
+  selectedCategory: string = '';
+  selectedIngredient: string = '';
+  selectedGlass: string = '';
+  searchForm!: FormGroup;
+  isRandomSelection: boolean = true;
+  searchUsed: boolean = false;
+  noSearchResults: boolean = false;
+    //multi-parameter searchbar
 
-  constructor(private cocktailService: CocktailService, private authService: AuthService, private http: HttpClient) { }
+  constructor(
+    private cocktailService: CocktailService,
+    private authService: AuthService,
+    private http: HttpClient,
+    private fb: FormBuilder
+   ) { }
 
   ngOnInit(): void {
     this.fetchSelectionList();
-    this.cocktailService.getDrinks().pipe(
-      map((data: any) => this.getRandomDrinks(data.drinks, 9)),
-      switchMap((drinks: any[]) => {
-        const detailRequests = drinks.map(drink =>
-          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
-            map(res => res.drinks[0]) // extract full drink details
-          )
-        );
-        return forkJoin(detailRequests);
-      }),
-      map((fullDrinks: any[]) => {
-        return fullDrinks.map(drink => ({
-          ...drink,
-          ingredients: this.extractIngredients(drink)
-        }));
-      })
-    ).subscribe({
-      next: (drinksWithIngredients) => {
-        this.drinks = drinksWithIngredients;
-      },
-      error: (err) => {
-        console.error("Error fetching drinks:", err);
-      }
+    this.loadRandomDrinks();
+    this.loadCategories();
+    this.loadIngredients();
+    this.loadGlasses();
+    this.searchForm = this.fb.group({
+      query: [''],
+      category: [''],
+      ingredient: [''],
+      glass: ['']
     });
+
+    this.searchForm.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    ).subscribe(values => {
+      this.performSearch(values);
+    });
+
   }
 
   fetchSelectionList()
@@ -358,4 +372,152 @@ export class AdminComponent implements OnInit {
     const id = Number(value);
     this.selectedSelection = this.selectionList.find(s => s.id === id);
   }
+
+  //////////////////////////////
+  // SearchBar Methods
+  //////////////////////////////
+
+  /**
+  * @brief : da compilare
+  *
+  * 
+  *          
+  */
+
+  loadCategories() {
+    this.cocktailService.getCategories().subscribe(response => {
+      this.categories = response.drinks.map((c: any) => c.strCategory).sort();
+    });
+  }
+
+  loadIngredients() {
+    this.cocktailService.getIngredients().subscribe(response => {
+      this.ingredients = response.drinks.map((i: any) => i.strIngredient1).sort();
+    });
+  }
+
+  loadGlasses() {
+    this.cocktailService.getGlasses().subscribe(response => {
+      this.glasses = response.drinks.map((g: any) => g.strGlass).sort();
+    });
+  }
+
+  performSearch(values: any): void {
+    const { query, category, ingredient, glass } = values;
+
+    const hasFilters = query.trim() || category || ingredient || glass;
+    this.searchUsed = hasFilters;
+
+    if (!hasFilters) {
+      this.loadRandomDrinks(); // <-- già esistente
+      return;
+    }
+
+    this.cocktailService.searchCocktails(query, category, ingredient, glass).pipe(
+      map(response => response.drinks || []),
+      switchMap((drinks: any[]) => {
+        if (!drinks.length) {
+          this.noSearchResults = true;
+          this.drinks = [];
+          return of([]); // Stop pipeline early
+        }
+
+        this.noSearchResults = false;
+        const detailRequests = drinks.map(drink =>
+          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
+            map(res => res.drinks[0])
+          )
+        );
+        return forkJoin(detailRequests);
+      }),
+      map((fullDrinks: any[]) => {
+        return fullDrinks.map(drink => ({
+          ...drink,
+          ingredients: this.extractIngredients(drink)
+        }));
+      })
+    ).subscribe({
+      next: (drinksWithIngredients) => {
+        this.isRandomSelection = false;
+        if (drinksWithIngredients.length === 0) return;
+        this.drinks = drinksWithIngredients;
+      },
+      error: (err) => {
+        console.error("Error fetching searched drinks:", err);
+      }
+    });
+  }
+
+  /* performSearch() >>> onSearch()*/
+  //onSearch(): void {
+  //  if (
+  //    this.searchQuery.trim() ||
+  //    this.selectedCategory ||
+  //    this.selectedIngredient ||
+  //    this.selectedGlass
+  //  ) {
+  //    this.cocktailService.searchCocktails(
+  //      this.searchQuery,
+  //      this.selectedCategory,
+  //      this.selectedIngredient,
+  //      this.selectedGlass
+  //    ).pipe(
+  //      map(response => response.drinks || []),
+  //      switchMap((drinks: any[]) => {
+  //        const detailRequests = drinks.map(drink =>
+  //          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
+  //            map(res => res.drinks[0])
+  //          )
+  //        );
+  //        return forkJoin(detailRequests);
+  //      }),
+  //      map((fullDrinks: any[]) => {
+  //        return fullDrinks.map(drink => ({
+  //          ...drink,
+  //          ingredients: this.extractIngredients(drink)
+  //        }));
+  //      })
+  //    ).subscribe({
+  //      next: (drinksWithIngredients) => {
+  //        this.drinks = drinksWithIngredients;
+  //      },
+  //      error: (err) => {
+  //        console.error("Error fetching searched drinks:", err);
+  //      }
+  //    });
+  //  } else {
+  //    this.loadRandomDrinks(); // fallback
+  //  }
+  //}
+
+  /*logic to make random selection moved here from onInit*/
+  loadRandomDrinks(): void {
+    this.isRandomSelection = true;
+    this.noSearchResults = false;
+    this.cocktailService.getDrinks().pipe(
+      map((data: any) => this.getRandomDrinks(data.drinks, 9)),
+      switchMap((drinks: any[]) => {
+        const detailRequests = drinks.map(drink =>
+          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
+            map(res => res.drinks[0])
+          )
+        );
+        return forkJoin(detailRequests);
+      }),
+      map((fullDrinks: any[]) => {
+        return fullDrinks.map(drink => ({
+          ...drink,
+          ingredients: this.extractIngredients(drink)
+        }));
+      })
+    ).subscribe({
+      next: (drinksWithIngredients) => {
+        this.drinks = drinksWithIngredients;
+      },
+      error: (err) => {
+        console.error("Error fetching drinks:", err);
+      }
+    });
+  }
+
 }
