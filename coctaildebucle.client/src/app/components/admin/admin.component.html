@@ -25,6 +25,45 @@
   <button (click)="submitSelection()">Submit Selection</button>
 
   <h2>Choose drinks to add to the menù</h2>
+
+  <!--searchbar-->
+  <form [formGroup]="searchForm" class="search-bar">
+    <input type="text" formControlName="query" placeholder="Search for a drink..." />
+
+    <select formControlName="category">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <select formControlName="ingredient">
+      <option value="">All Ingredients</option>
+      <option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient }}</option>
+    </select>
+
+    <select formControlName="glass">
+      <option value="">All Glasses</option>
+      <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
+    </select>
+  </form>
+
+  <!-- versione alternativa dei risultati-->
+  <!--<div class="drink-container">
+    <div class="drink-card" *ngFor="let drink of drinks" (click)="toggleSelection(drink)" [class.selected]="isSelected(drink)">
+      <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
+      <h3>{{ drink.strDrink }}</h3>
+    </div>
+  </div>-->
+
+
+  <div class="info-message" *ngIf="isRandomSelection && !searchUsed">
+    <p>Don't know what to choose? Here's a random selection:</p>
+  </div>
+
+  <div class="info-message" *ngIf="noSearchResults">
+    <p>No results found for your search.</p>
+  </div>
+
+
   <!-- Main List of Drinks from API -->
   <div class="drink-container">
     <p-card header="{{ cocktail.strDrink }}" class="drink-card" *ngFor="let cocktail of drinks">
