@@ -39,5 +39,8 @@ namespace CoctailDebucle.Server.Models
 
         // For User Created Drinks
         public bool IsCreatedByUser { get; set; }
+
+        public byte[]? ImageData { get; set; }
+        public string? ImageMimeType { get; set; } // es. "image/jpeg", "image/png"
     }
 }

@@ -137,12 +137,15 @@ namespace CoctailDebucle.Server.Controllers
                 .Select(d => new DrinkDTO
                 {
                     Name = d.Name,
-                    ImagePath = d.ImagePath
+                    ImagePath = d.ImagePath,
+                    ImageData = d.ImageData,
+                    ImageMimeType = d.ImageMimeType
                 })
                 .ToListAsync();
 
             return Ok(drinks);
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSelection(int id)
         {

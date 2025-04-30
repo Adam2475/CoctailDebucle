@@ -1,7 +1,7 @@
 <div class="drink-container">
     <div *ngFor="let drink of selDrinks" class="drink-card">
-      <img *ngIf="drink.imagePath"
-           [src]="'https://localhost:7047' + drink.imagePath"
+      <img
+           [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
            [alt]="drink.name">
       <h3>{{ drink.name }}</h3>
     </div>

@@ -28,7 +28,10 @@ export class DrinkCardsComponent implements OnInit
       console.error('Error fetching drinks:', error);
     });
     this.cocktailService.getActiveSelectionDrinks().subscribe({
-      next: (data) => this.selDrinks = data,
+      next: (data) => {
+        //console.log('Active selection drinks:', data); // <- log here
+        this.selDrinks = data;
+      },
       error: (err) => console.error('Failed to load drinks', err)
     });
   }
@@ -36,6 +39,7 @@ export class DrinkCardsComponent implements OnInit
   private getRandomDrinks(drinks: any[], count: number): any[]
   {
     if (drinks.length <= count) return drinks;
+   /* console.log("porcoddio");*/
     return drinks
       .sort(() => 0.5 - Math.random()) // Shuffle array
       .slice(0, count); // Get first `count` elements

@@ -145,4 +145,8 @@ export class CocktailService {
     return this.http.get<Drink[]>('https://localhost:7047/api/selection/active-drinks');
   }
 
+
+  getImage(drinkId: number): Observable<Blob> {
+    return this.http.get(`api/drinkDb/getImage/${drinkId}`, { responseType: 'blob' });
+  }
 }

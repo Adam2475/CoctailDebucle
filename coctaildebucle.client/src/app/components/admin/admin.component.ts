@@ -10,6 +10,18 @@ import { Observable, Subject, forkJoin, from, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap, switchMap, concatMap, map, toArray, delay } from 'rxjs/operators';
 import { CardModule } from 'primeng/card';
 
+
+async function encodeImageFileAsURL(image: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      resolve(reader.result as string);  // Result will be a base64 string
+    }
+    reader.onerror = reject;
+    reader.readAsDataURL(image); // Converts image to base64 string
+  });
+}
+
 interface SavedDrinkResponse {
   id: number;
   name: string;
@@ -145,22 +157,17 @@ export class AdminComponent implements OnInit {
    *          
    */
 
-  submitSelection(): void
-  {
+  submitSelection(): void {
     const uniqueIngredients = new Set<string>();
     const uniqueGlasses = new Set<string>();
-
 
     this.selectedDrinks.forEach(drink => {
       if (drink.strGlass) {
         uniqueGlasses.add(drink.strGlass);
       }
-
-      if (drink.ingredients)
-      {
+      if (drink.ingredients) {
         drink.ingredients.forEach((ing: any) => {
-          if (ing.ingredient)
-          {
+          if (ing.ingredient) {
             uniqueIngredients.add(ing.ingredient);
           }
         });
@@ -170,13 +177,10 @@ export class AdminComponent implements OnInit {
     const ingredientsArray = Array.from(uniqueIngredients).map(name => ({ name }));
     const glassesArray = Array.from(uniqueGlasses).map(name => ({ name }));
 
-    console.log(ingredientsArray);
-
-    // Save new ingredients and glasses
+    // Save ingredients and glasses
     this.cocktailService.saveIngredients(ingredientsArray).subscribe();
     this.cocktailService.saveGlasses(glassesArray).subscribe();
 
-    // Now get user ID and required data
     this.authService.getUser().pipe(
       map(user => user?.id),
       switchMap(userId =>
@@ -187,64 +191,115 @@ export class AdminComponent implements OnInit {
           map(({ ingredients, glasses }) => ({ userId, ingredients, glasses }))
         )
       )
-    ).subscribe(({ userId, ingredients, glasses }) => {
-      const drinksPayload = this.selectedDrinks.map(drink => {
-        const matchedGlass = glasses.find(g => g.name === drink.strGlass);
-       // console.log("all ingredients: ", ingredients);
-        const mappedIngredients = drink.ingredients
-          .map((ing: any) => {
-          /*  console.log('Checking ingredient from drink:', ing.ingredient);*/
-            const matchedIng = ingredients.find((dbIng: any) => {
-              //console.log('Checking dbIng:', dbIng);
-              //console.log('Comparing:', dbIng?.name?.trim(), 'with', ing.ingredient.trim());
-              //console.log('Checking dbIng:', dbIng.name);
-              return dbIng.name.trim().toLowerCase() === ing.ingredient.trim().toLowerCase();
-            });
-            if (!matchedIng) return null;
+    ).subscribe(async ({ userId, ingredients, glasses }) => {
+      try {
+        // Create payloads with awaited image base64
+        const drinksPayload = await Promise.all(
+          this.selectedDrinks.map(async drink => {
+            const matchedGlass = glasses.find(g => g.name === drink.strGlass);
+            const mappedIngredients = drink.ingredients
+              .map((ing: any) => {
+                const matchedIng = ingredients.find((dbIng: any) =>
+                  dbIng.name.trim().toLowerCase() === ing.ingredient.trim().toLowerCase()
+                );
+                if (!matchedIng) return null;
+                return {
+                  ingredientId: matchedIng.id,
+                  amount: ing.measure || ''
+                };
+              })
+              .filter((ing: any) => ing !== null);
+
+            let imageData = '';
+            let mimeType = '';
+
+            try {
+              const imageResult = await this.convertImageUrlToBase64(drink.strDrinkThumb);
+              imageData = imageResult.base64;
+              mimeType = imageResult.mimeType;
+            } catch (e) {
+              console.error(`Error converting image for ${drink.strDrink}`, e);
+            }
+
             return {
-              ingredientId: matchedIng.id,
-              amount: ing.measure || ''
+              name: drink.strDrink,
+              category: drink.strCategory || 'Unknown',
+              glassId: matchedGlass ? matchedGlass.id : 1,
+              instructions: drink.strInstructions,
+              ingredients: mappedIngredients,
+              userId: Number(userId),
+              imagePath: drink.strDrinkThumb || null,
+              imageData,
+              imageMimeType: mimeType
             };
           })
-          .filter((ing: any) => ing !== null);
-        //console.log(mappedIngredients);
-        console.log(drink);
-        return {
-          name: drink.strDrink,
-          category: drink.strCategory || 'Unknown',
-          glassId: matchedGlass ? matchedGlass.id : 1,
-          instructions: drink.strInstructions,
-          ingredients: mappedIngredients,
-          userId: Number(userId),
-          imagePath: drink.strDrinkThumb || null
-        };
-      });
+        );
 
-      forkJoin(
-        drinksPayload.map(payload =>
-          this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)
-        )
-      ).subscribe({
-        next: (responses) => {
-          console.log('All drinks submitted!');
+        // Send all drinks to backend
+        forkJoin(
+          drinksPayload.map(payload =>
+            this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)
+          )
+        ).subscribe({
+          next: (responses: any[]) => {
+            const drinkIds = responses.map(res => res.id);
+            const selectionPayload = {
+              userId: Number(userId),
+              drinkIds
+            };
+            this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
+              .subscribe({
+                next: res => console.log('Selection saved:', res),
+                error: err => console.error('Selection save error:', err)
+              });
+          },
+          error: err => console.error('Error submitting drinks:', err)
+        });
 
-         
-          const drinkIds = responses.map((res: any) => res.id);
-
-          const selectionPayload = {
-            userId: Number(userId),
-            drinkIds: drinkIds
-          };
-
-          this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
-            .subscribe({
-              next: res => console.log('Selection saved:', res),
-              error: err => console.error('Selection save error:', err)
-            });
-        },
-        error: err => console.error('Submission error:', err)
-      });
+      } catch (error) {
+        console.error('Error building drink payloads:', error);
+      }
     });
+  }
+
+  // Method to convert image URL to Blob (async)
+  async convertImageToBlob(imageUrl: string): Promise<Blob | undefined>
+  {
+    if (!imageUrl) return undefined;
+
+    return new Observable<Blob>((observer) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', imageUrl, true);
+      xhr.responseType = 'blob';
+      xhr.onload = () => {
+        observer.next(xhr.response);
+        observer.complete();
+      };
+      xhr.onerror = (err) => {
+        observer.error(err);
+      };
+      xhr.send();
+    }).toPromise();
+  }
+
+  convertImageUrlToBase64(url: string): Promise<{ base64: string, mimeType: string }>
+  {
+    return fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch image');
+        const mimeType = response.headers.get("Content-Type") || 'image/jpeg';
+        return response.blob().then(blob => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const base64 = (reader.result as string).split(',')[1]; // strip data:image/...;base64,
+              resolve({ base64, mimeType });
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          });
+        });
+      });
   }
 
   /**

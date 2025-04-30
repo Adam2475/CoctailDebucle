@@ -48,7 +48,7 @@ export class FavoriteDrinksComponent
         (response) => {
           this.consentGiven = response.gdprConsent;
           if (this.consentGiven && this.isLoggedIn) {
-            console.log(this.isLoggedIn);
+            //console.log(this.isLoggedIn);
             this.loadFavoriteDrinks();
           }
         },
@@ -72,7 +72,13 @@ export class FavoriteDrinksComponent
       this.userService.getUserFavorites(this.userId).subscribe(
         (drinks) => {
           this.favoriteDrinks = drinks;
-          console.log('Favorite drinks loaded:', this.favoriteDrinks);
+        /*  console.log('Favorite drinks loaded:', this.favoriteDrinks);*/
+
+          // Log each drink's imageMimeType and imageData
+          //this.favoriteDrinks.forEach(drink => {
+          //  console.log('Image MIME Type:', drink.imageMimeType);
+          //  console.log('Image Data:', drink.imageData);
+          //});
         },
         (error) => {
           console.error('Error fetching favorite drinks:', error);

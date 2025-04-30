@@ -14,6 +14,9 @@
         public string? ImagePath { get; set; } // the uploaded image
 
         public bool IsCreatedByUser { get; set; }
+
+        public byte[]? ImageData { get; set; }
+        public string? ImageMimeType { get; set; } // es. "image/jpeg", "image/png"
     }
 
     public class DrinkIngredientDto

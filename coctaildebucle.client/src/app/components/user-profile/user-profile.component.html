@@ -138,8 +138,8 @@
           {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
         </li>
       </ul>
-      <img *ngIf="drink.imagePath"
-           [src]="'https://localhost:7047' + drink.imagePath"
+      <img *ngIf="drink.imageUrl"
+           [src]="drink.imageUrl"
            alt="{{ drink.name }} image"
            width="200"
            height="200"

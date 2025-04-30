@@ -39,6 +39,27 @@ namespace CoctailDebucle.Server.Controllers
             return Ok("Drink added to favorites.");
         }
 
+        [HttpGet("active-drinks")]
+        public async Task<IActionResult> GetActiveSelectionDrinks()
+        {
+            var drinks = await _context.Selections
+                .Where(s => s.isActive)
+                .Include(s => s.SelectionDrinks)
+                    .ThenInclude(sd => sd.Drink)
+                .SelectMany(s => s.SelectionDrinks.Select(sd => sd.Drink))
+                .Distinct()
+                .Select(d => new DrinkDTO
+                {
+                    Name = d.Name,
+                    ImagePath = d.ImagePath,
+                    ImageData = d.ImageData,
+                    ImageMimeType = d.ImageMimeType
+                })
+                .ToListAsync();
+
+            return Ok(drinks);
+        }
+
         [HttpGet("{userId}/favorites")]
         public async Task<IActionResult> GetFavoriteDrinks(int userId)
         {
@@ -51,9 +72,17 @@ namespace CoctailDebucle.Server.Controllers
                     ufd.Drink.Name,
                     ufd.Drink.Category,
                     ufd.Drink.Instructions,
-                    ufd.Drink.ImagePath
+                    ufd.Drink.ImagePath,
+                    ImageData = ufd.Drink.ImageData != null ? Convert.ToBase64String(ufd.Drink.ImageData) : null,
+                    ufd.Drink.ImageMimeType
                 })
                 .ToListAsync();
+
+            //Console.WriteLine("Fetched favorite drinks:");
+            //foreach (var favorite in favorites)
+            //{
+            //    Console.WriteLine($"Drink Name: {favorite.Name}, Image MimeType: {favorite.ImageMimeType}, Image Data: {favorite.ImageData}");
+            //}
 
             return Ok(favorites);
         }

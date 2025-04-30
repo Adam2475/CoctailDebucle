@@ -180,3 +180,4 @@ C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\CoctailDebucle.Server\o
 C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\CoctailDebucle.Server\obj\Debug\net9.0\CoctailDebucle.Server.pdb
 C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\CoctailDebucle.Server\obj\Debug\net9.0\CoctailDebucle.Server.genruntimeconfig.cache
 C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\CoctailDebucle.Server\obj\Debug\net9.0\ref\CoctailDebucle.Server.dll
+C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\CoctailDebucle.Server\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

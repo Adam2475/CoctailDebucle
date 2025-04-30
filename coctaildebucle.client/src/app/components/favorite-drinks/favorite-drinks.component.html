@@ -10,9 +10,9 @@
           {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
         </li>
       </ul>
-      <img *ngIf="drink.imagePath"
-           [src]="'https://localhost:7047' + drink.imagePath"
-           alt="{{ drink.name }} image"
+      <img
+           [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+           alt="{{ drink.name }}"
            width="200"
            height="200"
            style="object-fit: cover; border-radius: 8px;" />

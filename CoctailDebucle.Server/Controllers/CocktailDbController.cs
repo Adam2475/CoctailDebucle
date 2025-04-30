@@ -204,6 +204,44 @@ namespace CoctailDebucle.Server.Controllers
             });
         }
 
+        // Saving Full image into the DB
+
+        [HttpPost("uploadImageToDb/{drinkId}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadImageToDb(int drinkId, [FromForm] ImageUploadDTO dto)
+        {
+            var file = dto.ImagePath;
+            if (file == null || file.Length == 0)
+                return BadRequest("No image file provided.");
+
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            var imageData = memoryStream.ToArray();
+
+            var drink = await _context.Drinks.FindAsync(drinkId);
+            if (drink == null)
+                return NotFound();
+
+            drink.ImageData = imageData;
+            drink.ImageMimeType = file.ContentType;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Image uploaded successfully." });
+        }
+
+        // Get Drink image from the DB
+
+        [HttpGet("{drinkId}/image")]
+        public async Task<IActionResult> GetDrinkImage(int drinkId)
+        {
+            var drink = await _context.Drinks.FindAsync(drinkId);
+            if (drink == null || drink.ImageData == null)
+                return NotFound();
+
+            return File(drink.ImageData, drink.ImageMimeType ?? "image/jpeg");
+        }
+
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<Drink>>> GetDrinksByUserId(int userId)
         {
@@ -218,16 +256,79 @@ namespace CoctailDebucle.Server.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////
+        //[HttpPost("savedrink")]
+        //public async Task<IActionResult> SaveDrink([FromBody] DrinkDTO dto)
+        //{
+        //    var imagePath = await DownloadImageAsync(dto.ImagePath);
+        //    //Console.WriteLine("Received imagePath: " + dto.ImagePath);
+
+        //    _logger.LogInformation("Received imagePath: {ImageUrl}", dto.ImagePath);
+
+        //    // 1. Find the glass by its ID
+        //    //var allGlasses = await _context.Glasses.ToListAsync();
+        //    var glass = await _context.Glasses.FirstOrDefaultAsync(g => g.Id == dto.GlassId);
+        //    if (glass == null)
+        //    {
+        //        return BadRequest($"Glass with ID '{dto.GlassId}' not found.");
+        //    }
+
+        //    // 2. Create the drink
+        //    var newDrink = new Drink
+        //    {
+        //        Name = dto.Name,
+        //        Category = dto.Category,
+        //        Instructions = dto.Instructions,
+        //        GlassId = glass.Id,
+        //        UserId = dto.UserId,
+        //        ImagePath = imagePath
+        //    };
+
+        //    _context.Drinks.Add(newDrink);
+        //    await _context.SaveChangesAsync(); // Save to generate the Drink's ID
+
+        //    // 3. Find and link ingredients
+        //    foreach (var ing in dto.Ingredients)
+        //    {
+        //        // Ensure that the IngredientId exists in the database
+        //        var dbIngredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == ing.IngredientId);
+        //        if (dbIngredient != null)
+        //        {
+        //            var link = new DrinkIngredient
+        //            {
+        //                DrinkId = newDrink.Id,
+        //                IngredientId = dbIngredient.Id,
+        //                Amount = ing.Amount
+        //            };
+
+        //            _context.DrinkIngredients.Add(link);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest($"Ingredient with ID '{ing.IngredientId}' not found.");
+        //        }
+        //    }
+
+        //    // Save all changes (Drink and DrinkIngredients)
+        //    await _context.SaveChangesAsync();
+
+        //    // Return the created drink object
+        //    return Ok(new
+        //    {
+        //        id = newDrink.Id,  // ✅ Return the ID
+        //        name = newDrink.Name,
+        //        message = "Drink saved successfully"
+        //    });
+        //}
+
         [HttpPost("savedrink")]
         public async Task<IActionResult> SaveDrink([FromBody] DrinkDTO dto)
         {
-            var imagePath = await DownloadImageAsync(dto.ImagePath);
-            //Console.WriteLine("Received imagePath: " + dto.ImagePath);
-
-            _logger.LogInformation("Received imagePath: {ImageUrl}", dto.ImagePath);
+            if (dto.ImageData == null || dto.ImageData.Length == 0)
+            {
+                return BadRequest("No image data provided.");
+            }
 
             // 1. Find the glass by its ID
-            //var allGlasses = await _context.Glasses.ToListAsync();
             var glass = await _context.Glasses.FirstOrDefaultAsync(g => g.Id == dto.GlassId);
             if (glass == null)
             {
@@ -242,7 +343,8 @@ namespace CoctailDebucle.Server.Controllers
                 Instructions = dto.Instructions,
                 GlassId = glass.Id,
                 UserId = dto.UserId,
-                ImagePath = imagePath
+                ImageData = dto.ImageData, // Save the image byte data here
+                ImageMimeType = dto.ImageMimeType // Save MIME type
             };
 
             _context.Drinks.Add(newDrink);

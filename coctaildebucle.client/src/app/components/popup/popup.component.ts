@@ -80,10 +80,10 @@ export class PopupFormComponent
         // Emit the token so the header can react
         this.loginSuccessful.emit(response.token);
         this.isVisible = !this.isVisible;
+        window.location.reload();
       }, error => {
         console.error('Login failed:', error);
       });
-      window.location.reload();
   }
 
   logout()

@@ -163,6 +163,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       ingredients: this.fb.array([])  // Initialize the ingredients as an empty arra
     });
 
+    this.fetchUserDrinksImage();
     this.fetchIngredientOptions();
     this.initProfileForm();
     this.loadUserData(); //per form informazioni utente
@@ -435,6 +436,34 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
+  fetchUserDrinksImage() {
+    if (!this.userId) return;
+
+    this.getUserDrinks(this.userId).subscribe({
+      next: (drinks) => {
+        this.userDrinks = drinks;
+        this.onSearchQueryChange();
+        this.userDrinks.forEach(drink => this.loadImageForDrink(drink));
+      },
+      error: (err) => {
+        console.error("Failed to fetch drinks:", err);
+      }
+    });
+  }
+
+  loadImageForDrink(drink: any): void {
+   /* console.log("ciao cicci");*/
+    this.http.get(`https://localhost:7047/api/drinkDb/${drink.id}/image`, { responseType: 'blob' })
+      .subscribe(blob => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          drink.imageUrl = reader.result as string; // base64 string
+    /*      console.log('Image loaded for drink:', drink.name, drink.imageUrl);*/
+        };
+        reader.readAsDataURL(blob);
+      });
+  }
+
   ////////////////////////////
   // User Drink Creation
   ////////////////////////////
@@ -456,12 +485,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       next: (response) => {
         console.log('Drink created successfully:', response);
         if (this.selectedFile && response.id) {
-          this.uploadDrinkImage(response.id, this.selectedFile).subscribe({
+          this.uploadDbImage(response.id, this.selectedFile).subscribe({
             next: () => {
               console.log('Image uploaded successfully');
               // Add the created drink to the UI and refresh
               this.userDrinks.push(response);
-              this.fetchUserDrinks();
+              this.fetchUserDrinksImage();
             },
             error: (err) => {
               console.error('Image upload failed:', err);
@@ -474,6 +503,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         console.error('Drink creation failed:', err);
       }
     });
+  }
+
+  uploadDbImage(drinkId: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('ImagePath', imageFile); // must match the DTO
+
+    // updated endpoint for DB storage
+    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImageToDb/${drinkId}`, formData);
   }
 
   uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
@@ -490,7 +527,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       next: () => {
         console.log(`Drink ${drinkId} deleted`);
         this.userDrinks = this.userDrinks.filter(d => d.id !== drinkId);
-        this.fetchUserDrinks();
+        this.fetchUserDrinksImage();
       },
       error: err => {
         console.error("Failed to delete drink:", err);
@@ -506,7 +543,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     if (confirm('Are you sure you want to delete this drink?')) {
       this.drinkService.deleteDrink(id).subscribe(() => {
         //this.loadDrinks(); // refresh
-        this.fetchUserDrinks(); 
+        this.fetchUserDrinksImage(); 
       });
     }
   }
@@ -617,11 +654,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     this.http.put(`https://localhost:7047/api/drinkDb/${drinkId}`, payload).subscribe({
       next: () => {
         console.log('Update success');
-        this.fetchUserDrinks();   
+        this.fetchUserDrinksImage();   
         this.selectedDrink = null; 
       },
       error: err => console.error('Update failed:', err)
     });
   }
   // ----------------------------------------- //
+
 }
