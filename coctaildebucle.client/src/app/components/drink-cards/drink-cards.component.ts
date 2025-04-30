@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CocktailService } from '../../services/cocktail.service';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './drink-cards.component.html',
   styleUrls: ['./drink-cards.component.css'],
-  imports: [CommonModule, NgFor]
+  imports: [CommonModule, NgFor, RouterModule]
 })
 export class DrinkCardsComponent implements OnInit
 {
