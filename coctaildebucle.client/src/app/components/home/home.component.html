@@ -1,10 +1,34 @@
 <main class="content">
 
+  <!--<select (change)="onLanguageChange($event)">
+    <option value="en">
+      <i class="fi fi-gr"></i>
+      <p>English</p>
+    </option>
+    <option value="fr">
+      <i class="fi fi-gr"></i>
+      <p>Français</p>
+    </option>
+  </select>-->
+
+  <div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+    <div class="selected-lang">
+      <i class="fi" [ngClass]="{'fi-gb': currentLang === 'en', 'fi-fr': currentLang === 'fr'}"></i>
+      <span>{{ currentLang === 'en' ? 'English' : 'Français' }}</span>
+    </div>
+    <ul class="dropdown-options" *ngIf="dropdownOpen">
+      <li *ngFor="let lang of availableLanguages" (click)="onLanguageChange(lang)">
+        <i class="fi" [ngClass]="{'fi-gb': lang === 'en', 'fi-fr': lang === 'fr'}"></i>
+        {{ lang === 'en' ? 'English' : 'Français' }}
+      </li>
+    </ul>
+  </div>
+
   <!-- Main Section -->
   <div class="mainSection">
     <div class="textSection">
       <h1 class="mainTitle">
-        Welcome to: Gourmet Alcoholist
+        {{ 'HOME.TITLE' | translate }}
       </h1>
       <p class="flavourText">
         Discover our daily selection of drinks or create your own!
@@ -21,30 +45,6 @@
       </div>
     </div>
   </div>
-
-  <!--<h1> Searching something in particular?</h1>
-  <br />
-
-  <div class="search-bar">
-    <input type="text" [(ngModel)]="searchQuery" (keyup)="onSearch()" placeholder="Search for a drink..." />
-
-    <select [(ngModel)]="selectedCategory" (change)="onSearch()">
-      <option value="">All Categories</option>
-      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
-
-    <select [(ngModel)]="selectedIngredient" (change)="onSearch()">
-      <option value="">All Ingredients</option>
-      <option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient }}</option>
-    </select>
-
-    <select id="glass" [(ngModel)]="selectedGlass" (change)="onSearch()">
-      <option value="">All Glasses</option>
-      <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
-    </select>
-
-  </div>-->
-  <!-- Favourite drink section -->
 
   <app-favorite-drinks></app-favorite-drinks>
 

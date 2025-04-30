@@ -11,13 +11,19 @@ import { RouterModule } from '@angular/router';
 import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { TranslateModule } from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 
+
+/*TranslateModule,*/
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [CommonModule, FavoriteDrinksComponent, DrinkCardsComponent, RouterModule, NgFor]
+  imports: [CommonModule, FavoriteDrinksComponent,
+    DrinkCardsComponent, RouterModule, NgFor, TranslateModule
+  ]
 })
 export class HomeComponent {
   searchQuery: string = '';
@@ -30,8 +36,20 @@ export class HomeComponent {
   selectedGlass: string = '';
   isLoggedIn: boolean = false;
 
+  /////////////////////////
+  // Language Dropdown
+  /////////////////////////
 
-  constructor(private http: HttpClient, private cocktailService: CocktailService, private authService: AuthService, private router: Router) { }
+  availableLanguages = ['en', 'fr'];
+  currentLang = 'en';
+  dropdownOpen = false;
+
+  constructor(private http: HttpClient, private cocktailService: CocktailService, private authService: AuthService, private router: Router, private translate: TranslateService)
+  {
+    const lang = localStorage.getItem('lang') || 'en';
+    translate.setDefaultLang(lang);
+    translate.use(lang);
+  }
 
   //private isLoggedInSubject = new BehaviorSubject<boolean>(this.authService.getUserId() !== null);
 
@@ -94,5 +112,24 @@ export class HomeComponent {
     ).subscribe(response => {
         this.drinks = response.drinks || [];
       });
+  }
+  ////////////////////////////
+  // Localization Methods
+  ////////////////////////////
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  onLanguageChange(lang: string) {
+    /*const lang = (event.target as HTMLSelectElement).value;*/
+    this.translate.use(lang);
+    this.currentLang = lang;
+    this.dropdownOpen = false;
+    localStorage.setItem('lang', lang);
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 }
