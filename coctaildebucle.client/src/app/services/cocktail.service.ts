@@ -11,6 +11,7 @@ import { DrinkImportDTO } from '../models/import-dto.model';
 })
 export class CocktailService {
   private apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
+  private apiUrlDb = 'http://localhost:7047/api/drinkDb'; 
 
   constructor(private http: HttpClient) { }
 
@@ -149,5 +150,9 @@ export class CocktailService {
 
   getImage(drinkId: number): Observable<Blob> {
     return this.http.get(`api/drinkDb/getImage/${drinkId}`, { responseType: 'blob' });
+  }
+
+  getDrinkByIdDb(id: number): Observable<any> {
+    return this.http.get<any>(`https://localhost:7047/api/drinkDb/${id}`);
   }
 }

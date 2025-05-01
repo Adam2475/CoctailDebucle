@@ -1,30 +1,6 @@
-<!--card originali-->
-<!--<div class="drink-container">
-    <div *ngFor="let drink of selDrinks" class="drink-card">
-      <img
-           [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
-           [alt]="drink.name">
-      <h3>{{ drink.name }}</h3>
-    </div>
-  <p *ngIf="selDrinks.length === 0">Wait for the admin to add more drinks</p>
-</div>-->
-
-<!-- risultati barra ricerca homepage-->
-<!--<div class="results">
-  <div class="drink-container">
-    <div class="drink-card" *ngFor="let drink of drinks">
-      <a [routerLink]="['/cocktail', drink.idDrink]">
-        <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
-        <h3>{{ drink.strDrink }}</h3>
-      </a>
-    </div>
-  </div>
-</div>-->
-
-<!-- versione ibrida -->
 <div class="drink-container">
   <div class="drink-card" *ngFor="let drink of selDrinks">
-    <a [routerLink]="['/cocktail', drink.Id]">
+    <a [routerLink]="['/cocktail', drink.id]">
       <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
            [alt]="drink.name">
       <h3>{{ drink.name }}</h3>

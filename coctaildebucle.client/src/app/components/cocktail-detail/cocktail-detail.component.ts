@@ -7,12 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cocktail-detail',
   standalone: true,
   templateUrl: './cocktail-detail.component.html',
-  imports: [NgIf, NgFor],
+  imports: [NgIf, CommonModule, NgFor],
   styleUrls: ['./cocktail-detail.component.css']
 })
 export class CocktailDetailComponent implements OnInit
@@ -29,30 +30,18 @@ export class CocktailDetailComponent implements OnInit
     private authService: AuthService
   ) { }
 
-  ngOnInit(): void
-  {
-    const id = this.route.snapshot.paramMap.get('id'); // Get ID from URL
-    console.log("Cocktail ID from route:", id);
+  ngOnInit(): void {
+    // Get the 'id' parameter from the route
+    const drinkId = +this.route.snapshot.paramMap.get('id')!;
 
-    if (id) {
-      this.cocktailService.getDrinkById(id).subscribe(
-        (data: any) => {
-          console.log("API Response:", data); // Log the full response
+    const stringId: string = drinkId.toString();
 
-          // Check if data.drinks exists and is an array
-          if (Array.isArray(data.drinks) && data.drinks.length > 0) {
-            this.cocktail = data.drinks[0];
-            console.log("Assigned cocktail:", this.cocktail);  // Log the cocktail object
-          } else {
-            console.error("❌ No cocktail found for ID:", id);
-            this.cocktail = null; // Set to null if no valid data found
-          }
-        },
-        (error: any) => {
-          console.error("❌ Error fetching drink details:", error);
-        }
-      );
-    }
+    // Call the service to fetch the drink by its ID
+    console.log("id: ",drinkId.toString());
+    this.cocktailService.getDrinkByIdDb(drinkId).subscribe((data) => {
+      this.cocktail = data;
+      console.log("drink: ",this.cocktail);
+    });
   }
 
   getIngredients(): string[]
