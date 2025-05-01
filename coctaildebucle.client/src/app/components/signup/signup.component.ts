@@ -5,19 +5,28 @@ import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule, TranslateModule]
 })
 export class SignupComponent {
   registerForm: FormGroup;
   isSubmitted = false;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private translate: TranslateService
+    ) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
@@ -56,9 +65,13 @@ export class SignupComponent {
       .subscribe(
         response => {
           console.log('Registration successful!', response);
-          // popup success
-          window.alert('🎉 Congratulations! You successfully registered. Now log in and start exploring!');
-          //redirect to home page
+
+          // popup translated success message
+          this.translate.get('SIGNUP_COMPONENT.REGISTER_SUCCESS').subscribe((translatedMessage: string) => {
+            window.alert(translatedMessage);
+          });
+
+          // redirect to home page
           this.router.navigate(['/']);
         },
         error => {
@@ -66,5 +79,6 @@ export class SignupComponent {
           this.errorMessage = 'Registration failed. Please try again.';
         }
       );
+
   }
 }

@@ -1,0 +1,83 @@
+{
+  "HOME": {
+    "TITLE": "Benvenuto in: Gourmet Alcoholist",
+    "FLAVOUR_TEXT": "Scopri la nostra selezione giornaliera di drink o crea il tuo!",
+    "CHOSEN_FOR_YOU": "Scelti per te:",
+    "DAILY_SELECTION": "Selezione del giorno:"
+  },
+  "HEADER": {
+    "LOGIN": "Accedi",
+    "LOGOUT": "Esci",
+    "PROFILE": "Profilo",
+    "ADMIN": "Admin"
+  },
+  "FOOTER": {
+    "PROJECTS": "Progetti",
+    "SERVICES": "Servizi",
+    "ABOUT": "Chi Siamo",
+    "CONTACT": "Contatti",
+    "COPYRIGHT": "CoctailDebucle. Tutti i diritti riservati."
+  },
+  "ADMIN_PAGE": {
+    "MANAGE_SELECTIONS": "Gestisci Selezioni",
+    "SEL_LIST_#": "Selezione",
+    "SEL_LIST_BY": "di",
+    "SEL_LIST_CREATED": "Creato il:",
+    "SEL_LIST_N_ELEMENTS": "Cocktail:",
+    "SEL_LIST_ACTIVE": "attiva",
+    "SEL_LIST_INACTIVE": "non attiva",
+    "SEL_LIST_TOGGLE_ACTIVE": "Attiva/Disattiva",
+    "SEL_LIST_DELETE": "Elimina",
+    "SELECTED_DRINKS": "Cocktail selezionati",
+    "SUBMIT_SELECTION": "Invia selezione",
+    "SEARCHBAR_TITLE": "Scegli i cocktail da aggiungere alla selezione del giorno",
+    "SEARCHBAR_NAME": "Cerca un cocktail...",
+    "SEARCHBAR_CATEGORY": "Tutte le categorie",
+    "SEARCHBAR_INGREDIENTS": "Tutti gli ingredienti",
+    "SEARCHBAR_GLASSES": "Tutti i bicchieri",
+    "MSG_RANDOM_SELECTION": "Non sai cosa scegliere? Ecco una selezione casuale:",
+    "MSG_NO_RESULT": "La tua ricerca non ha fornito risultati."
+  },
+  "COCKTAIL_DETAIL": {
+    "CATEGORY": "Categoria",
+    "GLASS": "Bicchiere",
+    "INSTRUCTIONS": "Istruzioni",
+    "INGREDIENTS": "Ingredienti",
+    "FAVORITES": "Aggiungi ai Preferiti",
+    "BACK": "Indietro",
+    "NOT_FOUND": "Nessun cocktail corrisponde a questo id. Si prega di provare più tardi."
+  },
+  "DRINK_CARDS": {
+    "NO_DRINKS": "Al momento non ci sono drink disponibili"
+  },
+  "FAVORITE_DRINKS": {
+    "NO_FAVORITE": "Non hai ancora scelto dei preferiti. Che aspetti?"
+  },
+  "GDPR_COMPONENT": {
+    "GDPR_BANNER": "Usiamo cookies per garantirti una bella esperienza sul nostro sito",
+    "ACCEPT": "Accetta",
+    "DECLINE": "Rifiuta"
+  },
+  "POPUP_LOGIN": {
+    "USERNAME": "Nome Utente",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Accedi",
+    "OR": "OPPURE",
+    "SIGNUP_BUTTON": "Iscriviti",
+    "FORGOT_PASSWORD": "Hai dimenticato la password?"
+  },
+  "SIGNUP_COMPONENT": {
+    "REGISTER_TITLE": "Registrati",
+    "FIELD_NAME": "Nome",
+    "FIELD_SURNAME": "Cognome",
+    "FIELD_BIRTHDATE": "Data di Nascita",
+    "FIELD_USERNAME": "Nome Utente",
+    "FIELD_EMAIL": "Email",
+    "FIELD_PASSWORD": "Password",
+    "REGISTER_BUTTON": "Registrati",
+    "REGISTER_SUCCESS": "🎉 Congratulazioni! Registrazione completata. Ora accedi e inizia a esplorare!"
+  },
+  "USER_PROFILE": {
+    "PROFILE": "Il Mio Profilo"
+  }
+ }

@@ -12,7 +12,8 @@ import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { TranslateModule } from "@ngx-translate/core";
-import { TranslateService } from "@ngx-translate/core";
+//import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 
 /*TranslateModule,*/
@@ -21,8 +22,13 @@ import { TranslateService } from "@ngx-translate/core";
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [CommonModule, FavoriteDrinksComponent,
-    DrinkCardsComponent, RouterModule, NgFor, TranslateModule
+  imports: [
+    CommonModule,
+    FavoriteDrinksComponent,
+    DrinkCardsComponent,
+    RouterModule,
+    NgFor,
+    TranslateModule
   ]
 })
 export class HomeComponent {
@@ -39,22 +45,35 @@ export class HomeComponent {
   /////////////////////////
   // Language Dropdown
   /////////////////////////
-
-  availableLanguages = ['en', 'fr'];
-  currentLang = 'en';
+  availableLanguages: string[] = [];
+  currentLang: string = 'en';
   dropdownOpen = false;
+  //availableLanguages = ['en', 'fr'];
+  //currentLang = 'en';
+  //dropdownOpen = false;
 
-  constructor(private http: HttpClient, private cocktailService: CocktailService, private authService: AuthService, private router: Router, private translate: TranslateService)
+
+
+  constructor(
+    private http: HttpClient,
+    private cocktailService: CocktailService,
+    private authService: AuthService,
+    private router: Router,
+    //private translate: TranslateService,
+    private languageService: LanguageService
+  )
   {
-    const lang = localStorage.getItem('lang') || 'en';
-    translate.setDefaultLang(lang);
-    translate.use(lang);
+    //const lang = localStorage.getItem('lang') || 'en';
+    //translate.setDefaultLang(lang);
+    //translate.use(lang);
   }
-
   //private isLoggedInSubject = new BehaviorSubject<boolean>(this.authService.getUserId() !== null);
 
   ngOnInit()
   {
+    this.checkLogin();
+    this.availableLanguages = this.languageService.getAvailableLanguages();
+    this.currentLang = this.languageService.getCurrentLang();
     this.checkLogin();
 /*    this.loadCategories();*/
     //this.loadIngredients();
@@ -121,15 +140,22 @@ export class HomeComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  //onLanguageChange(lang: string) {
+  //  /*const lang = (event.target as HTMLSelectElement).value;*/
+  //  this.translate.use(lang);
+  //  this.currentLang = lang;
+  //  this.dropdownOpen = false;
+  //  localStorage.setItem('lang', lang);
+  //}
   onLanguageChange(lang: string) {
-    /*const lang = (event.target as HTMLSelectElement).value;*/
-    this.translate.use(lang);
-    this.currentLang = lang;
+    this.languageService.changeLanguage(lang); // <-- usa il parametro corretto
+    this.currentLang = lang; // <-- aggiorna il valore locale
     this.dropdownOpen = false;
-    localStorage.setItem('lang', lang);
   }
 
-  switchLang(lang: string) {
-    this.translate.use(lang);
-  }
+
+
+  //switchLang(lang: string) {
+  //  this.translate.use(lang);
+  //}
 }

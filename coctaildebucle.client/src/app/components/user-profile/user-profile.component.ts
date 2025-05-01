@@ -13,6 +13,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 interface DrinkIngredient {
   ingredientId: number;
@@ -25,7 +27,7 @@ interface DrinkIngredient {
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
-    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent]
+    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent, TranslateModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
@@ -258,11 +260,11 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
 
   editableFields = [
-    { label: 'Name', controlName: 'name', type: 'text', editing: false },
-    { label: 'Surname', controlName: 'surname', type: 'text', editing: false },
-    { label: 'Birth Date', controlName: 'birthDate', type: 'date', editing: false },
-    { label: 'Username', controlName: 'username', type: 'text', editing: false },
-    { label: 'Email', controlName: 'email', type: 'email', editing: false },
+    { labelKey: 'USER_PROFILE.FIELD_NAME', controlName: 'name', type: 'text', editing: false },
+    { labelKey: 'USER_PROFILE.FIELD_SURNAME', controlName: 'surname', type: 'text', editing: false },
+    { labelKey: 'USER_PROFILE.FIELD_BIRTHDATE', controlName: 'birthDate', type: 'date', editing: false },
+    { labelKey: 'USER_PROFILE.FIELD_USERNAME', controlName: 'username', type: 'text', editing: false },
+    { labelKey: 'USER_PROFILE.FIELD_EMAIL', controlName: 'email', type: 'email', editing: false },
     //{ label: 'GDPR Consent', controlName: 'gdprConsent', type: 'checkbox', editing: true }
   ];
 

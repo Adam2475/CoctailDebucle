@@ -6,5 +6,5 @@
       <h3>{{ drink.name }}</h3>
     </a>
   </div>
-  <p *ngIf="selDrinks.length === 0">Wait for the admin to add more drinks</p>
+  <p *ngIf="selDrinks.length === 0">{{ 'DRINK_CARDS.NO_DRINKS' | translate }}</p>
 </div>

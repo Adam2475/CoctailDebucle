@@ -4,33 +4,34 @@
 
 <main>
 
-  <h2>My Profile</h2>
+  <h2>{{ 'USER_PROFILE.PROFILE' | translate }}</h2>
 
   <!--  Update Profile -->
   <section class="profile-update">
-    <h3>Update Your Information</h3>
+    <h3>{{ 'USER_PROFILE.UPDATE_INFORMATION' | translate }}</h3>
 
     <form [formGroup]="profileForm" (ngSubmit)="onProfileUpdate()">
       <div class="form-row" *ngFor="let field of editableFields">
-        <label class="form-label">{{ field.label }}</label>
+        <label class="form-label">{{ field.labelKey | translate }}</label>
         <input [type]="field.type"
                [formControlName]="field.controlName"
                [readonly]="!field.editing"
                class="form-control input-fixed" />
         <button type="button" class="edit-btn" (click)="toggleEdit(field)">
-          {{ field.editing ? 'Cancel' : 'Edit' }}
+          {{ field.editing ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
         </button>
       </div>
 
+
       <!-- gdpr field -->
       <div class="form-row">
-        <label class="form-label">GDPR Consent</label>
+        <label class="form-label">{{ 'USER_PROFILE.FIELD_GDPR' | translate }}</label>
         <input type="checkbox" formControlName="gdprConsent" />
       </div>
 
       <!-- password field -->
       <div class="form-row">
-        <label class="form-label">Current Password</label>
+        <label class="form-label">{{ 'USER_PROFILE.FIELD_PASS_CURRENT' | translate }}</label>
         <input type="password"
                value="********"
                readonly
@@ -42,18 +43,18 @@
 
       <div *ngIf="passwordEditMode">
         <div class="form-row">
-          <label class="form-label">New Password</label>
+          <label class="form-label">{{ 'USER_PROFILE.FIELD_PASS_NEW' | translate }}</label>
           <input type="password" id="newPassword" formControlName="newPassword" class="form-control input-fixed" />
         </div>
 
         <div class="form-row">
-          <label class="form-label">Confirm New Password</label>
+          <label class="form-label">{{ 'USER_PROFILE.FIELD_PASS_CONFIRM' | translate }}</label>
           <input type="password" id="confirmNewPassword" formControlName="confirmNewPassword" class="form-control input-fixed" />
           <div *ngIf="passwordMismatch" class="text-danger">Passwords do not match</div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary save-btn" [disabled]="profileForm.invalid">Save Changes</button>
+      <button type="submit" class="btn btn-primary save-btn" [disabled]="profileForm.invalid">{{ 'USER_PROFILE.SAVE_INFORMATION' | translate }}</button>
       <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
     </form>

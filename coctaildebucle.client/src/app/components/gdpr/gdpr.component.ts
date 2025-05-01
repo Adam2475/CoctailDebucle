@@ -2,12 +2,14 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 import { GdprService } from '../../services/gdpr.service';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-gdpr-banner',
   templateUrl: './gdpr.component.html',
   styleUrls: ['./gdpr.component.css'],
-  imports: [NgIf],
+  imports: [NgIf, TranslateModule],
   standalone: true
 })
 export class GdprBannerComponent implements OnInit, OnChanges
