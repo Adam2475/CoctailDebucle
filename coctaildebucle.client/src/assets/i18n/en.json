@@ -2,6 +2,96 @@
   "HOME": {
     "TITLE": "Welcome to: Gourmet Alcoholist",
     "FLAVOUR_TEXT": "Discover our daily selection of drinks or create your own!",
+    "CHOSEN_FOR_YOU": "Chosen for you:",
     "DAILY_SELECTION": "Daily Selection:"
+  },
+  "HEADER": {
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "PROFILE": "Profile",
+    "ADMIN": "Admin"
+  },
+  "FOOTER": {
+    "PROJECTS": "Projects",
+    "SERVICES": "Services",
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "COPYRIGHT": "CoctailDebucle. All rights reserved."
+  },
+  "ADMIN_PAGE": {
+    "MANAGE_SELECTIONS": "Manage Selections",
+    "SEL_LIST_#": "Selection",
+    "SEL_LIST_BY": "by",
+    "SEL_LIST_CREATED": "Created:",
+    "SEL_LIST_N_ELEMENTS": "Drinks:",
+    "SEL_LIST_ACTIVE": "active",
+    "SEL_LIST_INACTIVE": "inactive",
+    "SEL_LIST_TOGGLE_ACTIVE": "Toggle Active",
+    "SEL_LIST_DELETE": "delete",
+    "SELECTED_DRINKS": "Selected Drinks",
+    "SUBMIT_SELECTION": "Submit Selection",
+    "SEARCHBAR_TITLE": "Choose drinks to add to the daily selection",
+    "SEARCHBAR_NAME": "Search for a drink...",
+    "SEARCHBAR_CATEGORY": "All Categories",
+    "SEARCHBAR_INGREDIENTS": "All Ingredients",
+    "SEARCHBAR_GLASSES": "All Glasses",
+    "MSG_RANDOM_SELECTION": "Don't know what to choose? Here's a random selection:",
+    "MSG_NO_RESULT": "No results found for your search."
+  },
+  "COCKTAIL_DETAIL": {
+    "CATEGORY": "Category",
+    "GLASS": "Glass",
+    "INSTRUCTIONS": "Instructions",
+    "INGREDIENTS": "Ingredients",
+    "FAVORITES": "Add to Favorites",
+    "BACK": "Back",
+    "NOT_FOUND": "No cocktail found for the provided ID. Please try again later."
+  },
+  "DRINK_CARDS": {
+    "NO_DRINKS": "Wait for the admin to add more drinks"
+  },
+  "FAVORITE_DRINKS": {
+    "NO_FAVORITE": "You have no favorite drinks yet. What are you waiting for?"
+  },
+  "GDPR_COMPONENT": {
+    "GDPR_BANNER": "We use cookies to ensure you get the best experience on our website.",
+    "ACCEPT": "Accept",
+    "DECLINE": "Decline"
+  },
+  "POPUP_LOGIN": {
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Login",
+    "OR": "OR",
+    "SIGNUP_BUTTON": "Sign Up",
+    "FORGOT_PASSWORD": "Forgot Password?"
+  },
+  "SIGNUP_COMPONENT": {
+    "REGISTER_TITLE": "Register",
+    "FIELD_NAME": "Name",
+    "FIELD_SURNAME": "Surname",
+    "FIELD_BIRTHDATE": "BirthDate",
+    "FIELD_USERNAME": "Username",
+    "FIELD_EMAIL": "Email",
+    "FIELD_PASSWORD": "Password",
+    "REGISTER_BUTTON": "Register",
+    "REGISTER_SUCCESS": "🎉 Congratulations! You successfully registered. Now log in and start exploring!"
+  },
+  "USER_PROFILE": {
+    "PROFILE": "My Profile",
+    "UPDATE_INFORMATION": "Update Your Information",
+    "EDIT_BUTTON": "Edit",
+    "CANCEL_BUTTON": "Cancel",
+    "FIELD_NAME": "Name",
+    "FIELD_SURNAME": "Surname",
+    "FIELD_BIRTHDATE": "Birth Date",
+    "FIELD_USERNAME": "Username",
+    "FIELD_EMAIL": "Email",
+    "FIELD_GDPR": "GDPR Consent",
+    "FIELD_PASS_CURRENT": "Current Password",
+    "FIELD_PASS_NEW": "New Password",
+    "FIELD_PASS_CONFIRM": "Confirm New Password",
+    "SAVE_INFORMATION": "Save Changes",
+    "MSG_NO_GDPR": "You need to accept GDPR consent to view your favorite drinks."
   }
 }

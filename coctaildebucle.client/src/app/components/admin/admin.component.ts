@@ -10,6 +10,8 @@ import { Observable, Subject, forkJoin, from, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap, switchMap, concatMap, map, toArray, delay } from 'rxjs/operators';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 
 
@@ -35,7 +37,13 @@ interface SavedDrinkResponse {
   standalone: true,
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  imports: [CommonModule, CardModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    CardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
 })
 export class AdminComponent implements OnInit {
   drinks: any[] = [];

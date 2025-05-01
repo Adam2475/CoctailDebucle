@@ -12,6 +12,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFor
   standalone: true,
   templateUrl: './favorite-drinks.component.html',
   styleUrl: './favorite-drinks.component.css',
-  imports: [NgFor, NgIf]
+  imports: [NgFor, NgIf, TranslateModule]
 })
 export class FavoriteDrinksComponent
 {

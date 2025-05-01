@@ -2,6 +2,80 @@
   "HOME": {
     "TITLE": "Bienvenue chez : Gourmet Alcoholist",
     "FLAVOUR_TEXT": "Découvrez notre sélection quotidienne de boissons ou créez la vôtre !",
-    "DAILY_SELECTION": "Sélection du jour :"
+    "CHOSEN_FOR_YOU": "Choisi pour vous:",
+    "DAILY_SELECTION": "Sélection du jour:"
+  },
+  "HEADER": {
+    "LOGIN": "Connexion",
+    "LOGOUT": "Déconnexion",
+    "PROFILE": "Profil",
+    "ADMIN": "Admin"
+  },
+  "FOOTER": {
+    "PROJECTS": "Projets",
+    "SERVICES": "Services",
+    "ABOUT": "Qui sommes-nous",
+    "CONTACT": "Contact",
+    "COPYRIGHT": "CoctailDebucle. Tous droits réservés."
+  },
+  "ADMIN_PAGE": {
+    "MANAGE_SELECTIONS": "Gérer les sélections",
+    "SEL_LIST_#": "Sélection",
+    "SEL_LIST_BY": "par",
+    "SEL_LIST_CREATED": "Créé le :",
+    "SEL_LIST_N_ELEMENTS": "Cocktails :",
+    "SEL_LIST_ACTIVE": "active",
+    "SEL_LIST_INACTIVE": "inactive",
+    "SEL_LIST_TOGGLE_ACTIVE": "Activer/Désactiver",
+    "SEL_LIST_DELETE": "supprimer",
+    "SELECTED_DRINKS": "Cocktails sélectionnés",
+    "SUBMIT_SELECTION": "Soumettre la sélection",
+    "SEARCHBAR_TITLE": "Choisissez les cocktails à ajouter à la sélection du jour",
+    "SEARCHBAR_NAME": "Rechercher un cocktail...",
+    "SEARCHBAR_CATEGORY": "Toutes les catégories",
+    "SEARCHBAR_INGREDIENTS": "Tous les ingrédients",
+    "SEARCHBAR_GLASSES": "Tous les verres",
+    "MSG_RANDOM_SELECTION": "Vous ne savez pas quoi choisir ? Voici une sélection aléatoire :",
+    "MSG_NO_RESULT": "Aucun résultat trouvé pour votre recherche."
+  },
+  "COCKTAIL_DETAIL": {
+    "CATEGORY": "Catégorie",
+    "GLASS": "Verre",
+    "INSTRUCTIONS": "Instructions",
+    "INGREDIENTS": "Ingrédients",
+    "FAVORITES": "Ajouter aux Favoris",
+    "BACK": "Retour",
+    "NOT_FOUND": "Aucun cocktail ne correspond à cet identifiant. Veuillez réessayer plus tard."
+  },
+  "DRINK_CARDS": {
+    "NO_DRINKS": "Il n'y a pas de boissons disponibles pour le moment"
+  },
+  "FAVORITE_DRINKS": {
+    "NO_FAVORITE": "Vous n'avez pas encore choisi de favoris. Qu'attendez-vous ?"
+  },
+  "GDPR_COMPONENT": {
+    "GDPR_BANNER": "Nous utilisons des cookies pour vous garantir une bonne expérience sur notre site",
+    "ACCEPT": "Accepter",
+    "DECLINE": "Refuser"
+  },
+  "POPUP_LOGIN": {
+    "USERNAME": "Nom d'utilisateur",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Connecter",
+    "OR": "OU",
+    "SIGNUP_BUTTON": "Registre",
+    "FORGOT_PASSWORD": "Mot de passe oublié?"
+  },
+  "SIGNUP_COMPONENT": {
+    "REGISTER_TITLE": "Inscription",
+    "FIELD_NAME": "Prénom",
+    "FIELD_SURNAME": "Nom",
+    "FIELD_BIRTHDATE": "Date de naissance",
+    "FIELD_USERNAME": "Nom d'utilisateur",
+    "FIELD_EMAIL": "Email",
+    "FIELD_PASSWORD": "Password",
+    "REGISTER_BUTTON": "S'inscrire",
+    "REGISTER_SUCCESS": "🎉 Félicitations ! Vous vous êtes inscrit avec succès. Connectez-vous maintenant et commencez à explorer !"
   }
+
 }

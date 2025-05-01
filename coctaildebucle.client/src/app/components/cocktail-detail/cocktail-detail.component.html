@@ -1,16 +1,16 @@
 <div *ngIf="cocktail; else noData" class="cocktail-detail">
   <h1>{{ cocktail.name }}</h1>
 
-  <h3>Category: {{ cocktail.category }}</h3>
+  <h3>{{ 'COCKTAIL_DETAIL.CATEGORY' | translate }}: {{ cocktail.category }}</h3>
   <img [src]="'data:' + cocktail.imageMimeType + ';base64,' + cocktail.imageData"
        alt="{{ cocktail.name }}"
        width="200"
        height="200"
        style="object-fit: cover; border-radius: 8px;" />
-  <h3>Glass: {{ cocktail.glass.name }}</h3>
-  <p><strong>Instructions:</strong> {{ cocktail.instructions }}</p>
+  <h3>{{ 'COCKTAIL_DETAIL.GLASS' | translate }}: {{ cocktail.glass.name }}</h3>
+  <p><strong>{{ 'COCKTAIL_DETAIL.INSTRUCTIONS' | translate }}:</strong> {{ cocktail.instructions }}</p>
 
-  <h3>Ingredients:</h3>
+  <h3>{{ 'COCKTAIL_DETAIL.INGREDIENTS' | translate }}:</h3>
   <ul>
     <li *ngFor="let ingredient of cocktail.drinkIngredients">
       {{ ingredient.ingredient.ingredientName }} - {{ ingredient.amount }}
@@ -18,13 +18,13 @@
   </ul>
 
   <button (click)="addToFavorites()" class="btn btn-primary">
-    ❤️ Add to Favorites
+    ❤️ {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}
   </button>
 
-  <button (click)="goBack()">⬅ Back</button>
+  <button (click)="goBack()">⬅ {{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
 </div>
 
 <ng-template #noData>
-  <p>⚠️ No cocktail found for the provided ID. Please try again later.</p>
-  <button (click)="goBack()">⬅ Back</button>
+  <p>⚠️ {{ 'COCKTAIL_DETAIL.NOT_FOUND' | translate }}</p>
+  <button (click)="goBack()">⬅ {{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
 </ng-template>

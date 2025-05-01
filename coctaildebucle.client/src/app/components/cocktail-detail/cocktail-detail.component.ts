@@ -8,12 +8,14 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-cocktail-detail',
   standalone: true,
   templateUrl: './cocktail-detail.component.html',
-  imports: [NgIf, CommonModule, NgFor],
+  imports: [NgIf, CommonModule, NgFor, TranslateModule],
   styleUrls: ['./cocktail-detail.component.css']
 })
 export class CocktailDetailComponent implements OnInit

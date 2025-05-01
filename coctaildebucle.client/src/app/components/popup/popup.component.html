@@ -10,7 +10,7 @@
               <p-inputgroup-addon class="inputField">
                 <i class="pi pi-user"></i>
               </p-inputgroup-addon>
-              <input [(ngModel)]="username" placeholder="Username" name="username" required>
+              <input [(ngModel)]="username" placeholder="{{ 'POPUP_LOGIN.USERNAME' | translate }}" name="username" required>
             </p-inputgroup>
           </div>
           <div class="inputPassword">
@@ -18,23 +18,23 @@
               <p-inputgroup-addon class="inputField">
                 <i class="pi pi-key"></i>
               </p-inputgroup-addon>
-              <input [(ngModel)]="password" type="password" placeholder="Password" name="password" required>
+              <input [(ngModel)]="password" type="password" placeholder="{{ 'POPUP_LOGIN.PASSWORD' | translate }}" name="password" required>
             </p-inputgroup>
           </div>
         </div>
-        <p-button type="submit">Login</p-button>
+        <p-button type="submit">{{ 'POPUP_LOGIN.LOGIN_BUTTON' | translate }}</p-button>
       </form>
 
       <div class="divider">
-        <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+        <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>{{ 'POPUP_LOGIN.OR' | translate }}</b></p-divider>
       </div>
 
       <!-- Register -->
       <div>
-        <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
+        <p-button label="{{ 'POPUP_LOGIN.SIGNUP_BUTTON' | translate }}" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
                   (click)="navigateToSignup()" />
         <div class="form-inline fr mt-4">
-          <a id="forget">Forgot Password?</a>
+          <a id="forget">{{ 'POPUP_LOGIN.FORGOT_PASSWORD' | translate }}</a>
         </div>
       </div>
 

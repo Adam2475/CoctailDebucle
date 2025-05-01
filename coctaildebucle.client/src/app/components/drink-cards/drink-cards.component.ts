@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 /**
  * @brief : setting up interface for type safety
@@ -21,7 +23,7 @@ export interface DrinkImportDTO {
   standalone: true,
   templateUrl: './drink-cards.component.html',
   styleUrls: ['./drink-cards.component.css'],
-  imports: [CommonModule, NgFor, RouterModule]
+  imports: [CommonModule, NgFor, RouterModule, TranslateModule]
 })
 export class DrinkCardsComponent implements OnInit
 {

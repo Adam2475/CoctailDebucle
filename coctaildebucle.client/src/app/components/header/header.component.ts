@@ -6,11 +6,20 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [PopupFormComponent, NgIf, CommonModule, ButtonModule, MenubarModule],
+  imports: [
+    PopupFormComponent,
+    NgIf,
+    CommonModule,
+    ButtonModule,
+    MenubarModule,
+    TranslateModule
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })

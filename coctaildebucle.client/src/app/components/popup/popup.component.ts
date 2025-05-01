@@ -14,6 +14,8 @@ import { DividerModule } from 'primeng/divider';
 import { AuthService } from '../../services/auth.service';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TranslateModule } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-popup-form',
@@ -24,6 +26,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     ButtonModule, InputGroupModule, InputGroupAddonModule,
     DialogModule, FormsModule,
     InputTextModule,
+    TranslateModule
     ],
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.css']
