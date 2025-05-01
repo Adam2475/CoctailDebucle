@@ -12,8 +12,8 @@
 
   <h3>Ingredients:</h3>
   <ul>
-    <li *ngFor="let ingredient of getIngredients()">
-      {{ ingredient }}
+    <li *ngFor="let ingredient of cocktail.drinkIngredients">
+      {{ ingredient.ingredient.ingredientName }} - {{ ingredient.amount }}
     </li>
   </ul>
 
