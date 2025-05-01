@@ -56,9 +56,9 @@ export class HomeComponent {
   ngOnInit()
   {
     this.checkLogin();
-    this.loadCategories();
-    this.loadIngredients();
-    this.loadGlasses();
+/*    this.loadCategories();*/
+    //this.loadIngredients();
+    //this.loadGlasses();
   }
 
   checkLogin()

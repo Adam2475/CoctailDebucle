@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Drink } from '../models/drink.model';
+import { DrinkImportDTO } from '../models/import-dto.model';
 
 
 @Injectable({
@@ -141,8 +142,8 @@ export class CocktailService {
   }
 
 
-  getActiveSelectionDrinks(): Observable<Drink[]> {
-    return this.http.get<Drink[]>('https://localhost:7047/api/selection/active-drinks');
+  getActiveSelectionDrinks(): Observable<DrinkImportDTO[]> {
+    return this.http.get<DrinkImportDTO[]>('https://localhost:7047/api/selection/active-drinks');
   }
 
 

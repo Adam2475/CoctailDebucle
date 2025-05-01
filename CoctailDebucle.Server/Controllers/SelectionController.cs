@@ -134,11 +134,21 @@ namespace CoctailDebucle.Server.Controllers
                     .ThenInclude(sd => sd.Drink)
                 .SelectMany(s => s.SelectionDrinks.Select(sd => sd.Drink))
                 .Distinct()
-                .Select(d => new DrinkDTO
+                .Select(d => new DrinkImportDTO
                 {
+                    Id = d.Id,
                     Name = d.Name,
-                    ImagePath = d.ImagePath,
+                    //ImagePath = d.ImagePath,
+                    Ingredients = d.DrinkIngredients.Select(di => new DrinkIngredientDto
+                    {
+                        IngredientId = di.IngredientId,
+                        IngredientName = di.Ingredient.IngredientName,
+                        Amount = di.Amount
+                    }).ToList(),
+                    GlassId = d.GlassId,
                     ImageData = d.ImageData,
+                    Instructions = d.Instructions,
+                    IsCreatedByUser = d.IsCreatedByUser,
                     ImageMimeType = d.ImageMimeType
                 })
                 .ToListAsync();

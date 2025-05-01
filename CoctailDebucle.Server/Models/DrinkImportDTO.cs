@@ -1,7 +1,13 @@
-﻿namespace CoctailDebucle.Server.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CoctailDebucle.Server.Models
 {
-    public class DrinkDTO
+    public class DrinkImportDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public int GlassId { get; set; } // Only need the foreign key
@@ -20,3 +26,4 @@
     }
 
 }
+
