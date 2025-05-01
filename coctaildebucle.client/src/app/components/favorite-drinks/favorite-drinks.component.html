@@ -1,6 +1,4 @@
-<!-- Favourite drink section -->
 <section *ngIf="consentGiven" class="favorites">
-  <h2>Favorite Drinks</h2>
   <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
     <div class="drink-card" *ngFor="let drink of favoriteDrinks">
       <h3>{{ drink.name }}</h3>

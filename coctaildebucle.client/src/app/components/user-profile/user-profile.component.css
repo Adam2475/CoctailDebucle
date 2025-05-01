@@ -26,15 +26,15 @@
   background-color: #F5F5DC;
 }
 
-  /* custom drinks section */
-  .user-drinks
-  {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-  }
+/* custom drinks section */
+.user-drinks
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
 
 .user-drinks-searchbar
 {
@@ -55,14 +55,13 @@
   margin-right: 1rem;
 }
 
-  .drink-card:hover
-  {
-    transform: scale(1.05);
-  }
+.drink-card:hover
+{
+  transform: scale(1.05);
+}
 
-
-  /* profile update*/
-.profile-update {
+.profile-update
+{
   margin: 2rem auto;
   max-width: 600px;
   background-color: #f9f9f9;
@@ -71,14 +70,16 @@
   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
 
-.form-row {
+.form-row
+{
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.form-label {
-  flex: 0 0 150px; /* etichetta di larghezza fissa */
+.form-label
+{
+  flex: 0 0 150px;
   text-align: right;
   margin-right: 20px;
   font-weight: bold;
@@ -102,9 +103,9 @@
   cursor: pointer;
 }
 
-  .edit-btn:hover {
-    background-color: #0056b3;
-  }
+.edit-btn:hover {
+  background-color: #0056b3;
+}
 
 .save-btn {
   display: block;

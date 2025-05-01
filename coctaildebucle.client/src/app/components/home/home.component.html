@@ -1,16 +1,6 @@
 <main class="content">
 
-  <!--<select (change)="onLanguageChange($event)">
-    <option value="en">
-      <i class="fi fi-gr"></i>
-      <p>English</p>
-    </option>
-    <option value="fr">
-      <i class="fi fi-gr"></i>
-      <p>Français</p>
-    </option>
-  </select>-->
-
+  <!-- Localization Dropdown -->
   <div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
     <div class="selected-lang">
       <i class="fi" [ngClass]="{'fi-gb': currentLang === 'en', 'fi-fr': currentLang === 'fr'}"></i>
@@ -46,21 +36,11 @@
     </div>
   </div>
 
+  <h1 class="favorite-drink-announcement">
+    Chosen for you:
+  </h1>
+
   <app-favorite-drinks></app-favorite-drinks>
-
-<!-- risultati vecchia barra ricerca homepage -->
-  <!--<div class="results">
-    <div class="drink-container">
-      <div class="drink-card" *ngFor="let drink of drinks">
-        <a [routerLink]="['/cocktail', drink.idDrink]">
-          <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
-          <h3>{{ drink.strDrink }}</h3>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <br />-->
 
   <h1 class="drink-announcement">
     Daily Selection:
