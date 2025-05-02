@@ -28,15 +28,19 @@
     "SEL_LIST_INACTIVE": "non attiva",
     "SEL_LIST_TOGGLE_ACTIVE": "Attiva/Disattiva",
     "SEL_LIST_DELETE": "Elimina",
+
     "SELECTED_DRINKS": "Cocktail selezionati",
     "SUBMIT_SELECTION": "Invia selezione",
+
     "SEARCHBAR_TITLE": "Scegli i cocktail da aggiungere alla selezione del giorno",
     "SEARCHBAR_NAME": "Cerca un cocktail...",
     "SEARCHBAR_CATEGORY": "Tutte le categorie",
     "SEARCHBAR_INGREDIENTS": "Tutti gli ingredienti",
     "SEARCHBAR_GLASSES": "Tutti i bicchieri",
     "MSG_RANDOM_SELECTION": "Non sai cosa scegliere? Ecco una selezione casuale:",
-    "MSG_NO_RESULT": "La tua ricerca non ha fornito risultati."
+    "MSG_NO_RESULT": "La tua ricerca non ha fornito risultati.",
+    "BUTTON_TOGGLE_SELECT_DRINK": "Aggiungi",
+    "BUTTON_TOGGLE_REMOVE_DRINK": "Rimuovi"
   },
   "COCKTAIL_DETAIL": {
     "CATEGORY": "Categoria",
@@ -78,6 +82,50 @@
     "REGISTER_SUCCESS": "🎉 Congratulazioni! Registrazione completata. Ora accedi e inizia a esplorare!"
   },
   "USER_PROFILE": {
-    "PROFILE": "Il Mio Profilo"
+    "PROFILE": "Il Mio Profilo",
+
+    "UPDATE_INFORMATION": "Aggiorna le Tue Informazioni",
+    "EDIT_BUTTON": "Modifica",
+    "CANCEL_BUTTON": "Annulla",
+    "FIELD_NAME": "Nome",
+    "FIELD_SURNAME": "Cognome",
+    "FIELD_BIRTHDATE": "Data di Nascita",
+    "FIELD_USERNAME": "Nome Utente",
+    "FIELD_EMAIL": "Email",
+    "FIELD_GDPR": "Consenso GDPR",
+    "FIELD_PASS_CURRENT": "Password Attuale",
+    "FIELD_PASS_NEW": "Nuova Password",
+    "FIELD_PASS_CONFIRM": "Conferma Nuova Password",
+    "FIELD_PASS_MISMATCH": "Nuova Password e Conferma Password non corrispondono",
+    "SAVE_INFORMATION": "Salva Modifiche",
+
+    "MSG_NO_GDPR": "Devi accettare il consenso GDPR per visualizzare i tuoi drink preferiti.",
+
+    "CREATE_DRINK_NAME": "Nome del Drink:",
+    "CREATE_DRINK_CATEGORY": "Categoria:",
+    "CREATE_DRINK_GLASS": "Seleziona Bicchiere",
+    "CREATE_DRINK_GLASS_DROP": "-- Seleziona un bicchiere --",
+    "CREATE_DRINK_INSTRUCTIONS": "Istruzioni",
+    "CREATE_DRINK_INGREDIENT": "Ingrediente",
+    "CREATE_DRINK_INGREDIENT_DROP": "-- Seleziona Ingrediente --",
+    "CREATE_DRINK_INGREDIENT_AMOUNT": "Quantità",
+    "CREATE_DRINK_INGREDIENT_ADD": "Aggiungi Ingrediente",
+    "CREATE_DRINK_INGREDIENT_REMOVE": "Rimuovi",
+    "CREATE_DRINK_IMAGE": "Immagine:",
+    "CREATE_DRINK_CONFIRM_BUTTON": "Crea Drink",
+
+    "CREATE_DRINK_CREATED_HEADER": "Drink creati da te",
+    "CREATE_DRINK_CREATED_SEARCH": "Cerca tra i tuoi drink...",
+    "CREATE_DRINK_ADD_FAVORITE": "Aggiungi ai Preferiti",
+    "CREATE_DRINK_MODIFY": "Modifica",
+    "CREATE_DRINK_DELETE": "Elimina",
+    "CREATE_DRINK_NO_RESULT": "Nessun drink trovato che corrisponda alla tua ricerca.",
+
+    "BACK_BUTTON": "Torna Indietro",
+
+    "MODIFY_DRINK_HEADER": "Modifica Drink",
+    "MODIFY_DRINK_SAVE": "Salva Modifiche",
+    "MODIFY_DRINK_CANCEL": "Annulla"
   }
- }
+
+}

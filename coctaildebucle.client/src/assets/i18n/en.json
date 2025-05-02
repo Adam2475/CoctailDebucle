@@ -28,15 +28,19 @@
     "SEL_LIST_INACTIVE": "inactive",
     "SEL_LIST_TOGGLE_ACTIVE": "Toggle Active",
     "SEL_LIST_DELETE": "delete",
+
     "SELECTED_DRINKS": "Selected Drinks",
     "SUBMIT_SELECTION": "Submit Selection",
+
     "SEARCHBAR_TITLE": "Choose drinks to add to the daily selection",
     "SEARCHBAR_NAME": "Search for a drink...",
     "SEARCHBAR_CATEGORY": "All Categories",
     "SEARCHBAR_INGREDIENTS": "All Ingredients",
     "SEARCHBAR_GLASSES": "All Glasses",
     "MSG_RANDOM_SELECTION": "Don't know what to choose? Here's a random selection:",
-    "MSG_NO_RESULT": "No results found for your search."
+    "MSG_NO_RESULT": "No results found for your search.",
+    "BUTTON_TOGGLE_SELECT_DRINK": "Select",
+    "BUTTON_TOGGLE_REMOVE_DRINK": "Remove"
   },
   "COCKTAIL_DETAIL": {
     "CATEGORY": "Category",
@@ -79,6 +83,7 @@
   },
   "USER_PROFILE": {
     "PROFILE": "My Profile",
+
     "UPDATE_INFORMATION": "Update Your Information",
     "EDIT_BUTTON": "Edit",
     "CANCEL_BUTTON": "Cancel",
@@ -91,7 +96,35 @@
     "FIELD_PASS_CURRENT": "Current Password",
     "FIELD_PASS_NEW": "New Password",
     "FIELD_PASS_CONFIRM": "Confirm New Password",
+    "FIELD_PASS_MISMATCH": "Passwords do not match",
     "SAVE_INFORMATION": "Save Changes",
-    "MSG_NO_GDPR": "You need to accept GDPR consent to view your favorite drinks."
+
+    "MSG_NO_GDPR": "You need to accept GDPR consent to view your favorite drinks.",
+
+    "CREATE_DRINK_NAME": "Drink Name:",
+    "CREATE_DRINK_CATEGORY": "Category:",
+    "CREATE_DRINK_GLASS": "Select Glass",
+    "CREATE_DRINK_GLASS_DROP": "-- Select a glass --",
+    "CREATE_DRINK_INSTRUCTIONS": "Instructions",
+    "CREATE_DRINK_INGREDIENT": "Ingredient",
+    "CREATE_DRINK_INGREDIENT_DROP": "-- Select Ingredient --",
+    "CREATE_DRINK_INGREDIENT_AMOUNT": "Amount",
+    "CREATE_DRINK_INGREDIENT_ADD": "Add Ingredient",
+    "CREATE_DRINK_INGREDIENT_REMOVE": "Remove",
+    "CREATE_DRINK_IMAGE": "Image:",
+    "CREATE_DRINK_CONFIRM_BUTTON": "Create Drink",
+
+    "CREATE_DRINK_CREATED_HEADER": "Your Created Drinks",
+    "CREATE_DRINK_CREATED_SEARCH": "Search your drinks...",
+    "CREATE_DRINK_ADD_FAVORITE": "Add to Favorites",
+    "CREATE_DRINK_MODIFY": "Modify",
+    "CREATE_DRINK_DELETE": "Delete",
+    "CREATE_DRINK_NO_RESULT": "No drinks found matching your search.",
+
+    "BACK_BUTTON": "Go Back",
+
+    "MODIFY_DRINK_HEADER": "Modify Drink",
+    "MODIFY_DRINK_SAVE": "Save Changes",
+    "MODIFY_DRINK_CANCEL": "Cancel"
   }
 }
