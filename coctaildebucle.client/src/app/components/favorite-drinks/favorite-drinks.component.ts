@@ -7,13 +7,15 @@ import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
+// Ng Prime UI
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
@@ -21,7 +23,7 @@ import { LanguageService } from '../../services/language.service';
   standalone: true,
   templateUrl: './favorite-drinks.component.html',
   styleUrl: './favorite-drinks.component.css',
-  imports: [NgFor, NgIf, TranslateModule]
+  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule]
 })
 export class FavoriteDrinksComponent
 {

@@ -1,30 +1,41 @@
-.drink-cards {
+.drink-cards
+{
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  margin: 2em;
-  padding: 1em;
+/*  border: 1px solid black;*/
+ /* border-radius: 8px;*/
+/*  margin: 2em;*/
+  /*padding: 1em;*/
 }
 
-.drink-card {
+.drink-card
+{
   width: 200px;
   text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/*  border: 1px solid var(--border-color);*/
+/*  border-radius: 8px;*/
+/*  padding: 10px;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*  background: var(--cream);*/
+  border: 1px solid var(--border-color);
+  opacity:90%;
+/*  border: 2px solid var(--border-color);*/
 }
 
-  .drink-card img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
+.drink-card:hover
+{
+  transform: scale(1.02);
+  cursor: pointer;
+/*  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.5);*/
+}
 
-  .drink-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-  }
+.drink-card img
+{
+  width: 100%;
+/*  border-radius: 8px;*/
+/*  margin-bottom: 10px;*/
+/*  border: 2px solid var(--border-color);*/
+}
+

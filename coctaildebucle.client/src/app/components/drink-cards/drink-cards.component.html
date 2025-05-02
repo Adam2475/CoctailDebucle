@@ -1,10 +1,19 @@
 <div class="drink-container">
-  <div class="drink-card" *ngFor="let drink of selDrinks">
-    <a [routerLink]="['/cocktail', drink.id]">
-      <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
-           [alt]="drink.name">
-      <h3>{{ drink.name }}</h3>
-    </a>
-  </div>
-  <p *ngIf="selDrinks.length === 0">{{ 'DRINK_CARDS.NO_DRINKS' | translate }}</p>
+
+  <p-card class="drink-card" *ngFor="let drink of selDrinks"
+          [routerLink]="['/cocktail', drink.id]" [style]="{ background: 'var(--cream)' }">
+
+        <ng-template #header>
+          <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+               [alt]="drink.name">
+        </ng-template>
+        <ng-template #title id="title">
+          {{ drink.name }}
+        </ng-template>
+
+  </p-card>
+
+  <p *ngIf="selDrinks.length === 0">
+      {{ 'DRINK_CARDS.NO_DRINKS' | translate }}
+  </p>
 </div>

@@ -6,6 +6,7 @@ import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
+import { CardModule } from 'primeng/card';
 
 /**
  * @brief : setting up interface for type safety
@@ -23,17 +24,14 @@ export interface DrinkImportDTO {
   standalone: true,
   templateUrl: './drink-cards.component.html',
   styleUrls: ['./drink-cards.component.css'],
-  imports: [CommonModule, NgFor, RouterModule, TranslateModule]
+  imports: [CommonModule, NgFor, RouterModule,
+            CardModule, TranslateModule]
 })
 export class DrinkCardsComponent implements OnInit
 {
   drinks: any[] = [];
+  // Drinks for the selection list
   selDrinks: any[] = [];
-
-  /**
-   * 
-   * @todo : get the full data from controller to selDrinks
-   */
 
   constructor(private cocktailService: CocktailService, private router: Router) { }
 
@@ -49,14 +47,6 @@ export class DrinkCardsComponent implements OnInit
       error: (err) => console.error('Failed to load drinks', err)
     });
   }
-
-  //private getRandomDrinks(drinks: any[], count: number): any[]
-  //{
-  //  if (drinks.length <= count) return drinks;
-  //  return drinks
-  //    .sort(() => 0.5 - Math.random())
-  //    .slice(0, count);
-  //}
 
   goToDetails(id: string | undefined): void
   {

@@ -1,11 +1,13 @@
 
-footer {
+footer
+{
   background: #1c1c1c;
   opacity: 70%;
   color: #fafafa;
   text-align: center;
   padding-bottom: 5%;
   padding: 2rem;
+  margin-top: 3em;
 }
 
 .container

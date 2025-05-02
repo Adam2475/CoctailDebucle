@@ -16,14 +16,31 @@
   font-style: normal;
 }
 
+/*///////////////////////*/
+/* Global Variables */
+/*///////////////////////*/
+
 :root {
   --form-color: #F5F5DC;
+  --border-color: #554845;
+  --middle-color: #B67233;
+  --cream: #F6F0BC;
+  --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
+  --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
 }
 
-body
-{
+
+/*:host ::ng-deep .p-card {
+  border-radius: 25px !important;
+  width: 550px;
+  border: 2px solid black;
+} */
+
+body {
   font-family: 'Garamond';
-  background: linear-gradient(#554845,#B67233, var(--form-color)) no-repeat;
+  background: linear-gradient(var(--border-color),
+                              var(--middle-color),
+                              var(--border-color)) no-repeat;
 }
 
 main

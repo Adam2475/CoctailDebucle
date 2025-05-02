@@ -1,27 +1,32 @@
 <section *ngIf="consentGiven" class="favorites">
   <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
-    <div class="drink-card" *ngFor="let drink of favoriteDrinks">
-      <h3>{{ drink.name }}</h3>
 
-      <ul>
-        <li *ngFor="let ingredient of drink.drinkIngredients">
-          {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
-        </li>
-      </ul>
-      <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
-           alt="{{ drink.name }}"
-           width="200"
-           height="200"
-           style="object-fit: cover; border-radius: 8px;" />
 
-      <button type="button" icon="pi pi-trash"
-              label="Remove"
-              (click)="removeFavoriteDrink(drink.id)">
-        remove favorite
-      </button>
-    </div>
+    <p-card class="drink-card" *ngFor="let drink of favoriteDrinks">
+
+      <ng-template #header>
+        <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+             alt="{{ drink.name }}"
+             width="200"
+             height="200"
+             style="object-fit: cover; border-radius: 8px;" />
+      </ng-template>
+
+      <ng-template #title> {{ drink.name }} </ng-template>
+
+      <!--<ng-template #footer>
+        <p-button type="button" icon="pi pi-trash"
+                  label="Remove"
+                  (click)="removeFavoriteDrink(drink.id)">
+        </p-button>
+      </ng-template>-->
+
+    </p-card>
+
+
   </div>
   <ng-template #noFavorites>
     <p>{{ 'FAVORITE_DRINKS.NO_FAVORITE' | translate }}</p>
   </ng-template>
+
 </section>
