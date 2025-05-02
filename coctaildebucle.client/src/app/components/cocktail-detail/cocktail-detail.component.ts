@@ -64,13 +64,16 @@ export class CocktailDetailComponent implements OnInit
     window.history.back(); // Navigate back
   }
 
-  addToFavorites()
-  {
-    console.log("drink info: ", this.cocktail);
-    //const apiDrink = this.cocktail;
-
-    //const dto = {
-
-    //}
+  addToFavorites(drinkId: number) {
+    const userId = this.authService.getUserId(); // however you track user
+    if (userId) {
+      this.userService.addFavoriteDrink(userId, drinkId).subscribe({
+        next: () => {
+          console.log('Drink added to favorites');
+        },
+        error: err => console.error('Failed to add to favorites', err)
+      });
+    }
   }
+
 }

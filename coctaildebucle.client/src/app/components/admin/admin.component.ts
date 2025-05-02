@@ -331,8 +331,8 @@ export class AdminComponent implements OnInit {
   }
 
   /**
-   * @brief : add and remove a drink from the selection
-   * @param drink
+   *  @brief : add and remove a drink from the selection
+   *  @param drink
    */
 
   toggleSelection(drink: any): void

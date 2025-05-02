@@ -8,12 +8,17 @@
           {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
         </li>
       </ul>
-      <img
-           [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+      <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
            alt="{{ drink.name }}"
            width="200"
            height="200"
            style="object-fit: cover; border-radius: 8px;" />
+
+      <button type="button" icon="pi pi-trash"
+              label="Remove"
+              (click)="removeFavoriteDrink(drink.id)">
+        remove favorite
+      </button>
     </div>
   </div>
   <ng-template #noFavorites>

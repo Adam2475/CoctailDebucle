@@ -67,6 +67,25 @@ export class FavoriteDrinksComponent
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
+  removeFavoriteDrink(drinkId: number): void {
+    if (!this.userId) {
+      console.error("User ID is missing.");
+      return;
+    }
+
+    this.http.delete(`https://localhost:7047/api/users/${this.userId}/favorites/${drinkId}`)
+      .subscribe({
+        next: () => {
+          // Remove the drink from the local favoriteDrinks array
+          this.favoriteDrinks = this.favoriteDrinks.filter(drink => drink.id !== drinkId);
+          console.log(`Drink ${drinkId} removed from favorites.`);
+        },
+        error: (err) => {
+          console.error(`Failed to remove favorite drink: ${err}`);
+        }
+      });
+  }
+
   loadFavoriteDrinks(): void
   {
     /* console.log("loading drinks for user: ", this.userId);*/
