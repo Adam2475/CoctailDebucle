@@ -266,15 +266,17 @@ export class AdminComponent implements OnInit {
               return;
             }
 
+            // Adding duplicate id's to the selection
+            const allDrinkIds = responses.map(res => res.id);
+
             const selectionPayload = {
               userId: Number(userId),
-              drinkIds: nonDuplicateDrinkIds
+              drinkIds: allDrinkIds
             };
 
             this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
               .subscribe({
                 next: res => {
-                  console.log('Selection saved:', res);
                   window.location.reload();
                 },
                 error: err => console.error('Selection save error:', err)
@@ -289,14 +291,6 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  //loadSelections(): void {
-  //  this.http.get<any[]>('https://localhost:7047/api/selection/get-selections?userId=' + this.currentUserId)
-  //    .subscribe(selections => {
-  //      this.selections = selections;
-  //    });
-  //}
-
-  // Method to convert image URL to Blob (async)
   async convertImageToBlob(imageUrl: string): Promise<Blob | undefined>
   {
     if (!imageUrl) return undefined;
@@ -326,7 +320,7 @@ export class AdminComponent implements OnInit {
           return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onloadend = () => {
-              const base64 = (reader.result as string).split(',')[1]; // strip data:image/...;base64,
+              const base64 = (reader.result as string).split(',')[1];
               resolve({ base64, mimeType });
             };
             reader.onerror = reject;
