@@ -2,8 +2,8 @@
   "HOME": {
     "TITLE": "Welcome to: Gourmet Alcoholist",
     "FLAVOUR_TEXT": "Discover our daily selection of drinks or create your own!",
-    "CHOSEN_FOR_YOU": "Chosen for you:",
-    "DAILY_SELECTION": "Daily Selection:"
+    "CHOSEN_FOR_YOU": "Chosen for you",
+    "DAILY_SELECTION": "Daily Selection"
   },
   "HEADER": {
     "LOGIN": "Login",
@@ -52,7 +52,9 @@
     "NOT_FOUND": "No cocktail found for the provided ID. Please try again later."
   },
   "DRINK_CARDS": {
-    "NO_DRINKS": "Wait for the admin to add more drinks"
+    "NO_DRINKS": "Wait for the admin to add more drinks",
+    "DAILY_SELECTION_SHOW_MORE": "Show More",
+    "DAILY_SELECTION_SHOW_LESS": "Show Less"
   },
   "FAVORITE_DRINKS": {
     "NO_FAVORITE": "You have no favorite drinks yet. What are you waiting for?"
