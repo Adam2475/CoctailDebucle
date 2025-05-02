@@ -56,6 +56,10 @@ namespace CoctailDebucle.Server.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.Restrict);  // This avoids the cascade issue
 
+            modelBuilder.Entity<Drink>()
+                    .HasIndex(d => d.Name)
+                    .IsUnique();
+
             modelBuilder.Entity<SelectionDrink>()
                      .HasKey(sd => new { sd.SelectionId, sd.DrinkId });
 

@@ -184,14 +184,10 @@ export class AdminComponent implements OnInit {
     const uniqueGlasses = new Set<string>();
 
     this.selectedDrinks.forEach(drink => {
-      if (drink.strGlass) {
-        uniqueGlasses.add(drink.strGlass);
-      }
+      if (drink.strGlass) uniqueGlasses.add(drink.strGlass);
       if (drink.ingredients) {
         drink.ingredients.forEach((ing: any) => {
-          if (ing.ingredient) {
-            uniqueIngredients.add(ing.ingredient);
-          }
+          if (ing.ingredient) uniqueIngredients.add(ing.ingredient);
         });
       }
     });
@@ -199,11 +195,9 @@ export class AdminComponent implements OnInit {
     const ingredientsArray = Array.from(uniqueIngredients).map(name => ({ name }));
     const glassesArray = Array.from(uniqueGlasses).map(name => ({ name }));
 
-    // Save ingredients and glasses
-    this.cocktailService.saveIngredients(ingredientsArray).subscribe();
-    this.cocktailService.saveGlasses(glassesArray).subscribe();
-
-    this.authService.getUser().pipe(
+    this.cocktailService.saveIngredients(ingredientsArray).pipe(
+      switchMap(() => this.cocktailService.saveGlasses(glassesArray)),
+      switchMap(() => this.authService.getUser()),
       map(user => user?.id),
       switchMap(userId =>
         forkJoin({
@@ -215,7 +209,6 @@ export class AdminComponent implements OnInit {
       )
     ).subscribe(async ({ userId, ingredients, glasses }) => {
       try {
-        // Create payloads with awaited image base64
         const drinksPayload = await Promise.all(
           this.selectedDrinks.map(async drink => {
             const matchedGlass = glasses.find(g => g.name === drink.strGlass);
@@ -257,21 +250,33 @@ export class AdminComponent implements OnInit {
           })
         );
 
-        // Send all drinks to backend
+        // Submit all drinks
         forkJoin(
           drinksPayload.map(payload =>
-            this.http.post('https://localhost:7047/api/drinkDb/savedrink', payload)
+            this.http.post<{ id: number, duplicate: boolean }>('https://localhost:7047/api/drinkDb/savedrink', payload)
           )
         ).subscribe({
-          next: (responses: any[]) => {
-            const drinkIds = responses.map(res => res.id);
+          next: (responses) => {
+            const nonDuplicateDrinkIds = responses
+              .filter(res => !res.duplicate)
+              .map(res => res.id);
+
+            if (nonDuplicateDrinkIds.length === 0) {
+              console.log('All drinks were duplicates, skipping selection creation.');
+              return;
+            }
+
             const selectionPayload = {
               userId: Number(userId),
-              drinkIds
+              drinkIds: nonDuplicateDrinkIds
             };
+
             this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
               .subscribe({
-                next: res => console.log('Selection saved:', res),
+                next: res => {
+                  console.log('Selection saved:', res);
+                  window.location.reload();
+                },
                 error: err => console.error('Selection save error:', err)
               });
           },
@@ -283,6 +288,13 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
+  //loadSelections(): void {
+  //  this.http.get<any[]>('https://localhost:7047/api/selection/get-selections?userId=' + this.currentUserId)
+  //    .subscribe(selections => {
+  //      this.selections = selections;
+  //    });
+  //}
 
   // Method to convert image URL to Blob (async)
   async convertImageToBlob(imageUrl: string): Promise<Blob | undefined>

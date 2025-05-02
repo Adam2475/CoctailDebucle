@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoctailDebucle.Server.Models
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class Drink
     {
         [Key]

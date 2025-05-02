@@ -263,14 +263,30 @@ namespace CoctailDebucle.Server.Controllers
                 return BadRequest("No image data provided.");
             }
 
-            // 1. Find the glass by its ID
+            // Check for existing drink by name (case-insensitive)
+            var existingDrink = await _context.Drinks
+                .FirstOrDefaultAsync(d => d.Name.ToLower() == dto.Name.ToLower());
+
+            if (existingDrink != null)
+            {
+                // Return info indicating it's a duplicate
+                return Ok(new
+                {
+                    id = existingDrink.Id,
+                    name = existingDrink.Name,
+                    duplicate = true,
+                    message = "Drink already exists. Not added again."
+                });
+            }
+
+            // Find glass
             var glass = await _context.Glasses.FirstOrDefaultAsync(g => g.Id == dto.GlassId);
             if (glass == null)
             {
                 return BadRequest($"Glass with ID '{dto.GlassId}' not found.");
             }
 
-            // 2. Create the drink
+            // Create and save drink
             var newDrink = new Drink
             {
                 Name = dto.Name,
@@ -278,28 +294,25 @@ namespace CoctailDebucle.Server.Controllers
                 Instructions = dto.Instructions,
                 GlassId = glass.Id,
                 UserId = dto.UserId,
-                ImageData = dto.ImageData, // Save the image byte data here
-                ImageMimeType = dto.ImageMimeType // Save MIME type
+                ImageData = dto.ImageData,
+                ImageMimeType = dto.ImageMimeType
             };
 
             _context.Drinks.Add(newDrink);
-            await _context.SaveChangesAsync(); // Save to generate the Drink's ID
+            await _context.SaveChangesAsync(); // Generate ID
 
-            // 3. Find and link ingredients
+            // Link ingredients
             foreach (var ing in dto.Ingredients)
             {
-                // Ensure that the IngredientId exists in the database
                 var dbIngredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == ing.IngredientId);
                 if (dbIngredient != null)
                 {
-                    var link = new DrinkIngredient
+                    _context.DrinkIngredients.Add(new DrinkIngredient
                     {
                         DrinkId = newDrink.Id,
                         IngredientId = dbIngredient.Id,
                         Amount = ing.Amount
-                    };
-
-                    _context.DrinkIngredients.Add(link);
+                    });
                 }
                 else
                 {
@@ -307,14 +320,13 @@ namespace CoctailDebucle.Server.Controllers
                 }
             }
 
-            // Save all changes (Drink and DrinkIngredients)
             await _context.SaveChangesAsync();
 
-            // Return the created drink object
             return Ok(new
             {
-                id = newDrink.Id,  // ✅ Return the ID
+                id = newDrink.Id,
                 name = newDrink.Name,
+                duplicate = false,
                 message = "Drink saved successfully"
             });
         }
