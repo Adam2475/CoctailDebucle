@@ -76,7 +76,8 @@
         </li>
       </ul>
       <button (click)="toggleSelection(cocktail)">
-        {{ isSelected(cocktail) ? 'Remove' : 'Select' }}
+        {{ isSelected(cocktail) ? ('ADMIN_PAGE.BUTTON_TOGGLE_REMOVE_DRINK' | translate) : ('ADMIN_PAGE.BUTTON_TOGGLE_SELECT_DRINK' | translate) }}
+        <!--{{ isSelected(cocktail) ? 'Remove' : 'Select' }}-->
       </button>
     </p-card>
   </div>
