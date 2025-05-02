@@ -1,6 +1,10 @@
+<button *ngIf="selDrinks.length > 4" (click)="toggleShowAll()" class="toggle-button">
+  {{ showAllDrinks ? ('DRINK_CARDS.DAILY_SELECTION_SHOW_LESS' | translate) : ('DRINK_CARDS.DAILY_SELECTION_SHOW_MORE' | translate) }}
+</button>
+
 <div class="drink-container">
 
-  <p-card class="drink-card" *ngFor="let drink of selDrinks"
+  <p-card class="drink-card" *ngFor="let drink of visibleDrinks"
           [routerLink]="['/cocktail', drink.id]" [style]="{ background: 'var(--cream)' }">
 
         <ng-template #header>
@@ -17,3 +21,4 @@
       {{ 'DRINK_CARDS.NO_DRINKS' | translate }}
   </p>
 </div>
+
