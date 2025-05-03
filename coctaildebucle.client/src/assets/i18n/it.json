@@ -123,11 +123,12 @@
     "CREATE_DRINK_DELETE": "Elimina",
     "CREATE_DRINK_NO_RESULT": "Nessun drink trovato che corrisponda alla tua ricerca.",
 
-    "BACK_BUTTON": "Torna Indietro",
-
     "MODIFY_DRINK_HEADER": "Modifica Drink",
     "MODIFY_DRINK_SAVE": "Salva Modifiche",
     "MODIFY_DRINK_CANCEL": "Annulla"
+  },
+  "BACK_BUTTON": {
+    "BACK_BUTTON": "Torna Indietro"
   }
 
 }

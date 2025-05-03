@@ -1,0 +1,38 @@
+.about-page,
+.services-page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+  .about-page h1,
+  .services-page h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+.intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.about-section {
+  text-align: center;
+}
+
+.profile-link {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #007acc;
+  font-weight: bold;
+}
+
+.features-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}

@@ -8,14 +8,14 @@
       {{ 'ADMIN_PAGE.SEL_LIST_BY' | translate }} {{ sel.userName }} | {{ 'ADMIN_PAGE.SEL_LIST_CREATED' | translate }} {{ sel.creationDate | date:'short' }}
       | {{ 'ADMIN_PAGE.SEL_LIST_N_ELEMENTS' | translate }} {{ sel.drinkCount }}
       | <span [ngClass]="sel.isActive ? 'active' : 'inactive'">
-          {{ sel.isActive ? ('ADMIN_PAGE.SEL_LIST_ACTIVE' | translate) : ('ADMIN_PAGE.SEL_LIST_INACTIVE' | translate) }}
-        </span>
-        <button (click)="toggleSelectionList(sel.id)">
-          {{ 'ADMIN_PAGE.SEL_LIST_TOGGLE_ACTIVE' | translate }}
-        </button>
-        <button (click)="removeSelection(sel.id)">
-          {{ 'ADMIN_PAGE.SEL_LIST_DELETE' | translate }}
-        </button>
+        {{ sel.isActive ? ('ADMIN_PAGE.SEL_LIST_ACTIVE' | translate) : ('ADMIN_PAGE.SEL_LIST_INACTIVE' | translate) }}
+      </span>
+      <button (click)="toggleSelectionList(sel.id)">
+        {{ 'ADMIN_PAGE.SEL_LIST_TOGGLE_ACTIVE' | translate }}
+      </button>
+      <button (click)="removeSelection(sel.id)">
+        {{ 'ADMIN_PAGE.SEL_LIST_DELETE' | translate }}
+      </button>
     </li>
   </ul>
 
@@ -82,5 +82,6 @@
     </p-card>
   </div>
 
+  <app-back-button></app-back-button>
 
 </main>

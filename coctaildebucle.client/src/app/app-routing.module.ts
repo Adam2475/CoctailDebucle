@@ -8,6 +8,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ServicesComponent } from './components/services/services.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +20,11 @@ export const routes: Routes = [
   { path: 'cocktail/:id', component: CocktailDetailComponent },
   { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   /*  { path: 'admin', component: UserProfileComponent, canActivate: [AuthGuard] },*/
-  { path: 'admin', component: AdminComponent, canActivate: [roleGuard] }
+  { path: 'admin', component: AdminComponent, canActivate: [roleGuard] },
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'services', component: ServicesComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent }
 ];
 
 @NgModule({

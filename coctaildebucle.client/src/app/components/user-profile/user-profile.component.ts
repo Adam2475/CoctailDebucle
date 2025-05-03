@@ -15,6 +15,7 @@ import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
+import { BackButtonComponent } from '../back-button/back-button.component';
 
 interface DrinkIngredient {
   ingredientId: number;
@@ -27,7 +28,7 @@ interface DrinkIngredient {
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
-    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent, TranslateModule]
+    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent, TranslateModule, BackButtonComponent]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
@@ -392,9 +393,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
-  goBack(): void {
-    this.location.back(); // Navigate back to the previous page
-  }
+  //goBack(): void {
+  //  this.location.back(); // Navigate back to the previous page
+  //}
 
   withdrawConsent(): void {
     if (this.userId) {
