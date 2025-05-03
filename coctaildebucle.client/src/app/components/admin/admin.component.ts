@@ -13,9 +13,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angul
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
 import { BackButtonComponent } from '../back-button/back-button.component';
-
-
-
+import { ButtonModule } from 'primeng/button';
 
 async function encodeImageFileAsURL(image: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -44,7 +42,7 @@ interface SavedDrinkResponse {
     CardModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslateModule, ButtonModule,
     BackButtonComponent
   ],
 })

@@ -32,8 +32,7 @@ interface DrinkIngredient {
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
     ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent,
-    CardModule, TranslateModule]
-    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent, TranslateModule, BackButtonComponent]
+    CardModule, TranslateModule, BackButtonComponent]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {

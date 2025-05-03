@@ -2,20 +2,27 @@
 
   <h2>{{ 'ADMIN_PAGE.MANAGE_SELECTIONS' | translate }}</h2>
 
-  <ul>
-    <li *ngFor="let sel of selectionList">
+  <!-- Admin Selections Display -->
+  <ul class="selections">
+    <li class="selectionItem" *ngFor="let sel of selectionList">
       <strong>{{ 'ADMIN_PAGE.SEL_LIST_#' | translate }} #{{ sel.id }}</strong>
       {{ 'ADMIN_PAGE.SEL_LIST_BY' | translate }} {{ sel.userName }} | {{ 'ADMIN_PAGE.SEL_LIST_CREATED' | translate }} {{ sel.creationDate | date:'short' }}
       | {{ 'ADMIN_PAGE.SEL_LIST_N_ELEMENTS' | translate }} {{ sel.drinkCount }}
+
+
+
       | <span [ngClass]="sel.isActive ? 'active' : 'inactive'">
         {{ sel.isActive ? ('ADMIN_PAGE.SEL_LIST_ACTIVE' | translate) : ('ADMIN_PAGE.SEL_LIST_INACTIVE' | translate) }}
       </span>
-      <button (click)="toggleSelectionList(sel.id)">
-        {{ 'ADMIN_PAGE.SEL_LIST_TOGGLE_ACTIVE' | translate }}
-      </button>
-      <button (click)="removeSelection(sel.id)">
-        {{ 'ADMIN_PAGE.SEL_LIST_DELETE' | translate }}
-      </button>
+
+     <div class="toggleButtons">
+        <p-button class="small-button"  size="small" (click)="toggleSelectionList(sel.id)">
+          {{ 'ADMIN_PAGE.SEL_LIST_TOGGLE_ACTIVE' | translate }}
+        </p-button>
+        <p-button class="small-button"  size="small" (click)="removeSelection(sel.id)">
+          {{ 'ADMIN_PAGE.SEL_LIST_DELETE' | translate }}
+        </p-button>
+     </div>
     </li>
   </ul>
 
@@ -48,15 +55,6 @@
     </select>
   </form>
 
-  <!-- versione alternativa dei risultati-->
-  <!--<div class="drink-container">
-    <div class="drink-card" *ngFor="let drink of drinks" (click)="toggleSelection(drink)" [class.selected]="isSelected(drink)">
-      <img [src]="drink.strDrinkThumb" alt="{{ drink.strDrink }}" />
-      <h3>{{ drink.strDrink }}</h3>
-    </div>
-  </div>-->
-
-
   <div class="info-message" *ngIf="isRandomSelection && !searchUsed">
     <p>{{ 'ADMIN_PAGE.MSG_RANDOM_SELECTION' | translate }}</p>
   </div>
@@ -68,18 +66,28 @@
 
   <!-- Main List of Drinks from API -->
   <div class="drink-container">
+
+
     <p-card header="{{ cocktail.strDrink }}" class="drink-card" *ngFor="let cocktail of drinks">
-      <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" />
+      <ng-template #header>
+        <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" />
+      </ng-template>
+      
       <ul class="ingredient-list">
         <li *ngFor="let ing of cocktail.ingredients">
           {{ ing.measure }} {{ ing.ingredient }}
         </li>
       </ul>
-      <button (click)="toggleSelection(cocktail)">
-        {{ isSelected(cocktail) ? ('ADMIN_PAGE.BUTTON_TOGGLE_REMOVE_DRINK' | translate) : ('ADMIN_PAGE.BUTTON_TOGGLE_SELECT_DRINK' | translate) }}
-        <!--{{ isSelected(cocktail) ? 'Remove' : 'Select' }}-->
-      </button>
+
+      <div class="removeButton">
+        <p-button class="removeButton" (click)="toggleSelection(cocktail)">
+          {{ isSelected(cocktail) ? ('ADMIN_PAGE.BUTTON_TOGGLE_REMOVE_DRINK' | translate) : ('ADMIN_PAGE.BUTTON_TOGGLE_SELECT_DRINK' | translate) }}
+        </p-button>
+      </div>
+
     </p-card>
+
+
   </div>
 
   <app-back-button></app-back-button>
