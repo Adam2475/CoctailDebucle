@@ -73,7 +73,6 @@
   <!--<div *ngIf="consentGiven">
     <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
   </div>-->
-
   <!-- Drink Form Section -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
     <div>
@@ -155,7 +154,7 @@
     <p>{{ 'USER_PROFILE.CREATE_DRINK_NO_RESULT' | translate }}</p>
   </div>
 
-  <button (click)="goBack()">{{ 'USER_PROFILE.BACK_BUTTON' | translate }}</button>
+  <app-back-button></app-back-button>
 
   <!-- Modify Drink Form (shown as an overlay or inline) -->
   <div class="modify-form-overlay" *ngIf="selectedDrink">

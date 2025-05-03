@@ -123,10 +123,11 @@
     "CREATE_DRINK_DELETE": "Delete",
     "CREATE_DRINK_NO_RESULT": "No drinks found matching your search.",
 
-    "BACK_BUTTON": "Go Back",
-
     "MODIFY_DRINK_HEADER": "Modify Drink",
     "MODIFY_DRINK_SAVE": "Save Changes",
     "MODIFY_DRINK_CANCEL": "Cancel"
+  },
+  "BACK_BUTTON": {
+    "BACK_BUTTON": "Go Back"
   }
 }

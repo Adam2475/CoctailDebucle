@@ -2,10 +2,10 @@
 
     <nav>
       <ul>
-        <li><a href="#projects"> {{ 'FOOTER.PROJECTS' | translate }} </a></li>
-        <li><a href="#services"> {{ 'FOOTER.SERVICES' | translate }} </a></li>
-        <li><a href="#about"> {{ 'FOOTER.ABOUT' | translate }} </a></li>
-        <li><a href="#contact"> {{ 'FOOTER.CONTACT' | translate }} </a></li>
+        <li><a [routerLink]="['/projects']">{{ 'FOOTER.PROJECTS' | translate }}</a></li>
+        <li><a [routerLink]="['/services']">{{ 'FOOTER.SERVICES' | translate }}</a></li>
+        <li><a [routerLink]="['/about']">{{ 'FOOTER.ABOUT' | translate }}</a></li>
+        <li><a [routerLink]="['/contact']">{{ 'FOOTER.CONTACT' | translate }}</a></li>
       </ul>
     </nav>
 

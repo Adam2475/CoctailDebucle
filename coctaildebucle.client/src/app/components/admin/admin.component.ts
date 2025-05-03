@@ -12,6 +12,8 @@ import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
+import { BackButtonComponent } from '../back-button/back-button.component';
+
 
 
 
@@ -42,7 +44,8 @@ interface SavedDrinkResponse {
     CardModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    BackButtonComponent
   ],
 })
 export class AdminComponent implements OnInit {
