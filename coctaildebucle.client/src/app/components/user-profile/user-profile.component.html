@@ -67,12 +67,7 @@
 
   <app-favorite-drinks> </app-favorite-drinks>
 
-
   <br>
-
-  <!--<div *ngIf="consentGiven">
-    <button (click)="withdrawConsent()">Withdraw GDPR Consent</button>
-  </div>-->
 
   <!-- Drink Form Section -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
@@ -130,32 +125,46 @@
            style="padding: 0.5rem; width: 300px; border-radius: 5px; border: 1px solid #ccc;" />
   </div>
 
-  <div class="user-drinks" *ngIf="filteredUserDrinks.length > 0">
-    <div class="drink-card" *ngFor="let drink of filteredUserDrinks">
-      <h3>{{ drink.name }}</h3>
 
-      <ul>
-        <li *ngFor="let ingredient of drink.drinkIngredients">
-          {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
-        </li>
-      </ul>
-      <img *ngIf="drink.imageUrl"
-           [src]="drink.imageUrl"
-           alt="{{ drink.name }} image"
-           width="200"
-           height="200"
-           style="object-fit: cover; border-radius: 8px;" />
-      <button (click)="addToFavorites(drink.id)">{{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }}</button>
-      <button (click)="onModifyClick(drink)">{{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}</button>
-      <button (click)="deleteDrink(drink.id)">{{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}</button>
-    </div>
+  <!-- User Created Drinks -->
+  <div class="user-drinks" *ngIf="filteredUserDrinks.length > 0">
+
+
+    <p-card class="drink-card" *ngFor="let drink of filteredUserDrinks">
+
+      <ng-template #header>
+        <img *ngIf="drink.imageUrl"
+             [src]="drink.imageUrl"
+             alt="{{ drink.name }} image"
+             width="200"
+             height="200"
+             style="object-fit: cover; border-radius: 8px;" />
+      </ng-template>
+
+      <ng-template #title id="title">
+        {{ drink.name }}
+      </ng-template>
+
+      <ng-template #subtitle>
+        <ul>
+          <li *ngFor="let ingredient of drink.drinkIngredients">
+            {{ ingredient.amount }} - {{ ingredient.ingredient?.ingredientName }}
+          </li>
+        </ul>
+      </ng-template>
+
+      <ng-template #footer>
+        <p-button class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }} </p-button>
+        <button class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }} </button>
+        <button class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }} </button>
+      </ng-template>
+    </p-card>
+
   </div>
 
   <div *ngIf="filteredUserDrinks.length === 0 ">
     <p>{{ 'USER_PROFILE.CREATE_DRINK_NO_RESULT' | translate }}</p>
   </div>
-
-  <button (click)="goBack()">{{ 'USER_PROFILE.BACK_BUTTON' | translate }}</button>
 
   <!-- Modify Drink Form (shown as an overlay or inline) -->
   <div class="modify-form-overlay" *ngIf="selectedDrink">
@@ -207,6 +216,10 @@
         <button type="button" (click)="cancelModification()">{{ 'USER_PROFILE.MODIFY_DRINK_CANCEL' | translate }}</button>
       </form>
     </div>
+  </div>
+
+  <div class="backBtn">
+    <p-button class="backBtn" (click)="goBack()">{{ 'USER_PROFILE.BACK_BUTTON' | translate }}</p-button>
   </div>
 
 </main>

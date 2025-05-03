@@ -29,18 +29,37 @@
   --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
 }
 
+.p-card
+{
+  width:200px;
+  border-radius: 1.5em !important;
+  height: auto !important;
+  background-color: var(--cream) !important; 
+}
 
-/*:host ::ng-deep .p-card {
-  border-radius: 25px !important;
-  width: 550px;
-  border: 2px solid black;
-} */
+.p-card-body
+{
+  padding: 1em !important;
+  margin: auto;
+}
 
-body {
+.p-card-title
+{
+  margin-bottom: 0.5em;
+}
+
+body
+{
   font-family: 'Garamond';
   background: linear-gradient(var(--border-color),
-                              var(--middle-color),
-                              var(--border-color)) no-repeat;
+                             var(--middle-color),
+                             var(--border-color))
+                             no-repeat;
+}
+
+.p-card.p-component
+{
+    height: 100% !important;
 }
 
 main

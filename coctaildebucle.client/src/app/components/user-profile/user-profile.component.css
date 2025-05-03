@@ -42,7 +42,8 @@
   margin-bottom: 1rem;
 }
 
-.drink-card {
+.drink-card
+{
   width: 200px;
   background: transparent;
   border: 2px solid #554845;
@@ -112,4 +113,42 @@
   margin: 2rem auto 0 auto;
   padding: 0.75rem 2rem;
   font-size: 1.2rem;
+}
+
+/* Created Drinks Section */
+
+.drink-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  justify-content: center;
+  /*  border: 1px solid black;*/
+  /*  border-radius: 8px;*/
+  /*  margin: 2em;*/
+  padding: 1em;
+}
+
+.drink-card
+{
+  border-radius: 2em !important;
+}
+
+.drink-card:hover
+{
+  transform: scale(1.02);
+  cursor: pointer;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+img {
+  width: 100%;
+  /* border: 1px solid var(--border-color);*/
+  padding: 0.5em !important;
+  border-radius: 1.5em !important;
+  /*   margin-bottom: 10px;*/
+}
+
+.backBtn
+{
+    margin-top:5em;
 }

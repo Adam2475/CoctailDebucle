@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
 import { CardModule } from 'primeng/card';
+import { NgModule } from "@angular/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 /**
  * @brief : setting up interface for type safety

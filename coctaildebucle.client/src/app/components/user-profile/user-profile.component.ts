@@ -8,13 +8,16 @@ import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { FavoriteDrinksComponent } from '../favorite-drinks/favorite-drinks.component';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
+// Ng Prime UI
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+
 
 interface DrinkIngredient {
   ingredientId: number;
@@ -27,7 +30,8 @@ interface DrinkIngredient {
   standalone: true,
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
-    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent, TranslateModule]
+    ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent,
+    CardModule, TranslateModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
