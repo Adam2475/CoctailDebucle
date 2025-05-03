@@ -2,8 +2,8 @@
   "HOME": {
     "TITLE": "Bienvenue chez : Gourmet Alcoholist",
     "FLAVOUR_TEXT": "Découvrez notre sélection quotidienne de boissons ou créez la vôtre !",
-    "CHOSEN_FOR_YOU": "Choisi pour vous:",
-    "DAILY_SELECTION": "Sélection du jour:"
+    "CHOSEN_FOR_YOU": "Choisi pour vous",
+    "DAILY_SELECTION": "Sélection du jour"
   },
   "HEADER": {
     "LOGIN": "Connexion",
@@ -52,7 +52,9 @@
     "NOT_FOUND": "Aucun cocktail ne correspond à cet identifiant. Veuillez réessayer plus tard."
   },
   "DRINK_CARDS": {
-    "NO_DRINKS": "Il n'y a pas de boissons disponibles pour le moment"
+    "NO_DRINKS": "Il n'y a pas de boissons disponibles pour le moment",
+    "DAILY_SELECTION_SHOW_MORE": "Afficher plus",
+    "DAILY_SELECTION_SHOW_LESS": "Afficher moins"
   },
   "FAVORITE_DRINKS": {
     "NO_FAVORITE": "Vous n'avez pas encore choisi de favoris. Qu'attendez-vous ?"
@@ -121,11 +123,12 @@
     "CREATE_DRINK_DELETE": "Supprimer",
     "CREATE_DRINK_NO_RESULT": "Aucun cocktail trouvé correspondant à votre recherche.",
 
-    "BACK_BUTTON": "Retour",
-
     "MODIFY_DRINK_HEADER": "Modifier le cocktail",
     "MODIFY_DRINK_SAVE": "Enregistrer les modifications",
     "MODIFY_DRINK_CANCEL": "Annuler"
+  },
+  "BACK_BUTTON": {
+    "BACK_BUTTON": "Retour"
   }
 
 }

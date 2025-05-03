@@ -69,6 +69,7 @@
 
   <br>
 
+
   <!-- Drink Form Section -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
     <div>
@@ -165,6 +166,8 @@
   <div *ngIf="filteredUserDrinks.length === 0 ">
     <p>{{ 'USER_PROFILE.CREATE_DRINK_NO_RESULT' | translate }}</p>
   </div>
+  <app-back-button></app-back-button>
+
 
   <!-- Modify Drink Form (shown as an overlay or inline) -->
   <div class="modify-form-overlay" *ngIf="selectedDrink">
