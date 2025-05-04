@@ -93,11 +93,9 @@ export class HeaderComponent implements OnInit, AfterViewInit
   {
     this.token = '';
     this.isLoggedIn = false;
-    console.log('Header component received logout event.');
+    this.authService.logout();
+    this.router.navigate(['/']);
 
-    //aggiungi altre pagine accessibili solo se loggati
-    if (this.currentUrl === '/profile') {
-      this.router.navigate(['/']);
-    }
+    console.log('Header component received logout event.');
   }
 }

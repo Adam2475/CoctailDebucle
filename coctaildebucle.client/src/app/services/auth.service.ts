@@ -48,6 +48,16 @@ export class AuthService
     );
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // Reset BehaviorSubjects
+    this.userIdSubject.next(null);
+    this.isLoggedInSubject.next(false);
+    this.loggedIn.next(false);
+  }
+
   private decodeJWT(token: string)
   {
     const payload = token.split('.')[1];
