@@ -85,6 +85,7 @@ export class FavoriteDrinksComponent
         }
       );
     } else {
+      this.loadRandomDrinks();
       console.error("User ID is null, cannot check consent");
     }
 

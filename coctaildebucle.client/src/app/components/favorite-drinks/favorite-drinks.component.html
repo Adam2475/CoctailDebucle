@@ -1,29 +1,34 @@
-<section *ngIf="consentGiven" class="favorites">
-  <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
+<section class="favorites">
+
+  <div *ngIf="isLoggedIn else notLogged">
+    <div *ngIf="consentGiven else noConsent">
+      <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
 
 
-    <p-card class="drink-card" *ngFor="let drink of favoriteDrinks">
+        <p-card class="drink-card" *ngFor="let drink of favoriteDrinks">
 
-      <ng-template #header>
-        <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
-             alt="{{ drink.name }}"
-             width="200"
-             height="200"
-             style="object-fit: cover; border-radius: 8px;" />
-      </ng-template>
+          <ng-template #header>
+            <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+                 alt="{{ drink.name }}"
+                 width="200"
+                 height="200"
+                 style="object-fit: cover; border-radius: 8px;" />
+          </ng-template>
 
-      <ng-template #title> {{ drink.name }} </ng-template>
+          <ng-template #title> {{ drink.name }} </ng-template>
 
-      <ng-template #footer>
-        <p-button type="button" icon="pi pi-trash"
-                  label="Remove"
-                  (click)="removeFavoriteDrink(drink.id)">
-        </p-button>
-      </ng-template>
+          <ng-template #footer>
+            <p-button type="button" icon="pi pi-trash"
+                      label="Remove"
+                      (click)="removeFavoriteDrink(drink.id)">
+            </p-button>
+          </ng-template>
 
-    </p-card>
+        </p-card>
 
 
+      </div>
+    </div>
   </div>
   <ng-template #noFavorites>
     <section *ngIf="isLoggedIn else notLogged">
@@ -43,7 +48,6 @@
     <div class="drink-cards">
 
       <p-card class="drink-card" *ngFor="let drink of randomSelection">
-
         <ng-template #header>
           <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
                alt="{{ drink.name }}"
@@ -53,19 +57,36 @@
         </ng-template>
 
         <ng-template #title> {{ drink.name }} </ng-template>
-
-
-
-        <!--<ng-template #footer>
-      <p-button type="button" icon="pi pi-trash"
-                label="Remove"
-                (click)="removeFavoriteDrink(drink.id)">
-      </p-button>
-    </ng-template>-->
       </p-card>
 
     </div>
 
+
+  </ng-template>
+
+  <ng-template #noConsent>
+    <p>
+      Ci serve il consenso al Gdpr per mostrarti contenuti personalizzati...
+    </p>
+    <p>
+      intanto puoi esplorare una selezione casuale dei  nostri drink:
+    </p>
+
+    <div class="drink-cards">
+
+      <p-card class="drink-card" *ngFor="let drink of randomSelection">
+        <ng-template #header>
+          <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+               alt="{{ drink.name }}"
+               width="200"
+               height="200"
+               style="object-fit: cover; border-radius: 8px;" />
+        </ng-template>
+
+        <ng-template #title> {{ drink.name }} </ng-template>
+      </p-card>
+
+    </div>
 
   </ng-template>
 
