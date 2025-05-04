@@ -61,12 +61,13 @@
   </section>
 
 
-  <div *ngIf="!consentGiven">
+  <div *ngIf="!consentGiven else favorites">
     <p>{{ 'USER_PROFILE.MSG_NO_GDPR' | translate }}</p>
   </div>
 
-  <app-favorite-drinks> </app-favorite-drinks>
-
+  <ng-template #favorites >
+    <app-favorite-drinks> </app-favorite-drinks>
+  </ng-template>
   <br>
 
 
