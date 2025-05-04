@@ -4,8 +4,8 @@
   <h3>{{ 'COCKTAIL_DETAIL.CATEGORY' | translate }}: {{ cocktail.category }}</h3>
   <img [src]="'data:' + cocktail.imageMimeType + ';base64,' + cocktail.imageData"
        alt="{{ cocktail.name }}"
-       width="200"
-       height="200"
+       width="400"
+       height="400"
        style="object-fit: cover; border-radius: 8px;" />
   <h3>{{ 'COCKTAIL_DETAIL.GLASS' | translate }}: {{ cocktail.glass.name }}</h3>
   <p><strong>{{ 'COCKTAIL_DETAIL.INSTRUCTIONS' | translate }}:</strong> {{ cocktail.instructions }}</p>

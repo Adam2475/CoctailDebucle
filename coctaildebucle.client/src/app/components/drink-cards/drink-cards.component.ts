@@ -44,9 +44,9 @@ export class DrinkCardsComponent implements OnInit
     this.cocktailService.getActiveSelectionDrinks().subscribe({
       next: (data: DrinkImportDTO[]) => {
         this.selDrinks = data;
-        this.selDrinks.forEach((value) => {
-          console.log("selection drink: ", value);
-        });
+        //this.selDrinks.forEach((value) => {
+        //  console.log("selection drink: ", value);
+        //});
         this.changeVisibleDrinks();
       },
       error: (err) => console.error('Failed to load drinks', err)

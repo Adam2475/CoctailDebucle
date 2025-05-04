@@ -28,6 +28,14 @@
   margin-left: 5em;
 }
 
+.divider
+{
+    color:black;
+    border: 1px solid #222;
+    margin-top:2em;
+    margin-bottom:3em;
+}
+
 /*///////////////////////*/
 /* Main Image */
 /*///////////////////////*/
@@ -109,6 +117,9 @@
   }
   .custom-dropdown {
       margin-bottom: -1em !important;
+  }
+  .divider{
+      margin-top:0em;
   }
 }
 

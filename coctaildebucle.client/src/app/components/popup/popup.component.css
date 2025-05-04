@@ -1,6 +1,7 @@
 
-.popup-overlay {
-  min-height: 40vh;
+.popup-overlay
+{
+  min-height: 60vh;
   width: 80%;
   background-color: var(--form-color);
   border-radius: 1em 1em 1em 1em;
@@ -12,7 +13,8 @@
   opacity: 97%;
 }
 
-.login-form {
+.login-form
+{
   display: flex;
   justify-content: center;
   align-items: center;

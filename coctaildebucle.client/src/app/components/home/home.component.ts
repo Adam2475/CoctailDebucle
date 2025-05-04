@@ -31,7 +31,8 @@ import { LanguageService } from '../../services/language.service';
     TranslateModule
   ]
 })
-export class HomeComponent {
+export class HomeComponent
+{
   searchQuery: string = '';
   drinks: any[] = [];
   categories: string[] = [];
@@ -48,9 +49,6 @@ export class HomeComponent {
   availableLanguages: string[] = [];
   currentLang: string = 'en';
   dropdownOpen = false;
-  //availableLanguages = ['en', 'fr'];
-  //currentLang = 'en';
-  //dropdownOpen = false;
 
 
 
@@ -154,8 +152,4 @@ export class HomeComponent {
   }
 
 
-
-  //switchLang(lang: string) {
-  //  this.translate.use(lang);
-  //}
 }

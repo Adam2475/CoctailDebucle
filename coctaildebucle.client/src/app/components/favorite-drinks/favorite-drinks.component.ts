@@ -16,6 +16,8 @@ import { LanguageService } from '../../services/language.service';
 // Ng Prime UI
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+// Debugging
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
@@ -23,14 +25,27 @@ import { ButtonModule } from 'primeng/button';
   standalone: true,
   templateUrl: './favorite-drinks.component.html',
   styleUrl: './favorite-drinks.component.css',
-  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule]
+  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule,
+            JsonPipe]
 })
 export class FavoriteDrinksComponent
 {
+  ////////////////////////////
+  // State Variaables
+  ////////////////////////////
   userId: number | null = null;
   consentGiven: boolean = false;
-  favoriteDrinks: any[] = [];
   isLoggedIn: boolean = false;
+  ////////////////////////////
+  // Favorites Selection
+  ////////////////////////////
+  favoriteDrinks: any[] = [];
+  favoritesLenght: number = 0;
+  ////////////////////////////
+  // Random Selection
+  ////////////////////////////
+  randomSelection: any[] = [];
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -51,9 +66,18 @@ export class FavoriteDrinksComponent
       this.gdprService.getConsent(this.userId).subscribe(
         (response) => {
           this.consentGiven = response.gdprConsent;
+
+          /**
+           * @brief : if the user has given consent and is logged load
+           *          the favorite drink list, if the array lenght is 0
+           *          load the random selection
+           */
+
           if (this.consentGiven && this.isLoggedIn) {
-            //console.log(this.isLoggedIn);
             this.loadFavoriteDrinks();
+          }
+          else {
+            this.loadRandomDrinks();
           }
         },
         (error) => {
@@ -63,12 +87,15 @@ export class FavoriteDrinksComponent
     } else {
       console.error("User ID is null, cannot check consent");
     }
+
+    console.log("favorites: ",this.favoriteDrinks);
+
   }
 
   checkLogin() {
     this.isLoggedIn = !!localStorage.getItem('token');
   }
-
+  
   removeFavoriteDrink(drinkId: number): void {
     if (!this.userId) {
       console.error("User ID is missing.");
@@ -78,9 +105,8 @@ export class FavoriteDrinksComponent
     this.http.delete(`https://localhost:7047/api/users/${this.userId}/favorites/${drinkId}`)
       .subscribe({
         next: () => {
-          // Remove the drink from the local favoriteDrinks array
           this.favoriteDrinks = this.favoriteDrinks.filter(drink => drink.id !== drinkId);
-          console.log(`Drink ${drinkId} removed from favorites.`);
+         /* console.log(`Drink ${drinkId} removed from favorites.`);*/
         },
         error: (err) => {
           console.error(`Failed to remove favorite drink: ${err}`);
@@ -95,18 +121,30 @@ export class FavoriteDrinksComponent
       this.userService.getUserFavorites(this.userId).subscribe(
         (drinks) => {
           this.favoriteDrinks = drinks;
-        /*  console.log('Favorite drinks loaded:', this.favoriteDrinks);*/
-
-          // Log each drink's imageMimeType and imageData
-          //this.favoriteDrinks.forEach(drink => {
-          //  console.log('Image MIME Type:', drink.imageMimeType);
-          //  console.log('Image Data:', drink.imageData);
-          //});
+          console.log("fetched favorites: ", this.favoriteDrinks);
+          this.favoritesLenght = this.favoriteDrinks.length;
+          if (this.favoritesLenght == 0) {
+            this.loadRandomDrinks();
+            console.log("loading random");
+          }
         },
         (error) => {
           console.error('Error fetching favorite drinks:', error);
         }
       );
     }
+  }
+
+  loadRandomDrinks(): void {
+    this.drinkService.getActiveSelectionDrinks().subscribe(
+      (drinks) => {
+        const shuffled = drinks.sort(() => 0.5 - Math.random());
+        this.randomSelection = shuffled.slice(0, 3); // get 5 random drinks
+        console.log("Loaded random drinks:", this.randomSelection);
+      },
+      (error) => {
+        console.error("Error loading random drinks:", error);
+      }
+    );
   }
 }

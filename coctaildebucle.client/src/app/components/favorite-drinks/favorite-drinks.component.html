@@ -14,19 +14,59 @@
 
       <ng-template #title> {{ drink.name }} </ng-template>
 
-      <!--<ng-template #footer>
+      <ng-template #footer>
         <p-button type="button" icon="pi pi-trash"
                   label="Remove"
                   (click)="removeFavoriteDrink(drink.id)">
         </p-button>
-      </ng-template>-->
+      </ng-template>
 
     </p-card>
 
 
   </div>
   <ng-template #noFavorites>
-    <p>{{ 'FAVORITE_DRINKS.NO_FAVORITE' | translate }}</p>
+    <section *ngIf="isLoggedIn else notLogged">
+      <p>{{ 'FAVORITE_DRINKS.NO_FAVORITE' | translate }}</p>
+    </section>
+  </ng-template>
+
+  <ng-template #notLogged>
+
+    <p>
+      Registrati o fai il login per aggiungere dei drink ai preferiti...
+    </p>
+    <p>
+      intanto puoi esplorare una selezione casuale dei  nostri drink:
+    </p>
+
+    <div class="drink-cards">
+
+      <p-card class="drink-card" *ngFor="let drink of randomSelection">
+
+        <ng-template #header>
+          <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
+               alt="{{ drink.name }}"
+               width="200"
+               height="200"
+               style="object-fit: cover; border-radius: 8px;" />
+        </ng-template>
+
+        <ng-template #title> {{ drink.name }} </ng-template>
+
+
+
+        <!--<ng-template #footer>
+      <p-button type="button" icon="pi pi-trash"
+                label="Remove"
+                (click)="removeFavoriteDrink(drink.id)">
+      </p-button>
+    </ng-template>-->
+      </p-card>
+
+    </div>
+
+
   </ng-template>
 
 </section>
