@@ -20,56 +20,73 @@
 /* Global Variables */
 /*///////////////////////*/
 
-:root {
-  --form-color: #F5F5DC;
-  --border-color: #554845;
-  --middle-color: #B67233;
-  --cream: #F6F0BC;
-  --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
-  --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
+@media screen and (min-width: 1000px) {
+
+    body app-admin app-home
+    {
+        display:flex;
+        justify-content:center;
+        margin:auto;
+        align-items:center;
+    }
+
+    main{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items: center;
+        width:80%;
+        margin:auto,
+    }
 }
 
-.p-card
-{
-  width:200px;
-  border-radius: 1.5em !important;
-  height: auto !important;
-  background-color: var(--cream) !important; 
-}
+  :root {
+    --form-color: #F5F5DC;
+    --border-color: #554845;
+    --middle-color: #B67233;
+    --cream: #F6F0BC;
+    --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
+    --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
+  }
 
-.p-card-body
-{
-  padding: 1em !important;
-  margin: auto;
-}
+  main{
+      margin:auto;
+  }
 
-.p-card-title
-{
-  margin-bottom: 0.5em;
-}
+  .p-card {
+      width:15em;
+    border-radius: 1.5em !important;
+    height: auto !important;
+    background-color: var(--cream) !important;
+  }
 
-body
-{
-  font-family: 'Garamond';
-  background: linear-gradient(var(--border-color),
-                             var(--middle-color),
-                             var(--border-color))
-                             no-repeat;
-}
+  .p-card-body {
+    padding: 1em !important;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 
-.p-card.p-component
-{
+  .p-card-title {
+    margin-bottom: 0.5em;
+  }
+
+  body {
+    font-family: 'Garamond';
+    background: linear-gradient(var(--border-color), var(--middle-color), var(--border-color)) no-repeat;
+  }
+
+  .p-card.p-component {
     height: 100% !important;
-}
+  }
 
-main
-{
-    min-height:80vh;
-}
+  main {
+    min-height: 80vh;
+  }
 
-body, html
-{
-  max-width: 100%;
-  margin: 0px !important;
-  padding: 0px !important;
-}
+  body, html {
+    max-width: 100%;
+    margin: 0px !important;
+    padding: 0px !important;
+  }

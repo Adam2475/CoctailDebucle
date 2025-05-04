@@ -1,18 +1,31 @@
+body
+{
+    margin:auto !important;
+}
+
 /* Selections Display */
 
 .selections
 {
     list-style: none;
-   /* background-color:red;*/
-   margin-right: 1em;
+    display:flex;/*
+    flex-direction:column;*/
+    flex-wrap:wrap;
+    margin:auto;
+    justify-content:center;
+    align-items:center;
+    gap:0.5em;
 }
 
 .selectionItem
 {
     margin-bottom: 0.5em;
-    border: 1px solid #333;
-   
-    padding: 0.3em;
+    border: 2px solid var(--border-color);
+    border-radius: 1em;
+    background-color: var(--cream);
+    opacity:90%;
+    width:80%;
+    padding: 0.8em;
 }
 
 .toggleButtons
@@ -41,11 +54,12 @@
 
 .drink-card
 {
-  width: 200px;
+  width: 15em;
   text-align: center;
   border: 1px solid #ddd;
   border-radius:2em;
   padding: 10px;
+  opacity:90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -67,8 +81,30 @@ img
   padding: 0.5em;
 }
 
-.drink-card h3
+/* Search Bar Section */
+
+.search-bar
 {
-  font-size: 18px;
-  font-weight: bold;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:0.5em;
+}
+
+.searchBarItem
+{
+    border-radius:0.2em;
+    height: 2.2em;
+    background-color:var(--form-color);
+    padding:0.3em;
+/*    opacity:90%;*/
+}
+
+.search-bar-form
+{
+    height:2.6em;
+    margin-right:0.5em;
+    padding:0.2em;
+    margin-bottom:0.2em;
+    margin-top: -0.2em;
 }

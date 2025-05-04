@@ -31,25 +31,25 @@
   <div *ngFor="let drink of selectedDrinks">
     <strong>{{ drink.strDrink }}</strong>
   </div>
-  <button (click)="submitSelection()">{{ 'ADMIN_PAGE.SUBMIT_SELECTION' | translate }}</button>
+  <p-button (click)="submitSelection()">{{ 'ADMIN_PAGE.SUBMIT_SELECTION' | translate }}</p-button>
 
   <h2>{{ 'ADMIN_PAGE.SEARCHBAR_TITLE' | translate }}</h2>
 
   <!--searchbar-->
   <form [formGroup]="searchForm" class="search-bar">
-    <input type="text" formControlName="query" placeholder="{{ 'ADMIN_PAGE.SEARCHBAR_NAME' | translate }}" />
+    <input class="search-bar-form" type="text" formControlName="query" placeholder="{{ 'ADMIN_PAGE.SEARCHBAR_NAME' | translate }}" />
 
-    <select formControlName="category">
+    <select class="searchBarItem" formControlName="category">
       <option value="">{{ 'ADMIN_PAGE.SEARCHBAR_CATEGORY' | translate }}</option>
       <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
     </select>
 
-    <select formControlName="ingredient">
+    <select class="searchBarItem" formControlName="ingredient">
       <option value="">{{ 'ADMIN_PAGE.SEARCHBAR_INGREDIENTS' | translate }}</option>
       <option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient }}</option>
     </select>
 
-    <select formControlName="glass">
+    <select class="searchBarItem" formControlName="glass">
       <option value="">{{ 'ADMIN_PAGE.SEARCHBAR_GLASSES' | translate }}</option>
       <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
     </select>
@@ -72,6 +72,7 @@
       <ng-template #header>
         <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" />
       </ng-template>
+
       
       <ul class="ingredient-list">
         <li *ngFor="let ing of cocktail.ingredients">
@@ -79,11 +80,13 @@
         </li>
       </ul>
 
-      <div class="removeButton">
-        <p-button class="removeButton" (click)="toggleSelection(cocktail)">
-          {{ isSelected(cocktail) ? ('ADMIN_PAGE.BUTTON_TOGGLE_REMOVE_DRINK' | translate) : ('ADMIN_PAGE.BUTTON_TOGGLE_SELECT_DRINK' | translate) }}
-        </p-button>
-      </div>
+      <ng-template #footer>
+        <div class="removeButton">
+          <p-button class="removeButton" (click)="toggleSelection(cocktail)">
+            {{ isSelected(cocktail) ? ('ADMIN_PAGE.BUTTON_TOGGLE_REMOVE_DRINK' | translate) : ('ADMIN_PAGE.BUTTON_TOGGLE_SELECT_DRINK' | translate) }}
+          </p-button>
+        </div>
+      </ng-template>
 
     </p-card>
 
