@@ -7,7 +7,9 @@
   <h2>{{ 'USER_PROFILE.PROFILE' | translate }}</h2>
 
   <!--  Update Profile -->
-  <section class="profile-update">
+  <app-profile-update-form></app-profile-update-form>
+
+  <!--<section class="profile-update">
     <h3>{{ 'USER_PROFILE.UPDATE_INFORMATION' | translate }}</h3>
 
     <form [formGroup]="profileForm" (ngSubmit)="onProfileUpdate()">
@@ -20,17 +22,14 @@
         <button type="button" class="edit-btn" (click)="toggleEdit(field)">
           {{ field.editing ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
         </button>
-      </div>
-
-
-      <!-- gdpr field -->
-      <div class="form-row">
-        <label class="form-label">{{ 'USER_PROFILE.FIELD_GDPR' | translate }}</label>
-        <input type="checkbox" formControlName="gdprConsent" />
-      </div>
-
-      <!-- password field -->
-      <div class="form-row">
+      </div>-->
+  <!-- gdpr field -->
+  <!--<div class="form-row">
+    <label class="form-label">{{ 'USER_PROFILE.FIELD_GDPR' | translate }}</label>
+    <input type="checkbox" formControlName="gdprConsent" />
+  </div>-->
+  <!-- password field -->
+  <!--<div class="form-row">
         <label class="form-label">{{ 'USER_PROFILE.FIELD_PASS_CURRENT' | translate }}</label>
         <input type="password"
                value="********"
@@ -58,18 +57,21 @@
       <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
     </form>
-  </section>
+  </section>-->
 
+  <!--<h1 class="favorite-drink-announcement">
+    {{ 'HOME.CHOSEN_FOR_YOU' | translate }}
+  </h1>-->
 
   <div *ngIf="!consentGiven else favorites">
     <p>{{ 'USER_PROFILE.MSG_NO_GDPR' | translate }}</p>
+
   </div>
 
-  <ng-template #favorites >
+  <ng-template #favorites>
     <app-favorite-drinks> </app-favorite-drinks>
   </ng-template>
   <br>
-
 
   <!-- Drink Form Section -->
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">

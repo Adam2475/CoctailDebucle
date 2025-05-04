@@ -36,6 +36,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { ProfileUpdateFormComponent } from './components/profile-update-form/profile-update-form.component';
 /*import { provideTranslateService } from "@ngx-translate/core";*/
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, ButtonModule,
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonModule, HomeComponent, DrinkCardsComponent,
     DialogModule, SignupComponent, FavoriteDrinksComponent,
     InputTextModule, GdprBannerComponent, UserProfileComponent,
+    ProfileUpdateFormComponent,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {

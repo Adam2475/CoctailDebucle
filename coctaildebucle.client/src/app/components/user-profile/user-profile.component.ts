@@ -15,6 +15,7 @@ import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFor
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
 import { BackButtonComponent } from '../back-button/back-button.component';
+import { ProfileUpdateFormComponent } from '../profile-update-form/profile-update-form.component';
 // Ng Prime UI
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -32,7 +33,7 @@ interface DrinkIngredient {
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
     ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent,
-    CardModule, TranslateModule, BackButtonComponent]
+    CardModule, TranslateModule, BackButtonComponent, ProfileUpdateFormComponent]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
@@ -78,13 +79,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   searchQuery: string = '';
   filteredUserDrinks: any[] = [];
 
-  ////////////////////////////
-  // Update user
-  ////////////////////////////
-  profileForm!: FormGroup;
-  passwordMismatch: boolean = false;
-  successMessage: string = '';
-  errorMessage: string = '';
 
   constructor(
     private userService: UserService,
@@ -109,10 +103,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.consentGiven = response.gdprConsent;
           this.showGdprBanner = !this.consentGiven;
           this.showGdprBanner = true;
-          //if (this.consentGiven == true)
-          //{
-          //  this.loadFavoriteDrinks();
-          //}
         },
         (error) => {
           console.error('Error fetching GDPR consent:', error);
@@ -172,8 +162,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
     this.fetchUserDrinksImage();
     this.fetchIngredientOptions();
-    this.initProfileForm();
-    this.loadUserData(); //per form informazioni utente
+    //this.initProfileForm();
+    //this.loadUserData(); //per form informazioni utente
     this.filteredUserDrinks = this.userDrinks;//barra ricerca drink creati
   }
 
@@ -191,104 +181,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       );
     }
   }
-
-  ////////////////////////////
-  // Update user
-  ////////////////////////////
-  private initProfileForm(): void {
-    this.profileForm = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      gdprConsent: [false],
-      newPassword: [''],
-      confirmNewPassword: ['']
-    });
-  }
-
-  private loadUserData(): void {
-    this.http.get<any>(`https://localhost:7047/api/auth/${this.userId}`).subscribe(user => {
-      const date = new Date(user.birthDate);
-      const formattedDate = date.toISOString().split('T')[0];
-      this.profileForm.patchValue({
-        name: user.name,
-        surname: user.surname,
-        birthDate: formattedDate,
-        username: user.username,
-        email: user.email,
-        gdprConsent: this.consentGiven,
-      });
-    });
-  }
-
-  onProfileUpdate(): void {
-    this.passwordMismatch = false;
-
-    const newPass = this.profileForm.get('newPassword')?.value;
-    const confirmPass = this.profileForm.get('confirmNewPassword')?.value;
-
-    if (newPass && newPass !== confirmPass) {
-      this.passwordMismatch = true;
-      return;
-    }
-
-    const updateData: any = {
-      name: this.profileForm.value.name,
-      surname: this.profileForm.value.surname,
-      birthDate: this.profileForm.value.birthDate,
-      username: this.profileForm.value.username,
-      email: this.profileForm.value.email,
-      gdprConsent: !!this.profileForm.value.gdprConsent,
-      password: ""
-    };
-
-    if (newPass) {
-      updateData.password = newPass;
-    }
-
-    console.log('Payload inviato:', updateData);//da commentare prima di consegna
-    this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe(
-      response => {
-        console.log('Successo aggiornamento profilo:', response);
-      },
-      error => {
-        console.error('Errore aggiornamento profilo:', error);
-      }
-    );
-
-    this.consentGiven = this.profileForm.value.gdprConsent;
-    this.onConsentChanged(this.consentGiven);
-    
-  }
-
-
-  editableFields = [
-    { labelKey: 'USER_PROFILE.FIELD_NAME', controlName: 'name', type: 'text', editing: false },
-    { labelKey: 'USER_PROFILE.FIELD_SURNAME', controlName: 'surname', type: 'text', editing: false },
-    { labelKey: 'USER_PROFILE.FIELD_BIRTHDATE', controlName: 'birthDate', type: 'date', editing: false },
-    { labelKey: 'USER_PROFILE.FIELD_USERNAME', controlName: 'username', type: 'text', editing: false },
-    { labelKey: 'USER_PROFILE.FIELD_EMAIL', controlName: 'email', type: 'email', editing: false },
-    //{ label: 'GDPR Consent', controlName: 'gdprConsent', type: 'checkbox', editing: true }
-  ];
-
-  passwordEditMode = false;
-
-  toggleEdit(field: any): void {
-    field.editing = !field.editing;
-  }
-
-  togglePasswordEdit(): void {
-    this.passwordEditMode = !this.passwordEditMode;
-    if (!this.passwordEditMode) {
-      this.profileForm.patchValue({ newPassword: '', confirmNewPassword: '' });
-    }
-  }
-
-  ////////////////////////////
-  // Update user ^^^
-  ////////////////////////////
 
   ngAfterViewInit(): void {
     // Ensure that the gdprBanner is available and then modify its showBanner property
@@ -397,10 +289,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     });
   }
 
-  //goBack(): void {
-  //  this.location.back(); // Navigate back to the previous page
-  //}
-
   withdrawConsent(): void {
     if (this.userId) {
       this.gdprService.withdrawConsent(this.userId).subscribe(
@@ -409,7 +297,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.consentGiven = false;
           this.showGdprBanner = true;//forse togliere se gestiamo gdpr tutto da modulo informazioni utente
           this.favoriteDrinks = []; // Optionally clear drinks
-          window.location.reload();
+          //window.location.reload();
         },
         (error) => {
           console.error("Error withdrawing consent:", error);
