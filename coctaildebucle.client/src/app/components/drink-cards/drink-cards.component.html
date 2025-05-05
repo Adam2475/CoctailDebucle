@@ -5,7 +5,7 @@
 <div class="drink-container">
 
   <p-card class="drink-card" *ngFor="let drink of visibleDrinks"
-          [routerLink]="['/cocktail', drink.id]" [style]="{ background: 'var(--cream)' }">
+          [routerLink]="['/cocktail', drink.id]">
 
         <ng-template #header>
           <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"

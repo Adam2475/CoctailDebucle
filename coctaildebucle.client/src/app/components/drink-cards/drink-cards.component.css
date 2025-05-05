@@ -4,9 +4,6 @@
   flex-wrap: wrap;
   gap: 1.5em;
   justify-content: center;
-/*  border: 1px solid black;*/
-/*  border-radius: 8px;*/
-/*  margin: 2em;*/
   padding: 1em;
 }
 
@@ -20,8 +17,8 @@
   height: auto !important;
   /*  padding: 10px;*/
 /*  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.5);*/
-  /*background-color: var(--cream);
-  opacity: 90%;*/
+/*  background-color: var(--avorio-scuro);*/
+  opacity: 90%;
 }
 
 .drink-card:hover

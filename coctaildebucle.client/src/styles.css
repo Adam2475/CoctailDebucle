@@ -16,12 +16,19 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Arvo-Italic';
+  src: url('./assets/fonts/Arvo-Italic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
 /*///////////////////////*/
 /* Global Variables */
 /*///////////////////////*/
 
-@media screen and (min-width: 1000px) {
-
+@media screen and (min-width: 1000px)
+{
     body app-admin app-home
     {
         display:flex;
@@ -40,53 +47,101 @@
     }
 }
 
-  :root {
-    --form-color: #F5F5DC;
-    --border-color: #554845;
-    --middle-color: #B67233;
-    --cream: #F6F0BC;
-    --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
-    --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
-  }
+:root
+{
+  --form-color: #F5F5DC;
+  --border-color: #554845;
+  --middle-color: #B67233;
+  --cream: #F6F0BC;
+  --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
+  --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
+  --bordo: #310012;
+  --avorio: #FFFFF0;
+  --avorio-scuro: #f8f8f7;
+  --text-white: #FFFBF0;
+}
 
-  main{
-      margin:auto;
-  }
+.p-card
+{
+  width:15em;
+  border-radius: 1.5em !important;
+  height: auto !important;
+  background-color: var(--avorio);
+  color:var(--bordo);
+}
 
-  .p-card {
-      width:15em;
-    border-radius: 1.5em !important;
-    height: auto !important;
-    background-color: var(--cream) !important;
-  }
+.p-button
+{
+  color: var(--avorio-scuro) !important;
+}
 
-  .p-card-body {
-    padding: 1em !important;
-    margin: auto;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
+.nav-button .p-button
+{
+  padding: 0.85em !important;
+  background-color: var(--avorio-scuro) !important;
+  color: var(--bordo) !important;
+  border: none !important;
+}
 
-  .p-card-title {
-    margin-bottom: 0.5em;
-  }
+.p-button:hover
+{
+  transform: scale(1.02);
+}
 
-  body {
-    font-family: 'Garamond';
-    background: linear-gradient(var(--border-color), var(--middle-color), var(--border-color)) no-repeat;
-  }
+.p-card-body
+{
+  padding: 1em !important;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .p-card.p-component {
-    height: 100% !important;
-  }
+.vc_row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
-  main {
-    min-height: 80vh;
-  }
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
-  body, html {
-    max-width: 100%;
-    margin: 0px !important;
-    padding: 0px !important;
-  }
+.p-card-title
+{
+  margin-bottom: 0.5em;
+}
+
+body
+{
+  font-family: Arvo-Italic;
+  background: var(--bordo);
+  color: var(--text-white);
+  width:100% !important;
+  margin: 0px !important;
+  padding: 0px !important;
+
+}
+
+.p-card.p-component
+{
+  height: 100% !important;
+}
+
+main
+{
+  min-height: 80vh;
+}
+
+body
+{
+  width: 100% !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+html {
+  width: 100% !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}

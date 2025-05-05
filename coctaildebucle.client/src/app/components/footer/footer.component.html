@@ -1,13 +1,11 @@
 <footer>
 
-    <nav>
-      <ul>
-        <li><a [routerLink]="['/projects']">{{ 'FOOTER.PROJECTS' | translate }}</a></li>
-        <li><a [routerLink]="['/services']">{{ 'FOOTER.SERVICES' | translate }}</a></li>
-        <li><a [routerLink]="['/about']">{{ 'FOOTER.ABOUT' | translate }}</a></li>
-        <li><a [routerLink]="['/contact']">{{ 'FOOTER.CONTACT' | translate }}</a></li>
+      <ul class="footer-nav">
+        <li class="listItem"> <a [routerLink]="['/projects']">{{ 'FOOTER.PROJECTS' | translate }}</a></li>
+        <li class="listItem"> <a [routerLink]="['/services']">{{ 'FOOTER.SERVICES' | translate }}</a></li>
+        <li class="listItem"> <a [routerLink]="['/about']">{{ 'FOOTER.ABOUT' | translate }}</a></li>
+        <li class="listItem"> <a [routerLink]="['/contact']">{{ 'FOOTER.CONTACT' | translate }}</a></li>
       </ul>
-    </nav>
 
     <div class="social-links">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

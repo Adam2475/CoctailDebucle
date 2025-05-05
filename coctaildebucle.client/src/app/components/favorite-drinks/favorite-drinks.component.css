@@ -13,18 +13,18 @@
 
 .drink-card
 {
-    width: 15em;
     text-align: center;
-    border: 1px solid var(--border-color);
-    opacity: 90%;
+/*    border: 1px solid var(--border-color);*/
+    opacity:90%;
     border-radius: 2em !important;
+/*    background-color:var(--avorio-scuro);*/
 }
 
 .drink-card:hover
 {
     transform: scale(1.02);
     cursor: pointer;
-    box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: 1em 1em 3em rgba(0, 0, 0, 1);
 }
 
 .drink-card:hover

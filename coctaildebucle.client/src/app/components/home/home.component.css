@@ -133,6 +133,11 @@ main
 /* Drinks Display */
 /*///////////////////////*/
 
+.favorite-drink-announcement
+{
+    margin-top:2em;
+}
+
 .drink-container
 {
   display: flex;
@@ -184,35 +189,37 @@ main
 /* Localization Dropdown */
 /*///////////////////////*/
 
-.custom-dropdown {
+.custom-dropdown
+{
   position: relative;
   display: inline-block;
   cursor: pointer;
-/*  font-family: Arial, sans-serif;*/
   user-select: none;
   z-index: 10;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  margin-top: 2.5em;
+  margin-bottom: 1.5em;
 }
 
-.dropdown-options {
+.dropdown-options
+{
   position: absolute;
   top: 100%;
   left: 0;
   margin-top: 5px;
-  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 0.5em;
   width: 100%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   list-style: none;
   padding: 0;
-  background-color: var(--cream);
+  background-color: var(--avorio-scuro);
   opacity: 90%;
+  color: var(--bordo);
 }
 
-.dropdown-options li {
-  padding: 8px 12px;
+.dropdown-options li
+{
+  padding: 0.5em;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -220,20 +227,24 @@ main
 }
 
 .dropdown-options li:hover {
-  background-color: #f2f2f2;
+  background-color: #f1f1f1;
 }
 
-.selected-lang {
+.selected-lang
+{
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--cream);
+  background-color: var(--avorio-scuro);
+  color:var(--bordo);
+  padding:1.2em;
   opacity:90%;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border-radius: 1em;
+/*  border: 1px solid var(--border-color);*/
 }
 
-.selected-lang:hover {
+.selected-lang:hover
+{
   background-color: #e0e0e0;
+  transform:scale(1.02);
 }

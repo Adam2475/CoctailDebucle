@@ -22,7 +22,9 @@
             </p-inputgroup>
           </div>
         </div>
-        <p-button type="submit">{{ 'POPUP_LOGIN.LOGIN_BUTTON' | translate }}</p-button>
+        <button pButton class="popup-button" type="submit">
+          {{ 'POPUP_LOGIN.LOGIN_BUTTON' | translate }}
+        </button>
       </form>
 
       <div class="divider">
@@ -31,8 +33,10 @@
 
       <!-- Register -->
       <div>
-        <p-button label="{{ 'POPUP_LOGIN.SIGNUP_BUTTON' | translate }}" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto"
-                  (click)="navigateToSignup()" />
+        <button pButton class="popup-button" (click)="navigateToSignup()">
+        <i class="pi pi-user-plus"></i>
+        {{ 'POPUP_LOGIN.SIGNUP_BUTTON' | translate }}
+        </button>
         <div class="form-inline fr mt-4">
           <a id="forget">{{ 'POPUP_LOGIN.FORGOT_PASSWORD' | translate }}</a>
         </div>
