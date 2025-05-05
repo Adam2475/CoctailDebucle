@@ -29,6 +29,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { PopupFormComponent } from './components/popup/popup.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { FavoriteDrinksComponent } from './components/favorite-drinks/favorite-drinks.component';
+import { DailySelectionComponent } from './components/daily-selection/daily-selection.component';
 import { RouterModule } from '@angular/router';
 ///////////////////////////////////////////////////
 // Ngx Translate
@@ -58,6 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DialogModule, SignupComponent, FavoriteDrinksComponent,
     InputTextModule, GdprBannerComponent, UserProfileComponent,
     ProfileUpdateFormComponent,
+    DailySelectionComponent,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {

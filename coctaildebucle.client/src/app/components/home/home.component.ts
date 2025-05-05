@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DrinkCardsComponent } from '../drink-cards/drink-cards.component'
+import { DrinkCardsComponent } from '../drink-cards/drink-cards.component';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';

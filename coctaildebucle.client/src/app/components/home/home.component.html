@@ -55,6 +55,10 @@
     {{ 'HOME.DAILY_SELECTION' | translate }}
   </h1>
 
+  <button [routerLink]="['/daily-selection']" class="daily-selection-button">
+    {{ 'DRINK_CARDS.DAILY_SELECTION_SHOW_MORE' | translate }}
+  </button>
+
   <app-drink-cards></app-drink-cards>
 
 </main>
