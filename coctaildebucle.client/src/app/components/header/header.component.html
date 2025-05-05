@@ -3,6 +3,30 @@
     <div class="logo">
       <a href="/" class="clickable">CoctailDebucle</a>
     </div>
+
+
+
+    <!-- Localization Dropdown -->
+    <div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+      <div class="selected-lang">
+        <i class="fi" [ngClass]="{
+       'fi-gb': currentLang === 'en',
+       'fi-fr': currentLang === 'fr',
+       'fi-it': currentLang === 'it'}"></i>
+      </div>
+      <ul class="dropdown-options" *ngIf="dropdownOpen">
+        <li *ngFor="let lang of availableLanguages" (click)="onLanguageChange(lang)">
+          <i class="fi" [ngClass]="{
+        'fi-gb': lang === 'en',
+        'fi-fr': lang === 'fr',
+        'fi-it': lang === 'it'
+      }"></i>
+          {{ lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : 'Italiano' }}
+        </li>
+      </ul>
+    </div>
+
+
     <div class="login-container">
       <div class="navigationSection">
         <button pButton class="loginButton" [label]="'HEADER.LOGIN' | translate" *ngIf="!isLoggedIn" (click)="popupForm.togglePopup()">
@@ -11,7 +35,7 @@
         <div class="nav-buttons" *ngIf="isLoggedIn">
           <p-button class="nav-button" [label]="'HEADER.ADMIN' | translate" *ngIf="isAdmin && currentUrl !== '/admin'" (click)="navigateToAdmin()"></p-button>
           <p-button class="nav-button" [label]="'HEADER.PROFILE' | translate" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()"></p-button>
-          <p-button  class="nav-button" [label]="'HEADER.LOGOUT' | translate" (click)="popupForm.logout()"></p-button>
+          <p-button class="nav-button" [label]="'HEADER.LOGOUT' | translate" (click)="popupForm.logout()"></p-button>
         </div>
       </div>
     </div>

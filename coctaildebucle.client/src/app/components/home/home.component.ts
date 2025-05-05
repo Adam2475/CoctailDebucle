@@ -42,15 +42,12 @@ export class HomeComponent
   selectedIngredient: string = '';
   selectedGlass: string = '';
   isLoggedIn: boolean = false;
-
   /////////////////////////
   // Language Dropdown
   /////////////////////////
   availableLanguages: string[] = [];
   currentLang: string = 'en';
   dropdownOpen = false;
-
-
 
   constructor(
     private http: HttpClient,
@@ -69,7 +66,7 @@ export class HomeComponent
 
   ngOnInit()
   {
-    this.checkLogin();
+  /*  this.checkLogin();*/
     this.availableLanguages = this.languageService.getAvailableLanguages();
     this.currentLang = this.languageService.getCurrentLang();
     this.checkLogin();
@@ -130,26 +127,4 @@ export class HomeComponent
         this.drinks = response.drinks || [];
       });
   }
-  ////////////////////////////
-  // Localization Methods
-  ////////////////////////////
-
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
-
-  //onLanguageChange(lang: string) {
-  //  /*const lang = (event.target as HTMLSelectElement).value;*/
-  //  this.translate.use(lang);
-  //  this.currentLang = lang;
-  //  this.dropdownOpen = false;
-  //  localStorage.setItem('lang', lang);
-  //}
-  onLanguageChange(lang: string) {
-    this.languageService.changeLanguage(lang); // <-- usa il parametro corretto
-    this.currentLang = lang; // <-- aggiorna il valore locale
-    this.dropdownOpen = false;
-  }
-
-
 }

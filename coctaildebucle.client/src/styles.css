@@ -42,20 +42,22 @@
         flex-direction:column;
         justify-content:center;
         align-items: center;
-        width:80%;
+/*        width:80%;*/
         margin:auto,
     }
 }
 
-:root
-{
+:root {
   --form-color: #F5F5DC;
   --border-color: #554845;
   --middle-color: #B67233;
   --cream: #F6F0BC;
   --light-gradient: linear-gradient(var(--form-color), var(--cream)) no-repeat;
   --middle-gradient: linear-gradient(var(--middle-color), var(--form-color)) no-repeat;
-  --bordo: #310012;
+  /*  --bordo: #4f0011;*/
+  /*  --bordo:#451425;*/
+  /*  --bordo: #4a0404;*/
+  --bordo: #3f0010;
   --avorio: #FFFFF0;
   --avorio-scuro: #f8f8f7;
   --text-white: #FFFBF0;

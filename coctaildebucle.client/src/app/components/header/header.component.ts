@@ -1,12 +1,14 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { PopupFormComponent } from '../popup/popup.component';
 import { Router, NavigationEnd } from '@angular/router';  // Import Router for navigation
-import { NgIf } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { TranslateModule } from '@ngx-translate/core';
+//import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from '../../services/language.service';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [
     PopupFormComponent,
-    NgIf,
+    NgIf, NgFor,
     CommonModule,
     ButtonModule,
     MenubarModule,
@@ -32,8 +34,14 @@ export class HeaderComponent implements OnInit, AfterViewInit
   token: string = '';
   isAdmin: boolean = false;
   showNavDropdown: boolean = false;
+  /////////////////////////
+  // Language Dropdown
+  /////////////////////////
+  availableLanguages: string[] = [];
+  currentLang: string = 'en';
+  dropdownOpen = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private languageService: LanguageService, private router: Router) { }
 
   ngOnInit() {
     this.checkLogin();
@@ -43,6 +51,9 @@ export class HeaderComponent implements OnInit, AfterViewInit
         this.currentUrl = event.url;
       }
     });
+
+    this.availableLanguages = this.languageService.getAvailableLanguages();
+    this.currentLang = this.languageService.getCurrentLang();
   }
 
   toggleNavDropdown() {
@@ -98,4 +109,26 @@ export class HeaderComponent implements OnInit, AfterViewInit
 
     console.log('Header component received logout event.');
   }
+
+  ////////////////////////////
+  // Localization Methods
+  ////////////////////////////
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  //onLanguageChange(lang: string) {
+  //  /*const lang = (event.target as HTMLSelectElement).value;*/
+  //  this.translate.use(lang);
+  //  this.currentLang = lang;
+  //  this.dropdownOpen = false;
+  //  localStorage.setItem('lang', lang);
+  //}
+  onLanguageChange(lang: string) {
+    this.languageService.changeLanguage(lang); // <-- usa il parametro corretto
+    this.currentLang = lang; // <-- aggiorna il valore locale
+    this.dropdownOpen = false;
+  }
+
 }

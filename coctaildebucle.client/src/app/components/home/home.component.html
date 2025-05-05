@@ -1,7 +1,7 @@
 <main class="content">
 
   <!-- Localization Dropdown -->
-  <div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+  <!--<div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
     <div class="selected-lang">
       <i class="fi" [ngClass]="{
          'fi-gb': currentLang === 'en',
@@ -19,10 +19,12 @@
         {{ lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : 'Italiano' }}
       </li>
     </ul>
-  </div>
+  </div>-->
 
   <!-- Main Section -->
   <div class="mainSection">
+
+
     <div class="textSection">
       <h1 class="mainTitle">
         {{ 'HOME.TITLE' | translate }}
@@ -32,17 +34,22 @@
       </p>
     </div>
 
-    <!-- Main Image Page -->
-    <div id="content-wrapper">
-      <div class="image-wrapper">
-        <img id="shadow-svg" src="bg2.svg" alt="Shadow" />
-        <div class="image-section">
-          <img src="coctails.jpg" alt="coctails" id="mainimg" />
-        </div>
-      </div>
-    </div>
-  </div>
 
+    <div class="image-holder">
+      <img class="image" src="assets/images/drink.jpg" alt="Drink">
+    </div>
+
+
+  </div>
+  <!-- Main Image Page -->
+  <!--<div id="content-wrapper">
+    <div class="image-wrapper">
+      <img id="shadow-svg" src="bg2.svg" alt="Shadow" />
+      <div class="image-section">-->
+  <!--<img src="coctails.jpg" alt="coctails" id="mainimg" />-->
+  <!--</div>
+    </div>
+  </div>-->
   <!--<div class="divider"></div>-->
 
   <h1 class="favorite-drink-announcement">

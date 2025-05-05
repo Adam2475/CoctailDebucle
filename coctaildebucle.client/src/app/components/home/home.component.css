@@ -1,27 +1,24 @@
-
 /*///////////////////////*/
 /* Main Section */
 /*///////////////////////*/
 
-main
-{
-    margin:auto;
-}
-
-.mainSection
-{
+.mainSection {
+  width: 100% !important;
+  height: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /*  min-height: 40vh;*/
   /*  margin: 3em;*/
-  padding: 2em;
-  margin-right: 2em;
+  /*padding: 2em;*/
+/*  margin-top: min(3vw)*/
 }
 
 .textSection
 {
-  margin-right: 2em;
-  margin-top: 3em;
+  margin-left: 2em;
+/*  margin-top: 3em;*/
+  z-index:1 !important;
 /*  margin-top: 2em;*/
 }
 
@@ -46,53 +43,63 @@ main
 /* Main Image */
 /*///////////////////////*/
 
-.image-section
+.image-holder
 {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  width: 305px;
-  height: 320px;
-  z-index: 1;
-  filter: drop-shadow(20px 10px 20px rgba(0, 0, 0, 0.7));
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  z-index: -1 !important;
+  overflow: hidden;
 }
-
-#shadow-svg {
+img
+{
   position: absolute;
-  width: 400px;
-  height: 400px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-#mainimg {
-  width: 305px;
-  height: 320px;
+  /*top: 0;*/
+  left: 0;
+  height: fit-content;
   object-fit: cover;
-  display: block;
-  position: relative;
-  z-index: 2;
-  -webkit-mask-image: url('../../assets/mask.svg');
-  mask-image: url('../../assets/mask.svg');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  border: 1px solid black;
+  width: 100%;
 }
 
 /*///////////////////////*/
 /* Image Toggle */
 /*///////////////////////*/
 
-@media screen and (max-width: 668px)
+@media screen and (max-width: 330px)
 {
+    .image-holder{
+        display:none;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+
+  .mainSection
+  {
+      margin-top:3em !important;
+      padding-left:3em;
+  }
   .textSection
   {
-      width:100%;
+    margin-top: 3em !important;
+    padding-left: 3em;
+    font-size:24px
+  }
+}
+
+@media screen and (max-width: 668px)
+{
+  .favorite-drink-announcement {
+    margin-top: min(25vw, 400px)
+  }
+  .textSection
+  {
+  /*    width:100%;*/
+      padding-left:2em;
+      padding-top:1em !important;
+      margin-top:3em !important;
       margin-right: 0em !important;
       margin-top: 0em !important;
+      font-size: 12px;
   }
   #content-wrapper
   {
@@ -133,9 +140,10 @@ main
 /* Drinks Display */
 /*///////////////////////*/
 
-.favorite-drink-announcement
-{
-    margin-top:2em;
+.favorite-drink-announcement {
+  margin-top: 2em;
+  z-index: !important;
+  margin-top: min(23vw, 400px)
 }
 
 .drink-container
@@ -183,70 +191,6 @@ main
 {
   margin: 10px 0;
   font-size: 16px;
-}
-
-/*///////////////////////*/
-/* Localization Dropdown */
-/*///////////////////////*/
-
-.custom-dropdown
-{
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  user-select: none;
-  z-index: 10;
-  margin-top: 2.5em;
-  margin-bottom: 1.5em;
-}
-
-.dropdown-options
-{
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 0.5em;
-  width: 100%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  list-style: none;
-  padding: 0;
-  background-color: var(--avorio-scuro);
-  opacity: 90%;
-  color: var(--bordo);
-}
-
-.dropdown-options li
-{
-  padding: 0.5em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s;
-}
-
-.dropdown-options li:hover {
-  background-color: #f1f1f1;
-}
-
-.selected-lang
-{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--avorio-scuro);
-  color:var(--bordo);
-  padding:1.2em;
-  opacity:90%;
-  border-radius: 1em;
-/*  border: 1px solid var(--border-color);*/
-}
-
-.selected-lang:hover
-{
-  background-color: #e0e0e0;
-  transform:scale(1.02);
 }
 
 /* show-more button for daily selection*/
