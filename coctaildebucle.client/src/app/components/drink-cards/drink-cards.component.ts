@@ -36,6 +36,7 @@ export class DrinkCardsComponent implements OnInit
   selDrinks: any[] = [];
   visibleDrinks: any[] = [];
   showAllDrinks: boolean = false;
+  dailySelection: boolean = false;
 
   constructor(private cocktailService: CocktailService, private router: Router) { }
 
@@ -47,6 +48,8 @@ export class DrinkCardsComponent implements OnInit
         //this.selDrinks.forEach((value) => {
         //  console.log("selection drink: ", value);
         //});
+        this.dailySelection = this.router.url === '/daily-selection';
+        this.dailySelection ? this.showAllDrinks = true : this.showAllDrinks = false;
         this.changeVisibleDrinks();
       },
       error: (err) => console.error('Failed to load drinks', err)
@@ -63,13 +66,14 @@ export class DrinkCardsComponent implements OnInit
     this.router.navigate(['/cocktail', id]);
   }
 
-  toggleShowAll() {
-    this.showAllDrinks = !this.showAllDrinks;
-    this.changeVisibleDrinks();
-    this.visibleDrinks.forEach((value) => {
-      console.log("visible drink: ", value);
-    });
-  }
+  //button show-hide: keep or not?
+  //toggleShowAll() {
+  //  this.showAllDrinks = !this.showAllDrinks;
+  //  this.changeVisibleDrinks();
+  //  this.visibleDrinks.forEach((value) => {
+  //    console.log("visible drink: ", value);
+  //  });
+  //}
 
   changeVisibleDrinks() {
     if (!this.showAllDrinks) {

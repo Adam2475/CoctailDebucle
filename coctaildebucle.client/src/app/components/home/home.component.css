@@ -248,3 +248,14 @@ main
   background-color: #e0e0e0;
   transform:scale(1.02);
 }
+
+/* show-more button for daily selection*/
+.daily-selection-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
