@@ -75,6 +75,8 @@
 .p-button
 {
   color: var(--avorio-scuro) !important;
+  background-color: var(--bordo) !important;
+  border: none !important;
 }
 
 .nav-button .p-button

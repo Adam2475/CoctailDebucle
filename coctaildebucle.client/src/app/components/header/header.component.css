@@ -57,30 +57,28 @@ header {
   /* Navigation Buttons */
   /*////////////////////*/
 
-  .nav-buttons {
+  .nav-buttons
+  {
     padding: 0.2em;
   }
 
-  .nav-button {
+  .nav-button
+  {
     /*  background-color: red !important;*/
     padding: 0.5em;
     /*  border: 1px solid green !important;*/
   }
 
-  /*.p-button
-{
-    background: red !important;
-}
-
-*/
-  .loginButton {
+  .loginButton
+  {
     padding: 0.85em !important;
     background-color: var(--avorio-scuro) !important;
     color: var(--bordo) !important;
     border: none !important;
   }
 
-  .nav-dropdown {
+  .nav-dropdown
+  {
     padding: 0.85em !important;
     background-color: var(--avorio-scuro) !important;
     color: var(--bordo) !important;
@@ -91,7 +89,8 @@ header {
     transform: scale(1.02);
   }
 
-  .login-container {
+  .login-container
+  {
     display: flex;
     align-items: center;
   }
@@ -114,7 +113,8 @@ header {
   /* Navigation Dropdown */
   /*/////////////////////*/
 
-  .dropdown-menu {
+  .dropdown-menu
+  {
     position: absolute;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);

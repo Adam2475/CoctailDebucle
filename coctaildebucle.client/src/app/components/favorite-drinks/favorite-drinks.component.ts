@@ -25,8 +25,7 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   templateUrl: './favorite-drinks.component.html',
   styleUrl: './favorite-drinks.component.css',
-  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule,
-            JsonPipe]
+  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule]
 })
 export class FavoriteDrinksComponent
 {

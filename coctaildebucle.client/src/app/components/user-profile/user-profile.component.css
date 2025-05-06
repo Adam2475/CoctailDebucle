@@ -1,37 +1,16 @@
-.drinkForm {
+/* Info Section */
 
-  padding: 2rem;
-
-  max-width: 600px;
-  margin: 2rem auto;
-  font-family: Arial, sans-serif;
+.start{
+    margin-top:2em;
 }
 
-  .create-drink-form h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-/* Drink Creation Form */
-
-.drinkForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.2em;
-  margin: auto;
-  border-radius: 0.5em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 1);
-  background-color: #F5F5DC;
-}
 
 /* custom drinks section */
 .user-drinks
 {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1em;
   justify-content: center;
   margin-top: 20px;
 }
@@ -44,16 +23,15 @@
 
 .drink-card
 {
-  width: 200px;
+  width: auto;
+  margin: auto;
   background: transparent;
-  border: 2px solid #554845;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+/*  border: 2px solid #554845;*/
+  border-radius: 1em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 1);
+/*  overflow: hidden;*/
   transition: transform 0.2s ease-in-out;
   text-align: center;
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .drink-card:hover
@@ -92,4 +70,113 @@ img {
   padding: 0.5em !important;
   border-radius: 1.5em !important;
   /*   margin-bottom: 10px;*/
+}
+
+/*////////////////////////*/
+/* Drink Creation Form */
+/*////////////////////////*/
+
+.drinkForm {
+  padding:1em;
+  gap:0.3em;
+  width:80%;
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3em;
+  margin-top:1em;
+  border-radius: 0.5em;
+  box-shadow: 0 1em 2em rgba(0, 0, 0, 1);
+  background-color: var(--avorio-scuro);
+  opacity:95%;
+  color: var(--bordo);
+}
+
+@media screen and (min-width: 1000px)
+{
+    .drinkForm{
+        width:60%;
+    }
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  color: var(--bordo);
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  color: var(--bordo);
+}
+
+.create-drink-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Drink Modification Form */
+
+.modifica{
+    margin-top:2em;
+}
+
+.modify-form {
+  max-width: 100%;
+  width: 80%;
+  margin: auto;
+  margin-top:1em;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.form-row {
+    margin:auto;
+    width:80%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.ingredient-row {
+    width:60%;
+    margin:auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ingredient-field {
+  flex: 1 1 100%;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient-remove {
+  align-self: flex-end;
+}
+
+.add-ingredients {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }

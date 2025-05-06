@@ -207,11 +207,19 @@ img
 
 /* show-more button for daily selection*/
 .daily-selection-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  margin-top: 3em;
+  margin-bottom: 1em;
+  padding: 1em;
   cursor: pointer;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--avorio-scuro);
+  color: var(--bordo);
   border: none;
-  border-radius: 4px;
+  border-radius: 0.7em;
+  font-family: Arvo-italic;
+  font-size:16px;
+}
+
+.daily-selection-button:hover
+{
+ transform:scale(1.05);
 }

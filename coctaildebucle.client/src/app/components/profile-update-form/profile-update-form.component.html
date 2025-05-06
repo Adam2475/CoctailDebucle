@@ -9,9 +9,9 @@
              [formControlName]="field.controlName"
              [readonly]="!field.editing"
              class="form-control input-fixed" />
-      <button type="button" class="edit-btn" (click)="toggleEdit(field)">
+      <p-button type="button" class="edit-btn" (click)="toggleEdit(field)">
         {{ field.editing ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
-      </button>
+      </p-button>
     </div>
 
 
@@ -28,9 +28,9 @@
              value="********"
              readonly
              class="form-control input-fixed" />
-      <button type="button" class="edit-btn" (click)="togglePasswordEdit()">
+      <p-button type="button" class="edit-btn" (click)="togglePasswordEdit()">
         {{ passwordEditMode ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
-      </button>
+      </p-button>
     </div>
 
     <div *ngIf="passwordEditMode">
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary save-btn" [disabled]="profileForm.invalid">{{ 'USER_PROFILE.SAVE_INFORMATION' | translate }}</button>
+    <p-button type="submit" class="btn btn-primary save-btn" [disabled]="profileForm.invalid">{{ 'USER_PROFILE.SAVE_INFORMATION' | translate }}</p-button>
     <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
   </form>

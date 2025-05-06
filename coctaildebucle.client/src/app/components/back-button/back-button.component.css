@@ -1,4 +1,9 @@
-.backBtn
-{
-    margin-top:3em;
+.backBtn {
+  margin-top: 3em;
+  background-color: var(--avorio-scuro) !important;
+  color: var(--bordo) !important;
+}
+
+pButton {
+  background-color: var(--avorio-scuro);
 }

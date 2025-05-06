@@ -6,10 +6,12 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { GdprService } from '../../services/gdpr.service';
 import { TranslateModule } from "@ngx-translate/core";
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-profile-update-form',
-  imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, TranslateModule,
+            ButtonModule],
   templateUrl: './profile-update-form.component.html',
   styleUrl: './profile-update-form.component.css'
 })

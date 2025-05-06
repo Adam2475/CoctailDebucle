@@ -27,7 +27,6 @@ import { LanguageService } from '../../services/language.service';
     FavoriteDrinksComponent,
     DrinkCardsComponent,
     RouterModule,
-    NgFor,
     TranslateModule
   ]
 })
