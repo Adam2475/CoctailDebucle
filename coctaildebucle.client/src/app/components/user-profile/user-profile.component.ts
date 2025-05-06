@@ -38,6 +38,7 @@ interface DrinkIngredient {
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
   @ViewChild(GdprBannerComponent) gdprBanner!: GdprBannerComponent;
+  @ViewChild(FavoriteDrinksComponent) favoriteComponent!: FavoriteDrinksComponent;
   ////////////////////////
   // Cocktail Import
   ////////////////////////
@@ -458,6 +459,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         next: () => {
           console.log('Drink added to favorites');
           this.fetchFavoriteDrinks();
+          this.favoriteComponent.refreshFavorites();
         },
         error: err => console.error('Failed to add to favorites', err)
       });
@@ -533,7 +535,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     if (!this.modifyForm.valid) return;
 
     const formValue = this.modifyForm.value;
-    const ingredients = formValue.ingredients || []; // fallback if undefined
+    const ingredients = formValue.ingredients || [];
 
     const payload = {
       name: this.modifyForm.value.name,
@@ -545,7 +547,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         amount: ing.amount
       }))
     };
-    //console.log("object passed: ", this.modifyForm);
     this.http.put(`https://localhost:7047/api/drinkDb/${drinkId}`, payload).subscribe({
       next: () => {
         console.log('Update success');
@@ -555,6 +556,4 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       error: err => console.error('Update failed:', err)
     });
   }
-  // ----------------------------------------- //
-
 }

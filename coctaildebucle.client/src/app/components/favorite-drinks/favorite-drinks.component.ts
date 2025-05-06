@@ -65,31 +65,18 @@ export class FavoriteDrinksComponent
       this.gdprService.getConsent(this.userId).subscribe(
         (response) => {
           this.consentGiven = response.gdprConsent;
-
-          /**
-           * @brief : if the user has given consent and is logged load
-           *          the favorite drink list, if the array lenght is 0
-           *          load the random selection
-           */
-
-          if (this.consentGiven && this.isLoggedIn) {
+          if (this.consentGiven && this.isLoggedIn)
             this.loadFavoriteDrinks();
-          }
-          else {
+          else
             this.loadRandomDrinks();
-          }
         },
         (error) => {
           console.error('Error fetching GDPR consent:', error);
         }
       );
-    } else {
-      this.loadRandomDrinks();
-/*      console.error("User ID is null, cannot check consent");*/
     }
-
-    /*console.log("favorites: ",this.favoriteDrinks);*/
-
+    else
+      this.loadRandomDrinks();
   }
 
   checkLogin() {
@@ -106,7 +93,6 @@ export class FavoriteDrinksComponent
       .subscribe({
         next: () => {
           this.favoriteDrinks = this.favoriteDrinks.filter(drink => drink.id !== drinkId);
-         /* console.log(`Drink ${drinkId} removed from favorites.`);*/
         },
         error: (err) => {
           console.error(`Failed to remove favorite drink: ${err}`);
@@ -116,16 +102,13 @@ export class FavoriteDrinksComponent
 
   loadFavoriteDrinks(): void
   {
-    /* console.log("loading drinks for user: ", this.userId);*/
     if (this.userId) {
       this.userService.getUserFavorites(this.userId).subscribe(
         (drinks) => {
           this.favoriteDrinks = drinks;
-/*          console.log("fetched favorites: ", this.favoriteDrinks);*/
           this.favoritesLenght = this.favoriteDrinks.length;
           if (this.favoritesLenght == 0) {
             this.loadRandomDrinks();
-/*            console.log("loading random");*/
           }
         },
         (error) => {
@@ -139,12 +122,15 @@ export class FavoriteDrinksComponent
     this.drinkService.getActiveSelectionDrinks().subscribe(
       (drinks) => {
         const shuffled = drinks.sort(() => 0.5 - Math.random());
-        this.randomSelection = shuffled.slice(0, 3); // get 5 random drinks
-     /*   console.log("Loaded random drinks:", this.randomSelection);*/
+        this.randomSelection = shuffled.slice(0, 3);
       },
       (error) => {
         console.error("Error loading random drinks:", error);
       }
     );
+  }
+
+  refreshFavorites(): void {
+    this.loadFavoriteDrinks(); // or however you're loading them
   }
 }
