@@ -16,7 +16,9 @@
                  [routerLink]="['/cocktail', drink.id]"/>
           </ng-template>
 
-          <ng-template #title> {{ drink.name }} </ng-template>
+          <ng-template #title>
+            <p [routerLink]="['/cocktail', drink.id]">{{ drink.name }}</p>
+          </ng-template>
 
           <ng-template #footer>
             <p-button type="button" icon="pi pi-trash"
