@@ -40,10 +40,10 @@
   <ng-template #notLogged>
 
     <p>
-      Registrati o fai il login per aggiungere dei drink ai preferiti...
+      {{ 'FAVORITE_DRINKS.NO_LOGIN' | translate }}
     </p>
     <p>
-      intanto puoi esplorare una selezione casuale dei  nostri drink:
+      {{ 'FAVORITE_DRINKS.NO_GDPR_OR_LOGIN' | translate }}
     </p>
 
     <div class="drink-cards">
@@ -68,10 +68,10 @@
 
   <ng-template #noConsent>
     <p>
-      Ci serve il consenso al Gdpr per mostrarti contenuti personalizzati...
+      {{ 'FAVORITE_DRINKS.NO_GDPR' | translate }}
     </p>
     <p>
-      intanto puoi esplorare una selezione casuale dei  nostri drink:
+      {{ 'FAVORITE_DRINKS.NO_GDPR_OR_LOGIN' | translate }}
     </p>
 
     <div class="drink-cards">

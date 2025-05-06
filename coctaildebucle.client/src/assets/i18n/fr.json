@@ -4,6 +4,7 @@
     "FLAVOUR_TEXT": "Découvrez notre sélection quotidienne de boissons ou créez la vôtre !",
     "CHOSEN_FOR_YOU": "Vos boissons préférées: ",
     "DAILY_SELECTION": "Sélection du jour",
+    "CALL_TO_ACTION_FLAVOR": "Ou cliquez ici pour voir les boissons disponibles:",
     "CALL_TO_ACTION": "Découvrez notre sélection"
   },
   "HEADER": {
@@ -59,7 +60,10 @@
     "DAILY_SELECTION_SHOW_LESS": "Afficher moins"
   },
   "FAVORITE_DRINKS": {
-    "NO_FAVORITE": "Vous n'avez pas encore choisi de favoris. Qu'attendez-vous ?"
+    "NO_FAVORITE": "Vous n'avez pas encore choisi de favoris. Qu'attendez-vous ?",
+    "NO_GDPR": "Nous avons besoin du consentement du RGPD pour vous montrer du contenu personnalisé...",
+    "NO_LOGIN": "Inscrivez-vous ou connectez-vous pour ajouter des boissons à vos favoris...",
+    "NO_GDPR_OR_LOGIN": "En attendant, vous pouvez explorer une sélection aléatoire de nos boissons:"
   },
   "GDPR_COMPONENT": {
     "GDPR_BANNER": "Nous utilisons des cookies pour vous garantir une bonne expérience sur notre site",
