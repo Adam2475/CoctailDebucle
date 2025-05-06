@@ -6,13 +6,12 @@ import { CocktailService } from '../../services/cocktail.service';
 import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
-import { LanguageService } from '../../services/language.service';
 // Ng Prime UI
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +24,8 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   templateUrl: './favorite-drinks.component.html',
   styleUrl: './favorite-drinks.component.css',
-  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule]
+  imports: [NgFor, NgIf, TranslateModule, CardModule, ButtonModule,
+    RouterModule]
 })
 export class FavoriteDrinksComponent
 {

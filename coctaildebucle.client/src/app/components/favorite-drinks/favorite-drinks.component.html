@@ -5,7 +5,8 @@
       <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
 
 
-        <p-card class="drink-card" *ngFor="let drink of favoriteDrinks">
+        <p-card class="drink-card" *ngFor="let drink of favoriteDrinks"
+                 [routerLink]="['/cocktail', drink.id]">
 
           <ng-template #header>
             <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
