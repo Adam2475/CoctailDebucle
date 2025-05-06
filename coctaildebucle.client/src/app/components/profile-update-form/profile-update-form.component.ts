@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { GdprService } from '../../services/gdpr.service';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -20,7 +20,6 @@ export class ProfileUpdateFormComponent implements OnInit {
   profileForm!: FormGroup;
   passwordMismatch: boolean = false;
   successMessage: string = '';
-  errorMessage: string = '';
   passwordEditMode = false;
   consentGiven: boolean = false;
 
@@ -36,6 +35,7 @@ export class ProfileUpdateFormComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private gdprService: GdprService,
+    private translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private http: HttpClient
@@ -113,6 +113,10 @@ export class ProfileUpdateFormComponent implements OnInit {
       password: newPass || ""
     };
 
+    this.successMessage = this.translate.instant('USER_PROFILE.SAVE_INFORMATION_CONFIRM');
+    // Nasconde il messaggio dopo tot millisecondi
+    setTimeout(() => this.successMessage = '', 2000);
+
     //if (newPass) {
     //  updateData.password = newPass;
     //}
@@ -122,7 +126,7 @@ export class ProfileUpdateFormComponent implements OnInit {
       response => {
         //Notifica a tutto il progetto che il consenso è cambiato
         //this.userService.updateConsentStatus(updateData.gdprConsent);
-        console.log('Successo aggiornamento profilo:', response);
+        console.log('Successo aggiornamento profilo:', response);        
       },
       error => {
         console.error('Errore aggiornamento profilo:', error);
@@ -131,7 +135,7 @@ export class ProfileUpdateFormComponent implements OnInit {
 
     this.consentGiven = this.profileForm.value.gdprConsent;
     //this.onConsentChanged(this.consentGiven);
-    //window.location.reload();//senza, i drink preferiti non si vedono quando utente da' consenso
+    window.location.reload();//senza, i drink preferiti non si vedono quando utente da' consenso
   }
 
   toggleEdit(field: any): void {

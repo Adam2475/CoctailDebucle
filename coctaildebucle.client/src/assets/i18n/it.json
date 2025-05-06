@@ -4,6 +4,7 @@
     "FLAVOUR_TEXT": "Scopri la nostra selezione giornaliera di drink o crea il tuo!",
     "CHOSEN_FOR_YOU": "I tuoi drink preferiti: ",
     "DAILY_SELECTION": "Selezione del giorno: ",
+    "CALL_TO_ACTION_FLAVOR": "Oppure clicca qui per vedere i drink disponibili:",
     "CALL_TO_ACTION": "Scopri la nostra selezione"
   },
   "HEADER": {
@@ -59,7 +60,10 @@
     "DAILY_SELECTION_SHOW_LESS": "Mostra Meno"
   },
   "FAVORITE_DRINKS": {
-    "NO_FAVORITE": "Non hai ancora scelto dei preferiti. Che aspetti?"
+    "NO_FAVORITE": "Non hai ancora scelto dei preferiti. Che aspetti?",
+    "NO_GDPR": "Ci serve il consenso al Gdpr per mostrarti contenuti personalizzati...",
+    "NO_LOGIN": "Registrati o fai il login per aggiungere dei drink ai preferiti...",
+    "NO_GDPR_OR_LOGIN": "intanto puoi esplorare una selezione casuale dei  nostri drink:"
   },
   "GDPR_COMPONENT": {
     "GDPR_BANNER": "Usiamo cookies per garantirti una bella esperienza sul nostro sito",

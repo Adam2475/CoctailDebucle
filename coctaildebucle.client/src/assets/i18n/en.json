@@ -4,6 +4,7 @@
     "FLAVOUR_TEXT": "Discover our daily selection of drinks or create your own!",
     "CHOSEN_FOR_YOU": "Your favourite drinks: ",
     "DAILY_SELECTION": "Daily Selection: ",
+    "CALL_TO_ACTION_FLAVOR": "Or you can click here for available drinks:",
     "CALL_TO_ACTION": "Discover our selection"
   },
   "HEADER": {
@@ -59,7 +60,10 @@
     "DAILY_SELECTION_SHOW_LESS": "Show Less"
   },
   "FAVORITE_DRINKS": {
-    "NO_FAVORITE": "You have no favorite drinks yet. What are you waiting for?"
+    "NO_FAVORITE": "You have no favorite drinks yet. What are you waiting for?",
+    "NO_GDPR": "You need to give Gdpr consent to see personalized content...",
+    "NO_LOGIN": "Log in or register in order to add drinks to your favorites...",
+    "NO_GDPR_OR_LOGIN": "meanwhile, you can a random selection of drinks:"
   },
   "GDPR_COMPONENT": {
     "GDPR_BANNER": "We use cookies to ensure you get the best experience on our website.",
@@ -102,6 +106,7 @@
     "FIELD_PASS_CONFIRM": "Confirm New Password",
     "FIELD_PASS_MISMATCH": "Passwords do not match",
     "SAVE_INFORMATION": "Save Changes",
+    "SAVE_INFORMATION_CONFIRM": "Saved Changes!",
 
     "MSG_NO_GDPR": "You need to accept GDPR consent to view your favorite drinks.",
 
