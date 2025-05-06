@@ -33,13 +33,23 @@ header {
   color:var(--text-white) !important;
 }
 
-@media screen and (max-width: 300px)
+
+@media screen and (max-width: 300px) {
+  .header-content {
+    justify-content: center;
+    gap: 1em;
+  }
+
+  .logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px)
 {
     .header-content{
         justify-content:center;
-    }
-    .logo{
-        display:none;
+        gap:0.5em;
     }
 }
 
