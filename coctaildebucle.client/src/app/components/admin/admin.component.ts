@@ -50,7 +50,6 @@ export class AdminComponent implements OnInit {
   drinks: any[] = [];
   selectionList: any[] = [];
   selectedSelection: any = null;
-  //multi-parameter searchbar
   searchQuery: string = '';
   categories: string[] = [];
   ingredients: string[] = [];
@@ -62,7 +61,6 @@ export class AdminComponent implements OnInit {
   isRandomSelection: boolean = true;
   searchUsed: boolean = false;
   noSearchResults: boolean = false;
-    //multi-parameter searchbar
 
   constructor(
     private cocktailService: CocktailService,
@@ -96,7 +94,7 @@ export class AdminComponent implements OnInit {
   fetchSelectionList()
   {
     this.cocktailService.getSelections().subscribe((data: any[]) => {
-      console.log("Selections fetched from API:", data);
+/*      console.log("Selections fetched from API:", data);*/
       this.selectionList = data;
     });
   }
@@ -125,7 +123,6 @@ export class AdminComponent implements OnInit {
 
   removeSelection(id: number)
   {
-    // Call the API to delete the selection
     this.http.delete(`https://localhost:7047/api/selection/${id}`).subscribe({
       next: (response) => {
         // If the selection was successfully deleted, remove it from the local list
@@ -180,7 +177,8 @@ export class AdminComponent implements OnInit {
    *          
    */
 
-  submitSelection(): void {
+  submitSelection(): void
+  {
     const uniqueIngredients = new Set<string>();
     const uniqueGlasses = new Set<string>();
 
@@ -339,7 +337,7 @@ export class AdminComponent implements OnInit {
   toggleSelection(drink: any): void
   {
     const index = this.selectedDrinks.findIndex(d => d.idDrink === drink.idDrink);
-    console.log("ciaone");
+ /*   console.log("ciaone");*/
     if (index !== -1)
       this.selectedDrinks.splice(index, 1);
     else
@@ -424,7 +422,7 @@ export class AdminComponent implements OnInit {
     this.searchUsed = hasFilters;
 
     if (!hasFilters) {
-      this.loadRandomDrinks(); // <-- già esistente
+      this.loadRandomDrinks();
       return;
     }
 
@@ -462,48 +460,6 @@ export class AdminComponent implements OnInit {
       }
     });
   }
-
-  /* performSearch() >>> onSearch()*/
-  //onSearch(): void {
-  //  if (
-  //    this.searchQuery.trim() ||
-  //    this.selectedCategory ||
-  //    this.selectedIngredient ||
-  //    this.selectedGlass
-  //  ) {
-  //    this.cocktailService.searchCocktails(
-  //      this.searchQuery,
-  //      this.selectedCategory,
-  //      this.selectedIngredient,
-  //      this.selectedGlass
-  //    ).pipe(
-  //      map(response => response.drinks || []),
-  //      switchMap((drinks: any[]) => {
-  //        const detailRequests = drinks.map(drink =>
-  //          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
-  //            map(res => res.drinks[0])
-  //          )
-  //        );
-  //        return forkJoin(detailRequests);
-  //      }),
-  //      map((fullDrinks: any[]) => {
-  //        return fullDrinks.map(drink => ({
-  //          ...drink,
-  //          ingredients: this.extractIngredients(drink)
-  //        }));
-  //      })
-  //    ).subscribe({
-  //      next: (drinksWithIngredients) => {
-  //        this.drinks = drinksWithIngredients;
-  //      },
-  //      error: (err) => {
-  //        console.error("Error fetching searched drinks:", err);
-  //      }
-  //    });
-  //  } else {
-  //    this.loadRandomDrinks(); // fallback
-  //  }
-  //}
 
   /*logic to make random selection moved here from onInit*/
   loadRandomDrinks(): void {

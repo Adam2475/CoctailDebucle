@@ -85,10 +85,10 @@ export class FavoriteDrinksComponent
       );
     } else {
       this.loadRandomDrinks();
-      console.error("User ID is null, cannot check consent");
+/*      console.error("User ID is null, cannot check consent");*/
     }
 
-    console.log("favorites: ",this.favoriteDrinks);
+    /*console.log("favorites: ",this.favoriteDrinks);*/
 
   }
 
@@ -121,11 +121,11 @@ export class FavoriteDrinksComponent
       this.userService.getUserFavorites(this.userId).subscribe(
         (drinks) => {
           this.favoriteDrinks = drinks;
-          console.log("fetched favorites: ", this.favoriteDrinks);
+/*          console.log("fetched favorites: ", this.favoriteDrinks);*/
           this.favoritesLenght = this.favoriteDrinks.length;
           if (this.favoritesLenght == 0) {
             this.loadRandomDrinks();
-            console.log("loading random");
+/*            console.log("loading random");*/
           }
         },
         (error) => {
@@ -140,7 +140,7 @@ export class FavoriteDrinksComponent
       (drinks) => {
         const shuffled = drinks.sort(() => 0.5 - Math.random());
         this.randomSelection = shuffled.slice(0, 3); // get 5 random drinks
-        console.log("Loaded random drinks:", this.randomSelection);
+     /*   console.log("Loaded random drinks:", this.randomSelection);*/
       },
       (error) => {
         console.error("Error loading random drinks:", error);
