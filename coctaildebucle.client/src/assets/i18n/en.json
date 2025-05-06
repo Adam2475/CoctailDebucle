@@ -3,7 +3,8 @@
     "TITLE": "Welcome to: Gourmet Alcoholist",
     "FLAVOUR_TEXT": "Discover our daily selection of drinks or create your own!",
     "CHOSEN_FOR_YOU": "Your favourite drinks: ",
-    "DAILY_SELECTION": "Daily Selection: "
+    "DAILY_SELECTION": "Daily Selection: ",
+    "CALL_TO_ACTION": "Discover our selection"
   },
   "HEADER": {
     "LOGIN": "Login",

@@ -48,7 +48,8 @@
 
     <div class="drink-cards">
 
-      <p-card class="drink-card" *ngFor="let drink of randomSelection">
+      <p-card class="drink-card" *ngFor="let drink of randomSelection"
+              [routerLink]="['/cocktail', drink.id]">
         <ng-template #header>
           <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
                alt="{{ drink.name }}"
@@ -75,7 +76,8 @@
 
     <div class="drink-cards">
 
-      <p-card class="drink-card" *ngFor="let drink of randomSelection">
+      <p-card class="drink-card" *ngFor="let drink of randomSelection"
+              [routerLink]="['/cocktail', drink.id]">
         <ng-template #header>
           <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
                alt="{{ drink.name }}"
