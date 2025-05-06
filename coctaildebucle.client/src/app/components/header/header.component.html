@@ -33,9 +33,9 @@
           <i class="fas fa-user"></i>
         </button>
         <div class="nav-buttons" *ngIf="isLoggedIn">
-          <p-button class="nav-button" [label]="'HEADER.ADMIN' | translate" *ngIf="isAdmin && currentUrl !== '/admin'" (click)="navigateToAdmin()"></p-button>
-          <p-button class="nav-button" [label]="'HEADER.PROFILE' | translate" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()"></p-button>
-          <p-button class="nav-button" [label]="'HEADER.LOGOUT' | translate" (click)="popupForm.logout()"></p-button>
+          <button pButton class="nav-button" [label]="'HEADER.ADMIN' | translate" *ngIf="isAdmin && currentUrl !== '/admin'" (click)="navigateToAdmin()"></button>
+          <button pButton class="nav-button" [label]="'HEADER.PROFILE' | translate" *ngIf="currentUrl !== '/profile'" (click)="navigateToProfile()"></button>
+          <button pButton class="nav-button" [label]="'HEADER.LOGOUT' | translate" (click)="popupForm.logout()"></button>
         </div>
       </div>
     </div>

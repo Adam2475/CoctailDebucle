@@ -31,7 +31,7 @@
   <div *ngFor="let drink of selectedDrinks">
     <strong>{{ drink.strDrink }}</strong>
   </div>
-  <p-button (click)="submitSelection()">{{ 'ADMIN_PAGE.SUBMIT_SELECTION' | translate }}</p-button>
+  <button pButton class="submitSel" (click)="submitSelection()">{{ 'ADMIN_PAGE.SUBMIT_SELECTION' | translate }}</button>
 
   <h2>{{ 'ADMIN_PAGE.SEARCHBAR_TITLE' | translate }}</h2>
 

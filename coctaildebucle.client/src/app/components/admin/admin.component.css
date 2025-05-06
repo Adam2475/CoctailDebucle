@@ -17,12 +17,19 @@ body
     gap:0.5em;
 }
 
+.submitSel
+{
+    background-color: var(--avorio-scuro) !important;
+    color: var(--bordo) !important;
+}
+
 .selectionItem
 {
     margin-bottom: 0.5em;
     border: 2px solid var(--border-color);
     border-radius: 1em;
-    background-color: var(--cream);
+    background-color: var(--avorio-scuro);
+    color:var(--bordo);
     opacity:90%;
     width:80%;
     padding: 0.8em;
