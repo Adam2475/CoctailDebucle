@@ -5,15 +5,15 @@
       <div class="drink-cards" *ngIf="favoriteDrinks.length > 0; else noFavorites">
 
 
-        <p-card class="drink-card" *ngFor="let drink of favoriteDrinks"
-                 [routerLink]="['/cocktail', drink.id]">
+        <p-card class="drink-card" *ngFor="let drink of favoriteDrinks">
 
           <ng-template #header>
             <img [src]="'data:' + drink.imageMimeType + ';base64,' + drink.imageData"
                  alt="{{ drink.name }}"
                  width="200"
                  height="200"
-                 style="object-fit: cover; border-radius: 8px;" />
+                 style="object-fit: cover; border-radius: 8px;"
+                 [routerLink]="['/cocktail', drink.id]"/>
           </ng-template>
 
           <ng-template #title> {{ drink.name }} </ng-template>

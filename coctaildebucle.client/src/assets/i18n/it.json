@@ -50,7 +50,8 @@
     "INGREDIENTS": "Ingredienti",
     "FAVORITES": "Aggiungi ai Preferiti",
     "BACK": "Indietro",
-    "NOT_FOUND": "Nessun cocktail corrisponde a questo id. Si prega di provare più tardi."
+    "NOT_FOUND": "Nessun cocktail corrisponde a questo id. Si prega di provare più tardi.",
+    "ADDED_TO_FAVORITES": "Aggiunto ai preferiti!"
   },
   "DRINK_CARDS": {
     "NO_DRINKS": "Al momento non ci sono drink disponibili",

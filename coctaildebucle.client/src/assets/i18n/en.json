@@ -50,7 +50,8 @@
     "INGREDIENTS": "Ingredients",
     "FAVORITES": "Add to Favorites",
     "BACK": "Back",
-    "NOT_FOUND": "No cocktail found for the provided ID. Please try again later."
+    "NOT_FOUND": "No cocktail found for the provided ID. Please try again later.",
+    "ADDED_TO_FAVORITES": "Added to favorites!"
   },
   "DRINK_CARDS": {
     "NO_DRINKS": "Wait for the admin to add more drinks",

@@ -24,6 +24,10 @@
   <button (click)="goBack()">⬅ {{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
 </div>
 
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+
 <ng-template #noData>
   <p>⚠️ {{ 'COCKTAIL_DETAIL.NOT_FOUND' | translate }}</p>
   <button (click)="goBack()">⬅ {{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
