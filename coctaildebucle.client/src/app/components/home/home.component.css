@@ -8,23 +8,22 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-/*  padding-top:1em;*/
-/*  margin-top:1em;*/
-  /*  min-height: 40vh;*/
-  /*  margin: 3em;*/
-  /*padding: 2em;*/
-/*  margin-top: min(3vw)*/
 }
 
 .textSection
 {
-/*  margin-left: 2em;*/
-/*  margin-top: 3em;*/
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   z-index:1 !important;
   padding-top:1em;
   padding-left:2em;
-/*  margin-top: 2em;*/
 }
+
+/*.flavourText2
+{
+    margin-top:1em !important;
+}*/
 
 #content-wrapper
 {
@@ -54,14 +53,15 @@
   z-index: -1 !important;
   overflow: hidden;
 }
+
 img
 {
   position: absolute;
-  /*top: 0;*/
   left: 0;
   height: fit-content;
   object-fit: cover;
   width: 100%;
+  box-shadow: 0 2em 5em rgba(0, 0, 0, 1);
 }
 
 /*///////////////////////*/
@@ -70,59 +70,133 @@ img
 
 @media screen and (max-width: 380px)
 {
-    .image-holder{
+    .image-holder
+    {
         display:none;
     }
 }
 
-@media screen and (min-width: 1000px) {
-  .textSection
-  {
-/*    margin-top: 3em !important;*/
-    padding-left: 2em;
-    font-size:24px
+@media screen and (min-width: 670px) {
+  .favorite-drink-announcement {
+    margin-top: min(14vw, 400px) !important;
   }
-}
 
-@media screen and (min-width: 1000px) {
+ /* .call-to-action {
+    padding-top: 5em !important;
+  }*/
+
   .textSection {
-    /*    margin-top: 3em !important;*/
-    padding-left: 2em;
-    font-size: 24px
+    padding-top: 2em;
+    padding-left: 3em;
+    margin-right: 0em !important;
+    margin-top: 0em !important;
+    font-size: 14px;
+  }
+
+  .daily-selection-button2 {
+    font-size: 16px !important;
   }
 }
 
-@media screen and (max-width: 400px)
+@media screen and (min-width: 760px) {
+  .favorite-drink-announcement {
+    margin-top: min(16vw, 400px) !important;
+  }
+  .call-to-action{
+      padding-top:5em !important;
+  }
+  .textSection {
+    padding-top: 2em;
+    padding-left: 3em;
+    margin-right: 0em !important;
+    margin-top: 0em !important;
+    font-size: 14px;
+  }
+  .daily-selection-button2{
+      font-size:16px !important;
+  }
+}
+
+@media screen and (min-width: 1000px)
+{
+    .mainSection{
+        height: 70vh;
+    }
+    .daily-selection-button2{
+        font-size:16px !important;
+        padding:1em !important;
+    }
+  .textSection {
+    padding-top: 2em;
+    padding-left: 3em;
+    margin-right: 0em !important;
+    margin-top: 0em !important;
+    font-size: 16px;
+  }
+  .favorite-drink-announcement
+  {
+    margin-top: min(6vw, 400px) !important;
+  }
+  .call-to-action{
+      padding-bottom:1em;
+  }
+}
+
+@media screen and (min-width: 1100px)
+{
+  .favorite-drink-announcement {
+    margin-top: min(10vw, 400px) !important;
+  }
+}
+
+@media screen and (min-width: 1200px)
 {
     .textSection{
-       padding-left:0.5em !important;
+        padding-left: 7em;
+        padding-top: 7em;
     }
-    .favorite-drink-announcement{
-        margin-top:0.7em !important;
-    }
-    h1{
-        font-size: 20px;
-    }
+  .mainSection
+  {
+    height: 80vh;
+  }
+  .favorite-drink-announcement
+  {
+    margin-top: min(10vw, 400px) !important;
+  }
+}
+
+@media screen and (min-width: 1400px)
+{
+  .favorite-drink-announcement {
+    margin-top: min(16vw, 400px) !important;
+  }
+}
+
+@media screen and (min-width: 450px)
+{
+  .favorite-drink-announcement
+  {
+    margin-top: 5em;
+  }
 }
 
 @media screen and (max-width: 668px)
 {
-    h1{
-        font-size: 20px;
-    }
-  .favorite-drink-announcement {
-    margin-top: min(25vw, 400px)
+   h1
+   {
+       font-size: 20px;
+   }
+  .favorite-drink-announcement
+  {
+      margin-top: min(13vw, 400px) !important;
   }
   .textSection
   {
-  /*    width:100%;*/
       padding-top:2em;
       padding-left:3em;
-/*      padding-top:1em !important;*/
-     /* margin-top:3em !important;*/
       margin-right: 0em !important;
       margin-top: 0em !important;
-      font-size: 12px;
+      font-size: 16px;
   }
   #content-wrapper
   {
@@ -159,14 +233,45 @@ img
   }
 }
 
+/*@media screen and (min-width:)*/
+
+@media screen and (max-width: 600px)
+{
+   .textSection{
+       font-size:12px;
+   }
+  .call-to-action
+  {
+    display: none !important;
+  }
+  .favorite-drink-announcement {
+    margin-top: min(25vw, 400px) !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .textSection {
+    padding-left: 0.5em !important;
+  }
+
+  .favorite-drink-announcement {
+    margin-top: min(10vw, 400px) !important;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+}
+
 /*///////////////////////*/
 /* Drinks Display */
 /*///////////////////////*/
 
-.favorite-drink-announcement {
+.favorite-drink-announcement
+{
 /*  margin-top: 1em;*/
   z-index: !important;
-  margin-top: min(22vw, 400px)
+  margin-top: min(20vw, 400px)
 }
 
 .drink-container
@@ -181,9 +286,9 @@ img
 .drink-card
 {
   width: 15em;
-  background: #fff;
+/*  background: #fff;*/
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 1);
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
   text-align: center;
@@ -202,20 +307,6 @@ img
   padding: 10px;
 }
 
-.drink-card img
-{
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-}
-
-.drink-card h3
-{
-  margin: 10px 0;
-  font-size: 16px;
-}
-
 /* show-more button for daily selection*/
 .daily-selection-button {
   margin-top: 3em;
@@ -230,7 +321,29 @@ img
   font-size:16px;
 }
 
-.daily-selection-button:hover
+/*.call-to-action{
+    
+}*/
+
+.daily-selection-button2 {
+/*  margin-top: 3em;*/
+  margin-bottom: 1em;
+  padding: 0.7em;
+  cursor: pointer;
+  background-color: var(--avorio-scuro);
+  color: var(--bordo);
+  border: none;
+  border-radius: 0.7em;
+  font-family: Arvo-italic;
+  font-size: 14px;
+}
+
+.daily-selection-button1:hover {
+  transform: scale(1.05);
+}
+
+
+.daily-selection-button2:hover
 {
  transform:scale(1.05);
 }
