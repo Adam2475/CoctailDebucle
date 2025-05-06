@@ -8,8 +8,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from "@ngx-translate/core";
-import { LanguageService } from '../../services/language.service';
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-cocktail-detail',
@@ -29,7 +28,8 @@ export class CocktailDetailComponent implements OnInit
     private route: ActivatedRoute,
     private cocktailService: CocktailService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -65,11 +65,14 @@ export class CocktailDetailComponent implements OnInit
   }
 
   addToFavorites(drinkId: number) {
-    const userId = this.authService.getUserId(); // however you track user
+    const userId = this.authService.getUserId();
     if (userId) {
       this.userService.addFavoriteDrink(userId, drinkId).subscribe({
         next: () => {
           console.log('Drink added to favorites');
+          this.successMessage = this.translate.instant('COCKTAIL_DETAIL.ADDED_TO_FAVORITES');
+          // Nasconde il messaggio dopo tot millisecondi
+          setTimeout(() => this.successMessage = '', 2000);
         },
         error: err => console.error('Failed to add to favorites', err)
       });
