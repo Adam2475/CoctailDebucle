@@ -15,6 +15,15 @@
   margin-top: 20px;
 }
 
+.custom-buttons{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:1em !important;
+    margin:1em;
+}
+
 .user-drinks-searchbar
 {
   text-align: center;

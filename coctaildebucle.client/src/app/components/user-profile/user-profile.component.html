@@ -120,11 +120,19 @@
       </ng-template>
 
       <ng-template #footer>
-        <p-button class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }} </p-button>
-        <button class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }} </button>
-        <button class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }} </button>
-      </ng-template>
-    </p-card>
+        <div class="custom-buttons">
+          <div class="custom-button">
+            <button pButton class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }} </button>
+          </div>
+          <div class="custom-button">
+            <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }} </button>
+          </div>
+          <div class="custom-button">
+            <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }} </button>
+          </div>
+        </div>
+  </ng-template>
+  </p-card>
 
   </div>
 
@@ -134,7 +142,7 @@
 
   <!-- Modify Drink Form (shown as an overlay or inline) -->
   <div class="modify-form-overlay" *ngIf="selectedDrink">
-      <h2 class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
+    <h2 class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
     <div class="modify-form">
       <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
 

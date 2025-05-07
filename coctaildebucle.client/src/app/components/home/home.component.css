@@ -4,7 +4,7 @@
 
 .mainSection {
   width: 100% !important;
-  height: auto;
+/*  height: auto;*/
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -79,7 +79,11 @@ img
 
 @media screen and (min-width: 670px) {
   .favorite-drink-announcement {
-    margin-top: min(14vw, 400px) !important;
+    margin-top: min(10vw, 400px) !important;
+  }
+
+  .mainSection{
+      height:45vh;
   }
 
   .textSection {
@@ -95,51 +99,65 @@ img
   }
 }
 
-@media screen and (min-width: 760px) {
-  .favorite-drink-announcement {
+@media screen and (min-width: 760px)
+{
+  .mainSection{
+      height:53vh;
+  }
+  .favorite-drink-announcement
+  {
     margin-top: min(12w, 400px) !important;
   }
-  .call-to-action{
+  .call-to-action
+  {
       padding-top:3em !important;
-      padding-bottom: 2em !important;
   }
-  .textSection {
+  .textSection
+  {
     padding-top: 2em;
     padding-left: 3em;
     margin-right: 0em !important;
     margin-top: 0em !important;
     font-size: 14px;
   }
-  h1{
+  h1
+  {
       font-weight:800;
       font-size: 34px;
   }
-  .daily-selection-button2{
+  .daily-selection-button2
+  {
       font-size:16px !important;
   }
 }
 
-.welcome{
+.welcome
+{
     margin-bottom:0.3em !important;
     font-size:16px;
 }
 
-@media screen and (min-width: 900px) {
-  .favorite-drink-announcement {
+@media screen and (min-width: 900px)
+{
+  .favorite-drink-announcement
+  {
     margin-top: min(15vw, 400px) !important;
   }
 }
 
 @media screen and (min-width: 1000px)
 {
-    .mainSection{
-        height: 70vh;
-    }
-    .daily-selection-button2{
-        font-size:16px !important;
-        padding:1em !important;
-    }
-  .textSection {
+  .mainSection
+  {
+      height: 72vh;
+  }
+  .daily-selection-button2
+  {
+      font-size:16px !important;
+      padding:1em !important;
+  }
+  .textSection
+  {
     padding-top: 2em;
     padding-left: 3em;
     margin-right: 0em !important;
@@ -148,49 +166,56 @@ img
   }
   .favorite-drink-announcement
   {
-    margin-top: min(2vw, 400px) !important;
+    margin-top: min(4vw, 400px) !important;
   }
-  .call-to-action{
+  .call-to-action
+  {
       padding-bottom:5em !important;
   }
-  h1{
+  h1
+  {
       font-size:40px;
   }
 }
 
 @media screen and (min-width: 1100px)
 {
-  .favorite-drink-announcement {
-    margin-top: min(6vw, 400px) !important;
+  .favorite-drink-announcement
+  {
+    margin-top: min(8vw, 400px) !important;
   }
 }
 
 @media screen and (min-width: 1200px)
 {
-    .textSection{
+    .textSection
+    {
         padding-left: 1em;
         padding-top: 4em;
         width:100%;
     }
   .mainSection
   {
-    height: 78vh;
+    height: 80vh;
   }
   .favorite-drink-announcement
   {
     margin-top: min(8vw, 400px) !important;
   }
-  h1{
+  h1
+  {
       font-size: 48px;
   }
 }
 
 @media screen and (min-width: 1400px)
 {
-  .favorite-drink-announcement {
+  .favorite-drink-announcement
+  {
     margin-top: min(16vw, 400px) !important;
   }
-  h1{
+  h1
+  {
       font-size:64px;
   }
 }
@@ -200,75 +225,6 @@ img
   .favorite-drink-announcement
   {
     margin-top: 5em;
-  }
-}
-
-@media screen and (max-width: 668px)
-{
-   h1
-   {
-       font-size: 24px;
-   }
-  .favorite-drink-announcement
-  {
-      margin-top: min(12vw, 400px) !important;
-  }
-  .textSection
-  {
-      padding-top:2em;
-      padding-left:3em;
-      margin-right: 0em !important;
-      margin-top: 0em !important;
-      font-size: 16px;
-  }
-  #content-wrapper
-  {
-      display:none;
-      margin-left:0em !important;
-  }
-  .image-section
-  {
-    flex-direction: column;
-    display:none;
-  }
-  #mainimg
-  {
-      display:none;
-  }
-  #shadow-svg
-  {
-      display:none;
-  }
-  .mainTitle{
-      width:100%;
-  }
-  .flavourText {
-    width: 100%;
-  }
-  .mainSection {
-      margin-right: 0em !important;
-  }
-  .custom-dropdown {
-      margin-bottom: -1em !important;
-  }
-  .divider{
-      margin-top:0em;
-  }
-}
-
-/*@media screen and (min-width:)*/
-
-@media screen and (max-width: 600px)
-{
-   .textSection{
-       font-size:12px;
-   }
-  .call-to-action
-  {
-    display: none !important;
-  }
-  .favorite-drink-announcement {
-    margin-top: min(25vw, 400px) !important;
   }
 }
 
@@ -286,14 +242,82 @@ img
   }
 }
 
+
+@media screen and (max-width: 600px) {
+  .textSection {
+    font-size: 12px;
+  }
+
+  .call-to-action {
+    display: none !important;
+  }
+
+  .favorite-drink-announcement {
+    margin-top: min(25vw, 400px) !important;
+  }
+}
+
+
+
+@media screen and (max-width: 668px)
+{
+   h1
+   {
+       font-size: 24px;
+   }
+  .favorite-drink-announcement
+  {
+      margin-top: min(14vw, 400px) !important;
+  }
+  .mainSection
+  {
+/*      height:100vh !important;*/
+  }
+  .textSection
+  {
+      padding-top:2em;
+      padding-left:3em;
+      margin-right: 0em !important;
+      margin-top: 0em !important;
+      font-size: 16px;
+/*      height: 40vh !important;*/
+  }
+  #content-wrapper
+  {
+      display:none;
+      margin-left:0em !important;
+  }
+  .mainTitle
+  {
+      width:100%;
+  }
+  .flavourText
+  {
+    width: 100%;
+  }
+  .mainSection
+  {
+      margin-right: 0em !important;
+  }
+  .custom-dropdown
+  {
+      margin-bottom: -1em !important;
+  }
+  .divider
+  {
+      margin-top:0em;
+  }
+}
+
+/*@media screen and (min-width:)*/
+
+
 /*///////////////////////*/
 /* Drinks Display */
 /*///////////////////////*/
 
 .favorite-drink-announcement
 {
-/*  margin-top: 1em;*/
-  z-index: !important;
   margin-top: min(20vw, 400px)
 }
 

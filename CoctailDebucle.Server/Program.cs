@@ -5,8 +5,14 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Set up the DbContext with SQL Server connection
+
+// setting the command timeout for the database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.CommandTimeout(60) // 60 seconds timeout for SQL commands
+    )
+);
 
 // Add MVC controllers
 builder.Services.AddControllers();
