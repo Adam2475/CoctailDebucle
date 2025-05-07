@@ -1,22 +1,24 @@
   <!--  Update Profile -->
 <section class="profile-update">
-  <h3>{{ 'USER_PROFILE.UPDATE_INFORMATION' | translate }}</h3>
-
+  <div class="title">
+    <h3>{{ 'USER_PROFILE.UPDATE_INFORMATION' | translate }}</h3>
+    <p-button type="button" class="edit-btn" (click)="toggleEdit()">
+      {{ editMode  ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
+    </p-button>
+  </div>
+  
   <form [formGroup]="profileForm" (ngSubmit)="onProfileUpdate()">
     <div class="form-row" *ngFor="let field of editableFields">
       <label class="form-label">{{ field.labelKey | translate }}</label>
       <input [type]="field.type"
              [formControlName]="field.controlName"
-             [readonly]="!field.editing"
+             [readonly]="!editMode"
              class="form-control input-fixed" />
-      <p-button type="button" class="edit-btn" (click)="toggleEdit(field)">
-        {{ field.editing ? ('USER_PROFILE.CANCEL_BUTTON' | translate) : ('USER_PROFILE.EDIT_BUTTON' | translate) }}
-      </p-button>
     </div>
 
 
     <!-- gdpr field -->
-    <div class="form-row">
+    <div class="form-row gdpr-row">
       <label class="form-label">{{ 'USER_PROFILE.FIELD_GDPR' | translate }}</label>
       <input type="checkbox" formControlName="gdprConsent" />
     </div>

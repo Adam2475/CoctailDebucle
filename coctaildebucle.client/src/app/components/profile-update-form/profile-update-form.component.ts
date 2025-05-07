@@ -21,6 +21,7 @@ export class ProfileUpdateFormComponent implements OnInit {
   passwordMismatch: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
+  editMode: boolean = false;
   passwordEditMode = false;
   consentGiven: boolean = false;
 
@@ -118,10 +119,6 @@ export class ProfileUpdateFormComponent implements OnInit {
     // Nasconde il messaggio dopo tot millisecondi
     setTimeout(() => this.successMessage = '', 2000);
 
-    //if (newPass) {
-    //  updateData.password = newPass;
-    //}
-
     this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe({
       next: (response: any) => {
         console.log('Successo aggiornamento profilo:', response);
@@ -136,8 +133,8 @@ export class ProfileUpdateFormComponent implements OnInit {
     window.location.reload();
   }
 
-  toggleEdit(field: any): void {
-    field.editing = !field.editing;
+  toggleEdit(): void {
+    this.editMode = !this.editMode;
   }
 
   togglePasswordEdit(): void {
