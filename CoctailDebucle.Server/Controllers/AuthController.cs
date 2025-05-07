@@ -98,7 +98,7 @@ namespace CoctailDebucle.Server.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok("User updated successfully.");
+            return Ok(new { message = "User updated successfully." });
         }
 
         [HttpGet("{id}")]

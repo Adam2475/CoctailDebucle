@@ -11,4 +11,8 @@ import { BackButtonComponent } from '../back-button/back-button.component';
 })
 export class DailySelectionComponent {
 
+  ngOnInit(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // oppure behavior: 'auto'
+  }
+
 }

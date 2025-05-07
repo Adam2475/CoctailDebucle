@@ -20,6 +20,7 @@ export class ProfileUpdateFormComponent implements OnInit {
   profileForm!: FormGroup;
   passwordMismatch: boolean = false;
   successMessage: string = '';
+  errorMessage: string = '';
   passwordEditMode = false;
   consentGiven: boolean = false;
 
@@ -121,21 +122,18 @@ export class ProfileUpdateFormComponent implements OnInit {
     //  updateData.password = newPass;
     //}
 
-    console.log('Payload inviato:', updateData);//da commentare prima di consegna
-    this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe(
-      response => {
-        //Notifica a tutto il progetto che il consenso è cambiato
-        //this.userService.updateConsentStatus(updateData.gdprConsent);
-        console.log('Successo aggiornamento profilo:', response);        
+    this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe({
+      next: (response: any) => {
+        console.log('Successo aggiornamento profilo:', response);
       },
-      error => {
-        console.error('Errore aggiornamento profilo:', error);
+      error: err => {
+        console.error('Errore aggiornamento profilo:', err);
       }
-    );
+    });
+
 
     this.consentGiven = this.profileForm.value.gdprConsent;
-    //this.onConsentChanged(this.consentGiven);
-    window.location.reload();//senza, i drink preferiti non si vedono quando utente da' consenso
+    window.location.reload();
   }
 
   toggleEdit(field: any): void {
