@@ -365,7 +365,7 @@ h1{
   font-size: 14px;
 }
 
-.daily-selection-button1:hover {
+.daily-selection-button:hover {
   transform: scale(1.05);
 }
 
