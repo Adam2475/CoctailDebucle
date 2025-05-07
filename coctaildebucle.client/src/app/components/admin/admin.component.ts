@@ -140,6 +140,7 @@ export class AdminComponent implements OnInit {
 
   private getRandomDrinks(drinks: any[], count: number): any[]
   {
+    console.log(drinks);
     return drinks
       .sort(() => 0.5 - Math.random()) // Shuffle array
       .slice(0, count); // Get first `count` elements
@@ -390,13 +391,6 @@ export class AdminComponent implements OnInit {
   // SearchBar Methods
   //////////////////////////////
 
-  /**
-  * @brief : da compilare
-  *
-  * 
-  *          
-  */
-
   loadCategories() {
     this.cocktailService.getCategories().subscribe(response => {
       this.categories = response.drinks.map((c: any) => c.strCategory).sort();
@@ -461,32 +455,26 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  /*logic to make random selection moved here from onInit*/
   loadRandomDrinks(): void {
     this.isRandomSelection = true;
     this.noSearchResults = false;
-    this.cocktailService.getDrinks().pipe(
-      map((data: any) => this.getRandomDrinks(data.drinks, 9)),
-      switchMap((drinks: any[]) => {
-        const detailRequests = drinks.map(drink =>
-          this.cocktailService.getDrinkDetails(drink.idDrink).pipe(
-            map(res => res.drinks[0])
-          )
-        );
-        return forkJoin(detailRequests);
-      }),
-      map((fullDrinks: any[]) => {
-        return fullDrinks.map(drink => ({
-          ...drink,
-          ingredients: this.extractIngredients(drink)
-        }));
-      })
-    ).subscribe({
-      next: (drinksWithIngredients) => {
-        this.drinks = drinksWithIngredients;
+
+    // Create an array of 9 observables that each call /random.php
+    const randomRequests = Array.from({ length: 9 }, () =>
+      this.cocktailService.getRandomDrink().pipe(
+        map(res => ({
+          ...res.drinks[0],
+          ingredients: this.extractIngredients(res.drinks[0])
+        }))
+      )
+    );
+
+    forkJoin(randomRequests).subscribe({
+      next: (randomDrinks) => {
+        this.drinks = randomDrinks;
       },
       error: (err) => {
-        console.error("Error fetching drinks:", err);
+        console.error('Error fetching random drinks:', err);
       }
     });
   }

@@ -43,6 +43,10 @@ export class CocktailService {
     return this.http.get<any>(`${this.apiUrl}/filter.php?a=Alcoholic`);
   }
 
+  getRandomDrink(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/random.php`);
+  }
+
   getCategories(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/list.php?c=list`);
   }
