@@ -31,6 +31,7 @@ header {
   font-weight: bold;
 /*  color: #f8b400;*/
   color:var(--text-white) !important;
+  font-family: Garamond;
 }
 
 
@@ -66,7 +67,8 @@ header {
   {
       background-color: var(--avorio-scuro) !important;
       color: var(--bordo) !important;
-      padding: 1em;
+      padding: 0.6em;
+      font-size: 20px;
       margin: 0.5em;
   }
 

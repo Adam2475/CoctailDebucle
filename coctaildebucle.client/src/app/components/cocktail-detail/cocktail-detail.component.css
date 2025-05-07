@@ -1,3 +1,9 @@
+h1
+{
+    font-family:Garamond;
+    font-size: 40px;
+}
+
 .cocktail-detail
 {
   text-align: center;
@@ -8,14 +14,13 @@
   background: var(--avorio-scuro);
   color: var(--bordo);
   border-radius: 1em;
-/*  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);*/
 }
 
   .cocktail-detail img {
     width: 100%;
-    max-width: 300px;
+    max-width: 80%;
+    margin:1em;
     border-radius: 10px;
-    margin: 10px 0;
   }
 
 ul {
@@ -23,14 +28,24 @@ ul {
   padding: 0;
 }
 
-button {
-  background: #ff6347;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.navi{
+    padding:0.7em;
+    font-size:20px;
 }
+
+pButton{
+    padding:1em;
+}
+
+.buttons
+{
+    display:flex;
+    gap:1em;
+    justify-content:space-evenly;
+    width:100%;
+    padding:1em;
+}
+
 
   button:hover {
     background: #d9534f;

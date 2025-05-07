@@ -20,10 +20,11 @@
   padding-left:2em;
 }
 
-/*.flavourText2
-{
-    margin-top:1em !important;
-}*/
+.mainTitle{
+    font-family: Garamond-semi;
+    margin-top:0px;
+    font-weight:bold !important;
+}
 
 #content-wrapper
 {
@@ -81,10 +82,6 @@ img
     margin-top: min(14vw, 400px) !important;
   }
 
- /* .call-to-action {
-    padding-top: 5em !important;
-  }*/
-
   .textSection {
     padding-top: 2em;
     padding-left: 3em;
@@ -100,10 +97,11 @@ img
 
 @media screen and (min-width: 760px) {
   .favorite-drink-announcement {
-    margin-top: min(16vw, 400px) !important;
+    margin-top: min(12w, 400px) !important;
   }
   .call-to-action{
-      padding-top:5em !important;
+      padding-top:3em !important;
+      padding-bottom: 2em !important;
   }
   .textSection {
     padding-top: 2em;
@@ -112,8 +110,23 @@ img
     margin-top: 0em !important;
     font-size: 14px;
   }
+  h1{
+      font-weight:800;
+      font-size: 34px;
+  }
   .daily-selection-button2{
       font-size:16px !important;
+  }
+}
+
+.welcome{
+    margin-bottom:0.3em !important;
+    font-size:16px;
+}
+
+@media screen and (min-width: 900px) {
+  .favorite-drink-announcement {
+    margin-top: min(15vw, 400px) !important;
   }
 }
 
@@ -135,33 +148,40 @@ img
   }
   .favorite-drink-announcement
   {
-    margin-top: min(6vw, 400px) !important;
+    margin-top: min(2vw, 400px) !important;
   }
   .call-to-action{
-      padding-bottom:1em;
+      padding-bottom:5em !important;
+  }
+  h1{
+      font-size:40px;
   }
 }
 
 @media screen and (min-width: 1100px)
 {
   .favorite-drink-announcement {
-    margin-top: min(10vw, 400px) !important;
+    margin-top: min(6vw, 400px) !important;
   }
 }
 
 @media screen and (min-width: 1200px)
 {
     .textSection{
-        padding-left: 7em;
-        padding-top: 7em;
+        padding-left: 1em;
+        padding-top: 4em;
+        width:100%;
     }
   .mainSection
   {
-    height: 80vh;
+    height: 78vh;
   }
   .favorite-drink-announcement
   {
-    margin-top: min(10vw, 400px) !important;
+    margin-top: min(8vw, 400px) !important;
+  }
+  h1{
+      font-size: 48px;
   }
 }
 
@@ -169,6 +189,9 @@ img
 {
   .favorite-drink-announcement {
     margin-top: min(16vw, 400px) !important;
+  }
+  h1{
+      font-size:64px;
   }
 }
 
@@ -184,11 +207,11 @@ img
 {
    h1
    {
-       font-size: 20px;
+       font-size: 24px;
    }
   .favorite-drink-announcement
   {
-      margin-top: min(13vw, 400px) !important;
+      margin-top: min(12vw, 400px) !important;
   }
   .textSection
   {
@@ -272,6 +295,10 @@ img
 /*  margin-top: 1em;*/
   z-index: !important;
   margin-top: min(20vw, 400px)
+}
+
+h1{
+    font-family:Garamond;
 }
 
 .drink-container

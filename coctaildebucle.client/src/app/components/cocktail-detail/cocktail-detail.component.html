@@ -17,11 +17,13 @@
     </li>
   </ul>
 
-  <button (click)="addToFavorites(cocktail.id)" class="btn btn-primary">
-    ❤️ {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}
-  </button>
+  <div class="buttons">
+    <button pButton class="navi" (click)="addToFavorites(cocktail.id)" class="btn btn-primary">
+      {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}
+    </button>
 
-  <button (click)="goBack()">⬅ {{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
+    <button pButton class="navi" (click)="goBack()">{{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
+  </div>
 </div>
 
 <div *ngIf="successMessage" class="alert alert-success">
