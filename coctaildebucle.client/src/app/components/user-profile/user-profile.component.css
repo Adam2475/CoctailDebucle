@@ -1,6 +1,7 @@
 /* Info Section */
 
-.start{
+.start
+{
     margin-top:2em;
 }
 
@@ -15,7 +16,8 @@
   margin-top: 20px;
 }
 
-.custom-buttons{
+.custom-buttons
+{
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -35,10 +37,8 @@
   width: auto;
   margin: auto;
   background: transparent;
-/*  border: 2px solid #554845;*/
   border-radius: 1em;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 1);
-/*  overflow: hidden;*/
   transition: transform 0.2s ease-in-out;
   text-align: center;
 }
@@ -50,7 +50,8 @@
 
 /* Created Drinks Section */
 
-.drink-container {
+.drink-container
+{
   display: flex;
   flex-wrap: wrap;
   gap: 1.5em;
@@ -73,7 +74,8 @@
   box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.5);
 }
 
-img {
+img
+{
   width: 100%;
   /* border: 1px solid var(--border-color);*/
   padding: 0.5em !important;

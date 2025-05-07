@@ -4,14 +4,21 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Set up the DbContext with SQL Server connection
+// Set up the DbContext with SQL Server connection and added loggers
 
 // setting the command timeout for the database
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(
+//        builder.Configuration.GetConnectionString("DefaultConnection"),
+//        sqlOptions => sqlOptions.CommandTimeout(60) // 60 seconds timeout for SQL commands
+//    )
+//);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlOptions => sqlOptions.CommandTimeout(60) // 60 seconds timeout for SQL commands
-    )
+        sql => sql.CommandTimeout(60))
+    .EnableSensitiveDataLogging()
+    .LogTo(Console.WriteLine, LogLevel.Information)
 );
 
 // Add MVC controllers

@@ -125,20 +125,56 @@ namespace CoctailDebucle.Server.Controllers
             return Ok(new { selectionId = selection.Id, isActive = selection.isActive });
         }
 
+        //[HttpGet("active-drinks")]
+        //public async Task<IActionResult> GetActiveSelectionDrinks()
+        //{
+        //    var drinks = await _context.Selections
+        //        .Where(s => s.isActive)
+        //        .Include(s => s.SelectionDrinks)
+        //            .ThenInclude(sd => sd.Drink)
+        //        .SelectMany(s => s.SelectionDrinks.Select(sd => sd.Drink))
+        //        .Distinct()
+        //        .Select(d => new DrinkImportDTO
+        //        {
+        //            Id = d.Id,
+        //            Name = d.Name,
+        //            //ImagePath = d.ImagePath,
+        //            Ingredients = d.DrinkIngredients.Select(di => new DrinkIngredientDto
+        //            {
+        //                IngredientId = di.IngredientId,
+        //                IngredientName = di.Ingredient.IngredientName,
+        //                Amount = di.Amount
+        //            }).ToList(),
+        //            GlassId = d.GlassId,
+        //            ImageData = d.ImageData,
+        //            Instructions = d.Instructions,
+        //            IsCreatedByUser = d.IsCreatedByUser,
+        //            ImageMimeType = d.ImageMimeType
+        //        })
+        //        .ToListAsync();
+
+        //    return Ok(drinks);
+        //}
+
+        // reducing JOIN complexity by fetching only relevant id's first
+
         [HttpGet("active-drinks")]
         public async Task<IActionResult> GetActiveSelectionDrinks()
         {
-            var drinks = await _context.Selections
+            var selectionDrinkIds = await _context.Selections
                 .Where(s => s.isActive)
-                .Include(s => s.SelectionDrinks)
-                    .ThenInclude(sd => sd.Drink)
-                .SelectMany(s => s.SelectionDrinks.Select(sd => sd.Drink))
+                .SelectMany(s => s.SelectionDrinks.Select(sd => sd.DrinkId))
                 .Distinct()
+                .ToListAsync();
+
+            var drinks = await _context.Drinks
+                .Where(d => selectionDrinkIds.Contains(d.Id))
+                .Include(d => d.DrinkIngredients)
+                    .ThenInclude(di => di.Ingredient)
                 .Select(d => new DrinkImportDTO
                 {
                     Id = d.Id,
                     Name = d.Name,
-                    //ImagePath = d.ImagePath,
                     Ingredients = d.DrinkIngredients.Select(di => new DrinkIngredientDto
                     {
                         IngredientId = di.IngredientId,
