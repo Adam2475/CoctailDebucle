@@ -1,3 +1,74 @@
+.register-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  color: var(--bordo);
+  border-radius: 10px;
+  font-family: 'Garamond-semi', 'Times New Roman', serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+  .register-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+  .form-group label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-weight: bold;
+  }
+
+.form-control {
+  padding: 10px;
+  font-family: inherit;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+  .form-control:focus {
+    border-color: #007bff;
+  }
+
+button.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.3s;
+}
+
+  button.btn:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+  }
+
+  button.btn:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+
+.surname {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+
 /*.signup-container {
   max-width: 400px;
   margin: 50px auto;

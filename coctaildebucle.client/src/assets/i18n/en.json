@@ -63,7 +63,7 @@
     "NO_FAVORITE": "You have no favorite drinks yet. What are you waiting for?",
     "NO_GDPR": "You need to give Gdpr consent to see personalized content...",
     "NO_LOGIN": "Log in or register in order to add drinks to your favorites...",
-    "NO_GDPR_OR_LOGIN": "meanwhile, you can a random selection of drinks:"
+    "NO_GDPR_OR_LOGIN": "meanwhile, here's a random selection of drinks:"
   },
   "GDPR_COMPONENT": {
     "GDPR_BANNER": "We use cookies to ensure you get the best experience on our website.",

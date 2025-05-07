@@ -12,7 +12,6 @@ import { NgIf, NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { TranslateModule } from "@ngx-translate/core";
-//import { TranslateService } from "@ngx-translate/core";
 import { LanguageService } from '../../services/language.service';
 
 
@@ -26,8 +25,8 @@ import { LanguageService } from '../../services/language.service';
     CommonModule,
     FavoriteDrinksComponent,
     DrinkCardsComponent,
-    RouterModule,
-    TranslateModule
+    TranslateModule,
+    RouterModule
   ]
 })
 export class HomeComponent
