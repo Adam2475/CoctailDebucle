@@ -302,8 +302,13 @@ namespace CoctailDebucle.Server.Controllers
             await _context.SaveChangesAsync(); // Generate ID
 
             // Link ingredients
+            var addedIngredientIds = new HashSet<int>();
+
             foreach (var ing in dto.Ingredients)
             {
+                if (addedIngredientIds.Contains(ing.IngredientId))
+                    continue;
+
                 var dbIngredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == ing.IngredientId);
                 if (dbIngredient != null)
                 {
@@ -313,13 +318,14 @@ namespace CoctailDebucle.Server.Controllers
                         IngredientId = dbIngredient.Id,
                         Amount = ing.Amount
                     });
+
+                    addedIngredientIds.Add(ing.IngredientId);
                 }
                 else
                 {
                     return BadRequest($"Ingredient with ID '{ing.IngredientId}' not found.");
                 }
             }
-
             await _context.SaveChangesAsync();
 
             return Ok(new
