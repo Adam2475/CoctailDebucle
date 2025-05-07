@@ -23,6 +23,7 @@ export class CocktailDetailComponent implements OnInit
   cocktail: any;
   drinkId: number | null = null;
   userId: number | null = null;
+  isFavorite: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
   constructor(
@@ -34,18 +35,23 @@ export class CocktailDetailComponent implements OnInit
   ) { }
 
   ngOnInit(): void {
-    // Get the 'id' parameter from the route
     const drinkId = +this.route.snapshot.paramMap.get('id')!;
+    console.log("id: ", drinkId);
 
-    const stringId: string = drinkId.toString();
-
-    // Call the service to fetch the drink by its ID
-    console.log("id: ",drinkId.toString());
     this.cocktailService.getDrinkByIdDb(drinkId).subscribe((data) => {
       this.cocktail = data;
-      console.log("drink: ",this.cocktail);
+      console.log("drink: ", this.cocktail);
+
+      const userId = this.authService.getUserId();
+      if (userId) {
+        this.userService.getUserFavorites(userId).subscribe(favorites => {
+          this.isFavorite = favorites.some((fav: any) => fav.id === drinkId);
+          console.log("isFavorite: ", this.isFavorite);
+        });
+      }
     });
   }
+
 
   getIngredients(): string[]
   {
@@ -65,19 +71,51 @@ export class CocktailDetailComponent implements OnInit
     window.history.back(); // Navigate back
   }
 
-  addToFavorites(drinkId: number) {
+  checkFavorite(drinkId: number) {
+
+  }
+
+  toggleFavorite(): void {
     const userId = this.authService.getUserId();
-    if (userId) {
+    if (!userId) return;
+
+    const drinkId = this.cocktail.id;
+
+    if (this.isFavorite) {
+      this.userService.removeFavoriteDrink(userId, drinkId).subscribe({
+        next: () => {
+          this.isFavorite = false;
+          this.successMessage = this.translate.instant('COCKTAIL_DETAIL.REMOVED_FROM_FAVORITES');
+          setTimeout(() => this.successMessage = '', 2000);
+        },
+        error: err => console.error('Failed to remove from favorites', err)
+      });
+    } else {
       this.userService.addFavoriteDrink(userId, drinkId).subscribe({
         next: () => {
-          console.log('Drink added to favorites');
+          this.isFavorite = true;
           this.successMessage = this.translate.instant('COCKTAIL_DETAIL.ADDED_TO_FAVORITES');
-          // Nasconde il messaggio dopo tot millisecondi
           setTimeout(() => this.successMessage = '', 2000);
         },
         error: err => console.error('Failed to add to favorites', err)
       });
     }
   }
+
+
+  //addToFavorites(drinkId: number) {
+  //  const userId = this.authService.getUserId();
+  //  if (userId) {
+  //    this.userService.addFavoriteDrink(userId, drinkId).subscribe({
+  //      next: () => {
+  //        console.log('Drink added to favorites');
+  //        this.successMessage = this.translate.instant('COCKTAIL_DETAIL.ADDED_TO_FAVORITES');
+  //        // Nasconde il messaggio dopo tot millisecondi
+  //        setTimeout(() => this.successMessage = '', 2000);
+  //      },
+  //      error: err => console.error('Failed to add to favorites', err)
+  //    });
+  //  }
+  //}
 
 }

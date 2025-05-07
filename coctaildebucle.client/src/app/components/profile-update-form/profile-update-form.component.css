@@ -13,10 +13,19 @@
   box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
 
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+
 .form-row {
     display:flex;
     width:100%;
-    flex-wrap:wrap;
+    /*flex-wrap:wrap;*/
     justify-content:center;
     align-items:center;
     gap: 0.5em;
@@ -25,12 +34,16 @@
   margin-bottom: 1.5rem;
 }
 
-.form-label {
-  flex: 0 0 150px;
-  text-align: right;
-  margin-right: 20px;
-  font-weight: bold;
-}
+  .form-row.gdpr-row {
+    justify-content: left;
+  }
+
+  .form-label {
+    flex: 0 0 150px;
+    text-align: right;
+    margin-right: 20px;
+    font-weight: bold;
+  }
 
 .input-fixed {
   flex: 1;

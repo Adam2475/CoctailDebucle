@@ -2,6 +2,8 @@
   margin-top: 3em;
   background-color: var(--avorio-scuro) !important;
   color: var(--bordo) !important;
+  font-family: 'Garamond-semi', serif !important;
+  font-weight: bold;
 }
 
 pButton {
