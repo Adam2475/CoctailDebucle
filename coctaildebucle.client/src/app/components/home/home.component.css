@@ -255,6 +255,9 @@ img
   .favorite-drink-announcement {
     margin-top: min(25vw, 400px) !important;
   }
+  .mainSection{
+      height:34vh !important;
+  }
 }
 
 
@@ -271,7 +274,7 @@ img
   }
   .mainSection
   {
-/*      height:100vh !important;*/
+/*      height:100vh !important;*/  
   }
   .textSection
   {
@@ -391,6 +394,7 @@ h1{
 
 .daily-selection-button:hover {
   transform: scale(1.05);
+ 
 }
 
 
