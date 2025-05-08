@@ -58,19 +58,24 @@ header {
   /* Navigation Buttons */
   /*////////////////////*/
 
-  .nav-buttons
-  {
-    padding: 0.2em;
-  }
+.nav-buttons
+{
+  padding: 0.2em;
+}
 
-  .nav-button
-  {
-      background-color: var(--avorio-scuro) !important;
-      color: var(--bordo) !important;
-      padding: 0.6em;
-      font-size: 20px;
-      margin: 0.5em;
-  }
+:host ::ng-deep .nav-button .p-button-label,
+:host ::ng-deep .loginButton .p-button-label {
+  font-family: 'Garamond-semi', serif;
+  font-weight: bold !important;
+}
+
+.nav-button {
+  background-color: var(--avorio-scuro) !important;
+  color: var(--bordo) !important;
+  padding: 0.6em;
+  font-size: 20px;
+  margin: 0.5em;
+}
 
   @media screen and (max-width: 630px)
   {

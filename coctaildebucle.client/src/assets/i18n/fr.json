@@ -50,9 +50,11 @@
     "INSTRUCTIONS": "Instructions",
     "INGREDIENTS": "Ingrédients",
     "FAVORITES": "Ajouter aux Favoris",
+    "FAVORITES_REMOVE": "Retirer",
     "BACK": "Retour",
     "NOT_FOUND": "Aucun cocktail ne correspond à cet identifiant. Veuillez réessayer plus tard.",
-    "ADDED_TO_FAVORITES": "Ajouté aux favoris!"
+    "ADDED_TO_FAVORITES": "Ajouté aux favoris!",
+    "REMOVED_FROM_FAVORITES": "Supprimé des favoris!"
   },
   "DRINK_CARDS": {
     "NO_DRINKS": "Il n'y a pas de boissons disponibles pour le moment",
@@ -93,8 +95,8 @@
     "PROFILE": "Mon Profil",
 
     "UPDATE_INFORMATION": "Mettre à jour vos informations",
-    "EDIT_BUTTON": "Modifier",
-    "CANCEL_BUTTON": "Annuler",
+    "EDIT_BUTTON": "✎",
+    "CANCEL_BUTTON": "✎",
     "FIELD_NAME": "Prénom",
     "FIELD_SURNAME": "Nom",
     "FIELD_BIRTHDATE": "Date de Naissance",

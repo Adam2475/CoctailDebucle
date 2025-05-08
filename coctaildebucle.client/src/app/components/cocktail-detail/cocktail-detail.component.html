@@ -18,8 +18,13 @@
   </ul>
 
   <div class="buttons">
-    <button pButton class="navi" (click)="addToFavorites(cocktail.id)" class="btn btn-primary">
+
+    <button *ngIf="!isFavorite" pButton class="navi btn btn-primary" (click)="toggleFavorite()">
       {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}
+    </button>
+
+    <button *ngIf="isFavorite" pButton icon="pi pi-trash" class="navi btn btn-primary" (click)="toggleFavorite()">
+      {{ 'COCKTAIL_DETAIL.FAVORITES_REMOVE' | translate }}
     </button>
 
     <button pButton class="navi" (click)="goBack()">{{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>

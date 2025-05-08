@@ -50,9 +50,11 @@
     "INSTRUCTIONS": "Istruzioni",
     "INGREDIENTS": "Ingredienti",
     "FAVORITES": "Aggiungi ai Preferiti",
+    "FAVORITES_REMOVE": "Rimuovi",
     "BACK": "Indietro",
     "NOT_FOUND": "Nessun cocktail corrisponde a questo id. Si prega di provare più tardi.",
-    "ADDED_TO_FAVORITES": "Aggiunto ai preferiti!"
+    "ADDED_TO_FAVORITES": "Aggiunto ai preferiti!",
+    "REMOVED_FROM_FAVORITES": "Rimosso dai preferiti!"
   },
   "DRINK_CARDS": {
     "NO_DRINKS": "Al momento non ci sono drink disponibili",
@@ -93,8 +95,8 @@
     "PROFILE": "Il Mio Profilo",
 
     "UPDATE_INFORMATION": "Aggiorna le Tue Informazioni",
-    "EDIT_BUTTON": "Modifica",
-    "CANCEL_BUTTON": "Annulla",
+    "EDIT_BUTTON": "✎",
+    "CANCEL_BUTTON": "✎",
     "FIELD_NAME": "Nome",
     "FIELD_SURNAME": "Cognome",
     "FIELD_BIRTHDATE": "Data di Nascita",

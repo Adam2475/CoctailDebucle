@@ -50,3 +50,7 @@ pButton{
   button:hover {
     background: #d9534f;
   }
+
+.alert-success {
+  margin-top: 1em;
+}

@@ -50,9 +50,11 @@
     "INSTRUCTIONS": "Instructions",
     "INGREDIENTS": "Ingredients",
     "FAVORITES": "Add to Favorites",
+    "FAVORITES_REMOVE": "Remove",
     "BACK": "Back",
     "NOT_FOUND": "No cocktail found for the provided ID. Please try again later.",
-    "ADDED_TO_FAVORITES": "Added to favorites!"
+    "ADDED_TO_FAVORITES": "Added to favorites!",
+    "REMOVED_FROM_FAVORITES": "Removed!"
   },
   "DRINK_CARDS": {
     "NO_DRINKS": "Wait for the admin to add more drinks",
@@ -93,8 +95,8 @@
     "PROFILE": "My Profile",
 
     "UPDATE_INFORMATION": "Update Your Information",
-    "EDIT_BUTTON": "Edit",
-    "CANCEL_BUTTON": "Cancel",
+    "EDIT_BUTTON": "✎",
+    "CANCEL_BUTTON": "✎",
     "FIELD_NAME": "Name",
     "FIELD_SURNAME": "Surname",
     "FIELD_BIRTHDATE": "Birth Date",
