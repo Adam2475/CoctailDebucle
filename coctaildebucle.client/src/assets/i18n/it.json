@@ -113,7 +113,7 @@
 
     "CREATE_DRINK_NAME": "Nome del Drink:",
     "CREATE_DRINK_CATEGORY": "Categoria:",
-    "CREATE_DRINK_GLASS": "Seleziona Bicchiere",
+    "CREATE_DRINK_GLASS": "Bicchiere",
     "CREATE_DRINK_GLASS_DROP": "-- Seleziona un bicchiere --",
     "CREATE_DRINK_INSTRUCTIONS": "Istruzioni",
     "CREATE_DRINK_INGREDIENT": "Ingrediente",
