@@ -113,7 +113,7 @@
 
     "CREATE_DRINK_NAME": "Nom du cocktail :",
     "CREATE_DRINK_CATEGORY": "Catégorie :",
-    "CREATE_DRINK_GLASS": "Choisir un verre",
+    "CREATE_DRINK_GLASS": "Verre",
     "CREATE_DRINK_GLASS_DROP": "-- Choisir un verre --",
     "CREATE_DRINK_INSTRUCTIONS": "Instructions",
     "CREATE_DRINK_INGREDIENT": "Ingrédient",

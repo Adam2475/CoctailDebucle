@@ -114,7 +114,7 @@
 
     "CREATE_DRINK_NAME": "Drink Name:",
     "CREATE_DRINK_CATEGORY": "Category:",
-    "CREATE_DRINK_GLASS": "Select Glass",
+    "CREATE_DRINK_GLASS": "Glass",
     "CREATE_DRINK_GLASS_DROP": "-- Select a glass --",
     "CREATE_DRINK_INSTRUCTIONS": "Instructions",
     "CREATE_DRINK_INGREDIENT": "Ingredient",
