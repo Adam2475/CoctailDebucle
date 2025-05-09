@@ -122,6 +122,7 @@
     "CREATE_DRINK_INGREDIENT_ADD": "Aggiungi Ingrediente",
     "CREATE_DRINK_INGREDIENT_REMOVE": "Rimuovi",
     "CREATE_DRINK_IMAGE": "Immagine:",
+    "CREATE_DRINK_IMAGE_REQUIRED": "Immagine Richiesta",
     "CREATE_DRINK_CONFIRM_BUTTON": "Crea Drink",
 
     "CREATE_DRINK_CREATED_HEADER": "Drink creati da te",

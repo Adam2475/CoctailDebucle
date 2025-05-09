@@ -365,7 +365,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   ////////////////////////////
 
   onSubmit(): void {
-    if (this.drinkForm.invalid) return;
+    if (this.drinkForm.invalid || !this.selectedFile) return;
 
     const drinkData = this.drinkForm.value;
 
@@ -387,6 +387,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
               // Add the created drink to the UI and refresh
               this.userDrinks.push(response);
               this.fetchUserDrinksImage();
+              this.resetDrinkForm();
             },
             error: (err) => {
               console.error('Image upload failed:', err);
@@ -411,7 +412,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
   uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
     const formData = new FormData();
-    formData.append('ImagePath', imageFile); // must match your DTO property
+    formData.append('ImagePath', imageFile);
 
     return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
   }
@@ -446,6 +447,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
   cancelEdit() {
     this.editingDrink = null;
+  }
+
+  resetDrinkForm(): void {
+    this.drinkForm.reset();
+
+    this.ingredients.clear();
+
+    this.selectedFile = null;
   }
 
   ////////////////////////////

@@ -99,7 +99,6 @@ img
     }
 }
 
-/*versione passata*/
 .ingredient-row {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
@@ -119,7 +118,7 @@ img
     margin-top:2em;
 }
 
-.modify-form {
+/*.modify-form {
   max-width: 100%;
   width: 80%;
   margin: auto;
@@ -128,23 +127,23 @@ img
   background: #fff;
   border-radius: 8px;
   box-sizing: border-box;
-}
+}*/
 
 .ingredient-row {
-    width:60%;
-    margin:auto;
+  width: 60%;
   display: flex;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*//*questo*/
   gap: 0.5rem;
+  margin-left: 0;
   margin-bottom: 1rem;
 }
 
-.ingredient-field {
+/*.ingredient-field {
   flex: 1 1 100%;
   min-width: 150px;
   display: flex;
   flex-direction: column;
-}
+}*/
 
 .ingredient-remove {
   align-self: flex-end;
@@ -162,6 +161,15 @@ img
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.image-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+  .image-input .error-message {
+    color: red;
+  }

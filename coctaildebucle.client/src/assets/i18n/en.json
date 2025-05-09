@@ -123,6 +123,7 @@
     "CREATE_DRINK_INGREDIENT_ADD": "Add Ingredient",
     "CREATE_DRINK_INGREDIENT_REMOVE": "Remove",
     "CREATE_DRINK_IMAGE": "Image:",
+    "CREATE_DRINK_IMAGE_REQUIRED": "Image Required",
     "CREATE_DRINK_CONFIRM_BUTTON": "Create Drink",
 
     "CREATE_DRINK_CREATED_HEADER": "Your Created Drinks",

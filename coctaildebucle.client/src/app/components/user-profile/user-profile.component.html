@@ -48,7 +48,7 @@
 
     <!-- new ingredient-->
     <div formArrayName="ingredients">
-      <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i" class="form-row ingredient-row">
+      <div *ngFor="let ingredientCtrl of ingredients.controls; let i = index" [formGroupName]="i" class="ingredient-row">
 
         <div class="div-ingredient-amount">
 
@@ -67,26 +67,31 @@
 
         </div>
 
-        <button type="button" (click)="ingredients.removeAt(i)">
+         <p-button type="button" (click)="ingredients.removeAt(i)">
           {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_REMOVE' | translate }}
-        </button>
+         </p-button>
       </div>
     </div>
     <!-- new ingredient-->
 
     <div class="form-row">
-      <button type="button" (click)="addIngredient()">{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }}</button>
+       <p-button type="button" (click)="addIngredient()">{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }} </p-button>
     </div>
 
     <div class="form-row">
       <label for="file" class="custom-file-upload">
         {{ 'USER_PROFILE.CREATE_DRINK_IMAGE' | translate }}
       </label>
-      <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <div class="image-input">
+        <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*" />
+        <div *ngIf="!selectedFile && drinkForm.touched" class="error-message">
+          {{ 'USER_PROFILE.CREATE_DRINK_IMAGE_REQUIRED' | translate }}
+        </div>
+      </div>
     </div>
 
     <div class="form-row">
-      <button type="submit">{{ 'USER_PROFILE.CREATE_DRINK_CONFIRM_BUTTON' | translate }}</button>
+       <p-button type="submit">{{ 'USER_PROFILE.CREATE_DRINK_CONFIRM_BUTTON' | translate }} </p-button>
     </div>
 
   </form>
@@ -135,13 +140,13 @@
       <ng-template #footer>
         <div class="custom-buttons">
           <div class="custom-button">
-            <button pButton class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }} </button>
+             <button pButton class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }}  </button>
           </div>
           <div class="custom-button">
-            <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }} </button>
+             <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}  </button>
           </div>
           <div class="custom-button">
-            <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }} </button>
+             <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}  </button>
           </div>
         </div>
   </ng-template>
@@ -153,28 +158,28 @@
     <p>{{ 'USER_PROFILE.CREATE_DRINK_NO_RESULT' | translate }}</p>
   </div>
 
-  <!-- Modify Drink Form (shown as an overlay or inline) -->
-  <div class="modify-form-overlay" *ngIf="selectedDrink">
-    <h2 class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
-    <div class="modify-form">
+  <!-- Modify Drink Form -->
+  
+    <h2 *ngIf="selectedDrink" class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
+    <div *ngIf="selectedDrink" class="modify-form">
       <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
 
         <!-- Drink Name -->
         <div class="form-row">
           <label for="mod-name">{{ 'USER_PROFILE.CREATE_DRINK_NAME' | translate }}</label>
-          <input id="mod-name" type="text" formControlName="name" required />
+          <input id="mod-name" class="input-fixed" type="text" formControlName="name" required />
         </div>
 
         <!-- Category -->
         <div class="form-row">
           <label for="mod-category">{{ 'USER_PROFILE.CREATE_DRINK_CATEGORY' | translate }}</label>
-          <input id="mod-category" type="text" formControlName="category" required />
+          <input id="mod-category" class="input-fixed" type="text" formControlName="category" required />
         </div>
 
         <!-- Glass -->
         <div class="form-row">
           <label for="mod-glass">{{ 'USER_PROFILE.CREATE_DRINK_GLASS' | translate }}</label>
-          <select id="mod-glass" formControlName="glassId">
+          <select id="mod-glass" class="input-fixed" formControlName="glassId">
             <option [ngValue]="null" disabled selected>{{ 'USER_PROFILE.CREATE_DRINK_GLASS_DROP' | translate }}</option>
             <option *ngFor="let glass of glassList" [value]="glass.id">{{ glass.name }}</option>
           </select>
@@ -183,7 +188,7 @@
         <!-- Instructions -->
         <div class="form-row">
           <label for="mod-instructions">{{ 'USER_PROFILE.CREATE_DRINK_INSTRUCTIONS' | translate }}</label>
-          <textarea id="mod-instructions" formControlName="instructions" required></textarea>
+          <textarea id="mod-instructions" class="input-fixed" formControlName="instructions" required></textarea>
         </div>
 
         <!-- Ingredients -->
@@ -191,40 +196,44 @@
           <div *ngFor="let ing of modifyIngredients.controls; let i = index"
                [formGroupName]="i"
                class="ingredient-row">
-            <div class="ingredient-field">
-              <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT' | translate }}</label>
-              <select formControlName="ingredientId">
-                <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
-              </select>
-            </div>
 
-            <div class="ingredient-field">
-              <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_AMOUNT' | translate }}</label>
-              <input formControlName="amount" placeholder="e.g. 1 oz" />
-            </div>
+            <div class="div-ingredient-amount">
 
-            <div class="ingredient-remove">
-              <button type="button" (click)="removeModifyIngredient(i)">
-                {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_REMOVE' | translate }}
-              </button>
+              <div class="ingredient-field div-ingredient">
+                <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT' | translate }}</label>
+                <select formControlName="ingredientId" class="input-fixed">
+                  <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
+                </select>
+              </div>
+
+              <div class="ingredient-field div-amount">
+                <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_AMOUNT' | translate }}</label>
+                <input formControlName="amount" class="input-fixed" placeholder="e.g. 1 oz" />
+              </div>
+
             </div>
+            
+            <p-button type="button" (click)="removeModifyIngredient(i)">
+            {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_REMOVE' | translate }}
+            </p-button>
+            
           </div>
 
           <div class="add-ingredients">
-            <button type="button" (click)="addModifyIngredient()">
+             <p-button type="button" (click)="addModifyIngredient()">
               {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }}
-            </button>
+             </p-button>
           </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="form-actions">
-          <button type="submit">{{ 'USER_PROFILE.MODIFY_DRINK_SAVE' | translate }}</button>
-          <button type="button" (click)="cancelModification()">{{ 'USER_PROFILE.MODIFY_DRINK_CANCEL' | translate }}</button>
+           <p-button type="submit">{{ 'USER_PROFILE.MODIFY_DRINK_SAVE' | translate }} </p-button>
+           <p-button type="button" (click)="cancelModification()">{{ 'USER_PROFILE.MODIFY_DRINK_CANCEL' | translate }} </p-button>
         </div>
       </form>
     </div>
-  </div>
+
 
   <app-back-button></app-back-button>
 
