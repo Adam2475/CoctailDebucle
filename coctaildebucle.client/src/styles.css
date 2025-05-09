@@ -215,12 +215,92 @@ app-profile-update-form {
   flex-wrap: nowrap !important;
 }
 
-.div-ingredient,
+/*.div-ingredient,
 .div-amount {
   display: flex;
   justify-content: right;
+}*/
+
+.div-ingredient-amount {
+  display: flex;
+}
+
+.div-ingredient,
+.div-amount {
+  margin-right: 0.5rem;
 }
 
 .ingredient-row button {
   align-self: center;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .profile-update,
+  .drinkForm,
+  .modify-form {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .form-row {
+   align-items: flex-start;
+  }
+
+    .form-row label {
+      text-align: left;
+      margin-right: 0;
+      margin-bottom: 0.25rem;
+      width: 100%;
+    }
+
+  .input-fixed {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .ingredient-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100% !important;
+  }
+
+  .div-ingredient-amount {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .div-ingredient,
+  .div-amount {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ingredient-row button,
+  .ingredient-remove button {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-ingredients {
+    width: 100%;
+  }
+
+  .custom-buttons {
+    flex-direction: column;
+  }
+
+  .drink-card {
+    width: 90%;
+  }
+
+  .user-drinks-searchbar input {
+    width: 100% !important;
+  }
 }

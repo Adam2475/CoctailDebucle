@@ -121,7 +121,8 @@
     "CREATE_DRINK_INGREDIENT_AMOUNT": "Quantité",
     "CREATE_DRINK_INGREDIENT_ADD": "Ajouter un ingrédient",
     "CREATE_DRINK_INGREDIENT_REMOVE": "Supprimer",
-    "CREATE_DRINK_IMAGE": "Image :",
+    "CREATE_DRINK_IMAGE": "Image",
+    "CREATE_DRINK_IMAGE_REQUIRED": "image demandée",
     "CREATE_DRINK_CONFIRM_BUTTON": "Créer le cocktail",
 
     "CREATE_DRINK_CREATED_HEADER": "Vos cocktails créés",
