@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 
 @font-face
 {
@@ -72,18 +71,18 @@
   color:var(--bordo);
 }
 
-/*nascondi bottone caricamento immagine e fatti un bottone apposta*/
+/* dopo consegna: nascondi bottone caricamento immagine e fatti un bottone apposta*/
 /*.drinkForm input[type="file"],
 .modify-form input[type="file"] {
   display: none;
 }*/
 
 /*stile per bottone upload immagine*/
-.drinkForm.custom-file-upload,
+/*.drinkForm.custom-file-upload,
 .modify-form.custom-file-upload
 {
 
-}
+}*/
 
 .p-button,
 .profile-update button,
@@ -96,96 +95,96 @@
   font-family: Garamond !important;
 }
 
-.nav-button .p-button
-{
-  padding: 0.85em !important;
-  background-color: var(--avorio-scuro) !important;
-  color: var(--bordo) !important;
-  border: none !important;
-}
-
-.p-button:hover
-{
-  transform: scale(1.02);
-}
-
-.p-card-body
-{
-  padding: 1em !important;
-  margin: auto;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.p-card-title
-{
-  margin-bottom: 0.5em;
-}
-
-body
-{
-  font-family: Arvo-Italic;
-  background: var(--bordo);
-  color: var(--text-white);
-  width:100% !important;
-  margin: 0px !important;
-  padding: 0px !important;
-
-}
-
-.p-card.p-component
-{
-  height: 100% !important;
-}
-
-main
-{
-  min-height: 80vh;
-}
-
-body
-{
-  width: 100% !important;
-  margin: 0px !important;
-  padding: 0px !important;
-}
-
-html {
-  width: 100% !important;
-  margin: 0px !important;
-  padding: 0px !important;
-}
-
-app-profile-update-form {
-  width: -webkit-fill-available;
-}
-
-.profile-update,
-.drinkForm,
-.modify-form {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  color: var(--bordo);
-  margin: 2rem auto;
-  max-width: 600px;
-  background-color: var(--avorio-scuro);
-  opacity: 95%;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-}
-
-  .profile-update label,
-  .drinkForm label,
-  .modify-form label {
-    flex: 0 0 150px;
-    text-align: right;
-    margin-right: 20px;
-    font-weight: bold;
+/*buttons in drink detail */
+@media screen and (max-width: 400px) {
+  .cocktail-detail button {
+      display: unset;
   }
+}
+
+  .nav-button .p-button {
+    padding: 0.85em !important;
+    background-color: var(--avorio-scuro) !important;
+    color: var(--bordo) !important;
+    border: none !important;
+  }
+
+  .p-button:hover {
+    transform: scale(1.02);
+  }
+
+  .p-card-body {
+    padding: 1em !important;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-card-title {
+    margin-bottom: 0.5em;
+  }
+
+  body {
+    font-family: Arvo-Italic;
+    background: var(--bordo);
+    color: var(--text-white);
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  .p-card.p-component {
+    height: 100% !important;
+  }
+
+  main {
+    min-height: 80vh;
+  }
+
+  body {
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  html {
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  app-profile-update-form {
+    width: -webkit-fill-available;
+  }
+
+  .profile-update,
+  .drinkForm,
+  .modify-form,
+  .register-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    color: var(--bordo);
+    margin: 2rem auto;
+    max-width: 600px;
+    background-color: var(--avorio-scuro);
+    opacity: 95%;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  }
+
+    .profile-update label,
+    .drinkForm label,
+    .modify-form label,
+    .register-form label {
+      flex: 0 0 150px;
+      text-align: right;
+      margin-right: 20px;
+      font-weight: bold;
+    }
 
   .form-row {
     display: flex;
@@ -199,108 +198,103 @@ app-profile-update-form {
     margin-bottom: 1.5rem;
   }
 
-.input-fixed {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  /*  min-width: 250px;*/
-}
-
-.drinkForm .form-row {
-  justify-content: left;
-}
-
-.drinkForm .ingredient-row {
-  flex-wrap: nowrap !important;
-}
-
-/*.div-ingredient,
-.div-amount {
-  display: flex;
-  justify-content: right;
-}*/
-
-.div-ingredient-amount {
-  display: flex;
-}
-
-.div-ingredient,
-.div-amount {
-  margin-right: 0.5rem;
-}
-
-.ingredient-row button {
-  align-self: center;
-}
-
-
-
-@media screen and (max-width: 600px) {
-  .profile-update,
-  .drinkForm,
-  .modify-form {
-    width: 95%;
-    padding: 1rem;
-  }
-
-  .form-row {
-   align-items: flex-start;
-  }
-
-    .form-row label {
-      text-align: left;
-      margin-right: 0;
-      margin-bottom: 0.25rem;
-      width: 100%;
-    }
-
   .input-fixed {
-    width: 100%;
-    min-width: unset;
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /*  min-width: 250px;*/
   }
 
-  .ingredient-row {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100% !important;
+  .drinkForm .form-row {
+    justify-content: left;
+  }
+
+  .drinkForm .ingredient-row {
+    flex-wrap: nowrap !important;
   }
 
   .div-ingredient-amount {
-    flex-direction: column;
-    width: 100%;
+    display: flex;
   }
 
   .div-ingredient,
   .div-amount {
-    flex-direction: column;
-    width: 100%;
+    margin-right: 0.5rem;
   }
 
-  .ingredient-row button,
-  .ingredient-remove button {
-    align-self: flex-end;
-    margin-top: 0.5rem;
+  .ingredient-row button {
+    align-self: center;
   }
 
-  .form-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
-  .add-ingredients {
-    width: 100%;
-  }
 
-  .custom-buttons {
-    flex-direction: column;
-  }
+  @media screen and (max-width: 600px) {
+    .profile-update,
+    .drinkForm,
+    .modify-form,
+    .register-form {
+      width: 95%;
+      padding: 1rem;
+    }
 
-  .drink-card {
-    width: 90%;
-  }
+    .form-row {
+      align-items: flex-start;
+    }
 
-  .user-drinks-searchbar input {
-    width: 100% !important;
+      .form-row label {
+        text-align: left;
+        margin-right: 0;
+        margin-bottom: 0.25rem;
+        width: 100%;
+      }
+
+    .input-fixed {
+      width: 100%;
+      min-width: unset;
+    }
+
+    .ingredient-row {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100% !important;
+    }
+
+    .div-ingredient-amount {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .div-ingredient,
+    .div-amount {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ingredient-row button,
+    .ingredient-remove button {
+      align-self: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .add-ingredients {
+      width: 100%;
+    }
+
+    .custom-buttons {
+      flex-direction: column;
+    }
+
+    .drink-card {
+      width: 90%;
+    }
+
+    .user-drinks-searchbar input {
+      width: 100% !important;
+    }
   }
-}

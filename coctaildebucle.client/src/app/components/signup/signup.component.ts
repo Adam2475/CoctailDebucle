@@ -6,15 +6,15 @@ import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
-import { LanguageService } from '../../services/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  imports: [ReactiveFormsModule, TranslateModule]
+  imports: [ReactiveFormsModule, TranslateModule, ButtonModule]
 })
 export class SignupComponent {
   registerForm: FormGroup;

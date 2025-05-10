@@ -2,7 +2,7 @@
   "HOME": {
     "TITLE": "Benvenuto in: ",
     "FLAVOUR_TEXT": "Scopri la nostra selezione giornaliera di drink o crea il tuo!",
-    "CHOSEN_FOR_YOU": "I tuoi drink preferiti: ",
+    "YOUR_FAVORITES": "I tuoi drink preferiti: ",
     "DAILY_SELECTION": "Selezione del giorno: ",
     "CALL_TO_ACTION_FLAVOR": "Oppure clicca qui per vedere i drink disponibili:",
     "CALL_TO_ACTION": "Scopri la nostra selezione"
@@ -49,8 +49,9 @@
     "GLASS": "Bicchiere",
     "INSTRUCTIONS": "Istruzioni",
     "INGREDIENTS": "Ingredienti",
-    "FAVORITES": "Aggiungi ai Preferiti",
+    "FAVORITES": "Preferito",
     "FAVORITES_REMOVE": "Rimuovi",
+    "ORDER": "Ordina",
     "BACK": "Indietro",
     "NOT_FOUND": "Nessun cocktail corrisponde a questo id. Si prega di provare più tardi.",
     "ADDED_TO_FAVORITES": "Aggiunto ai preferiti!",
@@ -111,6 +112,7 @@
 
     "MSG_NO_GDPR": "Devi accettare il consenso GDPR per visualizzare i tuoi drink preferiti.",
 
+    "CREATE_DRINK_TITLE": "Crea il tuo Cocktail",
     "CREATE_DRINK_NAME": "Nome del Drink:",
     "CREATE_DRINK_CATEGORY": "Categoria:",
     "CREATE_DRINK_GLASS": "Bicchiere",
@@ -130,6 +132,7 @@
     "CREATE_DRINK_ADD_FAVORITE": "Aggiungi ai Preferiti",
     "CREATE_DRINK_MODIFY": "Modifica",
     "CREATE_DRINK_DELETE": "Elimina",
+    "CREATE_DRINK_DELETE_CONFIRM": "Vuoi davvero cancellare questo drink?",
     "CREATE_DRINK_NO_RESULT": "Nessun drink trovato che corrisponda alla tua ricerca.",
 
     "MODIFY_DRINK_HEADER": "Modifica Drink",

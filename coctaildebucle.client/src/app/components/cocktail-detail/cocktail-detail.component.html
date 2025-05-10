@@ -19,15 +19,19 @@
 
   <div class="buttons">
 
-    <button *ngIf="!isFavorite" pButton class="navi btn btn-primary" (click)="toggleFavorite()">
+    <button *ngIf="!isFavorite" pButton icon="pi pi-star-fill" class="navi btn btn-primary" (click)="toggleFavorite()">
       {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}
     </button>
 
-    <button *ngIf="isFavorite" pButton icon="pi pi-trash" class="navi btn btn-primary" (click)="toggleFavorite()">
+    <button *ngIf="isFavorite" pButton icon="pi pi-star-half-fill" class="navi btn btn-primary" (click)="toggleFavorite()">
       {{ 'COCKTAIL_DETAIL.FAVORITES_REMOVE' | translate }}
     </button>
 
-    <button pButton class="navi" (click)="goBack()">{{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
+    <button pButton icon="pi pi-euro" class="navi btn btn-primary">
+      {{ 'COCKTAIL_DETAIL.ORDER' | translate }}
+    </button>
+
+    <button pButton icon="pi pi-arrow-left" class="navi" (click)="goBack()">{{ 'COCKTAIL_DETAIL.BACK' | translate }}</button>
   </div>
 </div>
 

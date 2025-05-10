@@ -10,6 +10,10 @@
   <app-profile-update-form></app-profile-update-form>
 
 
+  <h1 class="favorite-drink-announcement">
+    {{ 'HOME.YOUR_FAVORITES' | translate }}
+  </h1>
+
   <div *ngIf="!consentGiven else favorites">
     <p>{{ 'USER_PROFILE.MSG_NO_GDPR' | translate }}</p>
 
@@ -21,6 +25,9 @@
   <br>
 
   <!-- Drink Form Section -->
+  <h1 class="favorite-drink-announcement">
+    {{ 'USER_PROFILE.CREATE_DRINK_TITLE' | translate }}
+  </h1>
   <form class="drinkForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
 
     <div class="form-row">
@@ -67,15 +74,15 @@
 
         </div>
 
-         <p-button type="button" (click)="ingredients.removeAt(i)">
+        <p-button type="button" (click)="ingredients.removeAt(i)">
           {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_REMOVE' | translate }}
-         </p-button>
+        </p-button>
       </div>
     </div>
     <!-- new ingredient-->
 
     <div class="form-row">
-       <p-button type="button" (click)="addIngredient()">{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }} </p-button>
+      <p-button type="button" (click)="addIngredient()">{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }} </p-button>
     </div>
 
     <div class="form-row">
@@ -91,7 +98,7 @@
     </div>
 
     <div class="form-row">
-       <p-button type="submit">{{ 'USER_PROFILE.CREATE_DRINK_CONFIRM_BUTTON' | translate }} </p-button>
+      <p-button type="submit">{{ 'USER_PROFILE.CREATE_DRINK_CONFIRM_BUTTON' | translate }} </p-button>
     </div>
 
   </form>
@@ -122,7 +129,8 @@
              alt="{{ drink.name }} image"
              width="200"
              height="200"
-             style="object-fit: cover; border-radius: 8px;" />
+             style="object-fit: cover; border-radius: 8px;"
+             [routerLink]="['/cocktail', drink.id]" />
       </ng-template>
 
       <ng-template #title id="title">
@@ -140,17 +148,17 @@
       <ng-template #footer>
         <div class="custom-buttons">
           <div class="custom-button">
-             <button pButton class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_ADD_FAVORITE' | translate }}  </button>
+            <button pButton icon="pi pi-star-fill" class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}  </button>
           </div>
           <div class="custom-button">
-             <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}  </button>
+            <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}  </button>
           </div>
           <div class="custom-button">
-             <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}  </button>
+            <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}  </button>
           </div>
         </div>
-  </ng-template>
-  </p-card>
+      </ng-template>
+    </p-card>
 
   </div>
 
@@ -159,80 +167,80 @@
   </div>
 
   <!-- Modify Drink Form -->
-  
-    <h2 *ngIf="selectedDrink" class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
-    <div *ngIf="selectedDrink" class="modify-form">
-      <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
 
-        <!-- Drink Name -->
-        <div class="form-row">
-          <label for="mod-name">{{ 'USER_PROFILE.CREATE_DRINK_NAME' | translate }}</label>
-          <input id="mod-name" class="input-fixed" type="text" formControlName="name" required />
-        </div>
+  <h2 *ngIf="selectedDrink" class="modifica">{{ 'USER_PROFILE.MODIFY_DRINK_HEADER' | translate }}</h2>
+  <div *ngIf="selectedDrink" class="modify-form">
+    <form [formGroup]="modifyForm" (ngSubmit)="submitModification(selectedDrink.id)">
 
-        <!-- Category -->
-        <div class="form-row">
-          <label for="mod-category">{{ 'USER_PROFILE.CREATE_DRINK_CATEGORY' | translate }}</label>
-          <input id="mod-category" class="input-fixed" type="text" formControlName="category" required />
-        </div>
+      <!-- Drink Name -->
+      <div class="form-row">
+        <label for="mod-name">{{ 'USER_PROFILE.CREATE_DRINK_NAME' | translate }}</label>
+        <input id="mod-name" class="input-fixed" type="text" formControlName="name" required />
+      </div>
 
-        <!-- Glass -->
-        <div class="form-row">
-          <label for="mod-glass">{{ 'USER_PROFILE.CREATE_DRINK_GLASS' | translate }}</label>
-          <select id="mod-glass" class="input-fixed" formControlName="glassId">
-            <option [ngValue]="null" disabled selected>{{ 'USER_PROFILE.CREATE_DRINK_GLASS_DROP' | translate }}</option>
-            <option *ngFor="let glass of glassList" [value]="glass.id">{{ glass.name }}</option>
-          </select>
-        </div>
+      <!-- Category -->
+      <div class="form-row">
+        <label for="mod-category">{{ 'USER_PROFILE.CREATE_DRINK_CATEGORY' | translate }}</label>
+        <input id="mod-category" class="input-fixed" type="text" formControlName="category" required />
+      </div>
 
-        <!-- Instructions -->
-        <div class="form-row">
-          <label for="mod-instructions">{{ 'USER_PROFILE.CREATE_DRINK_INSTRUCTIONS' | translate }}</label>
-          <textarea id="mod-instructions" class="input-fixed" formControlName="instructions" required></textarea>
-        </div>
+      <!-- Glass -->
+      <div class="form-row">
+        <label for="mod-glass">{{ 'USER_PROFILE.CREATE_DRINK_GLASS' | translate }}</label>
+        <select id="mod-glass" class="input-fixed" formControlName="glassId">
+          <option [ngValue]="null" disabled selected>{{ 'USER_PROFILE.CREATE_DRINK_GLASS_DROP' | translate }}</option>
+          <option *ngFor="let glass of glassList" [value]="glass.id">{{ glass.name }}</option>
+        </select>
+      </div>
 
-        <!-- Ingredients -->
-        <div *ngIf="selectedDrink" formArrayName="ingredients">
-          <div *ngFor="let ing of modifyIngredients.controls; let i = index"
-               [formGroupName]="i"
-               class="ingredient-row">
+      <!-- Instructions -->
+      <div class="form-row">
+        <label for="mod-instructions">{{ 'USER_PROFILE.CREATE_DRINK_INSTRUCTIONS' | translate }}</label>
+        <textarea id="mod-instructions" class="input-fixed" formControlName="instructions" required></textarea>
+      </div>
 
-            <div class="div-ingredient-amount">
+      <!-- Ingredients -->
+      <div *ngIf="selectedDrink" formArrayName="ingredients">
+        <div *ngFor="let ing of modifyIngredients.controls; let i = index"
+             [formGroupName]="i"
+             class="ingredient-row">
 
-              <div class="ingredient-field div-ingredient">
-                <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT' | translate }}</label>
-                <select formControlName="ingredientId" class="input-fixed">
-                  <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
-                </select>
-              </div>
+          <div class="div-ingredient-amount">
 
-              <div class="ingredient-field div-amount">
-                <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_AMOUNT' | translate }}</label>
-                <input formControlName="amount" class="input-fixed" placeholder="e.g. 1 oz" />
-              </div>
-
+            <div class="ingredient-field div-ingredient">
+              <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT' | translate }}</label>
+              <select formControlName="ingredientId" class="input-fixed">
+                <option *ngFor="let option of ingredientOptions" [value]="option.id">{{ option.name }}</option>
+              </select>
             </div>
-            
-            <p-button type="button" (click)="removeModifyIngredient(i)">
+
+            <div class="ingredient-field div-amount">
+              <label>{{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_AMOUNT' | translate }}</label>
+              <input formControlName="amount" class="input-fixed" placeholder="e.g. 1 oz" />
+            </div>
+
+          </div>
+
+          <p-button type="button" (click)="removeModifyIngredient(i)">
             {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_REMOVE' | translate }}
-            </p-button>
-            
-          </div>
+          </p-button>
 
-          <div class="add-ingredients">
-             <p-button type="button" (click)="addModifyIngredient()">
-              {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }}
-             </p-button>
-          </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="form-actions">
-           <p-button type="submit">{{ 'USER_PROFILE.MODIFY_DRINK_SAVE' | translate }} </p-button>
-           <p-button type="button" (click)="cancelModification()">{{ 'USER_PROFILE.MODIFY_DRINK_CANCEL' | translate }} </p-button>
+        <div class="add-ingredients">
+          <p-button type="button" (click)="addModifyIngredient()">
+            {{ 'USER_PROFILE.CREATE_DRINK_INGREDIENT_ADD' | translate }}
+          </p-button>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <p-button type="submit">{{ 'USER_PROFILE.MODIFY_DRINK_SAVE' | translate }} </p-button>
+        <p-button type="button" (click)="cancelModification()">{{ 'USER_PROFILE.MODIFY_DRINK_CANCEL' | translate }} </p-button>
+      </div>
+    </form>
+  </div>
 
 
   <app-back-button></app-back-button>
