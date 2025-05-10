@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { NgIf, NgFor } from '@angular/common';
 import { GdprBannerComponent } from '../gdpr/gdpr.component';
 import { FavoriteDrinksComponent } from '../favorite-drinks/favorite-drinks.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from "@ngx-translate/core";
-import { LanguageService } from '../../services/language.service';
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { ProfileUpdateFormComponent } from '../profile-update-form/profile-update-form.component';
 // Ng Prime UI
@@ -33,7 +32,8 @@ interface DrinkIngredient {
   styleUrls: ['./user-profile.component.css'],
   imports: [GdprBannerComponent, NgIf, NgFor, FormsModule,
     ReactiveFormsModule, ButtonModule, FavoriteDrinksComponent,
-    CardModule, TranslateModule, BackButtonComponent, ProfileUpdateFormComponent]
+    CardModule, TranslateModule, BackButtonComponent, ProfileUpdateFormComponent,
+    RouterModule]
 })
 export class UserProfileComponent implements OnInit, AfterViewInit
 {
@@ -90,7 +90,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     private cdr: ChangeDetectorRef,
     private location: Location,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -437,7 +438,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   }
 
   deleteDrink(id: number) {
-    if (confirm('Are you sure you want to delete this drink?')) {
+    const confirmMessage = this.translate.instant('USER_PROFILE.CREATE_DRINK_DELETE_CONFIRM');
+
+    if (confirm(confirmMessage)) {
       this.drinkService.deleteDrink(id).subscribe(() => {
         //this.loadDrinks(); // refresh
         this.fetchUserDrinksImage(); 

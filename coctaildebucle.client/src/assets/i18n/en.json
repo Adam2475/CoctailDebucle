@@ -2,7 +2,7 @@
   "HOME": {
     "TITLE": "Welcome to: ",
     "FLAVOUR_TEXT": "Discover our daily selection of drinks or create your own!",
-    "CHOSEN_FOR_YOU": "Your favourite drinks: ",
+    "YOUR_FAVORITES": "Your favourite drinks: ",
     "DAILY_SELECTION": "Daily Selection: ",
     "CALL_TO_ACTION_FLAVOR": "Or you can click here for available drinks:",
     "CALL_TO_ACTION": "Discover our selection"
@@ -49,8 +49,9 @@
     "GLASS": "Glass",
     "INSTRUCTIONS": "Instructions",
     "INGREDIENTS": "Ingredients",
-    "FAVORITES": "Add to Favorites",
+    "FAVORITES": "Favorite",
     "FAVORITES_REMOVE": "Remove",
+    "ORDER": "Order",
     "BACK": "Back",
     "NOT_FOUND": "No cocktail found for the provided ID. Please try again later.",
     "ADDED_TO_FAVORITES": "Added to favorites!",
@@ -112,8 +113,9 @@
 
     "MSG_NO_GDPR": "You need to accept GDPR consent to view your favorite drinks.",
 
-    "CREATE_DRINK_NAME": "Drink Name:",
-    "CREATE_DRINK_CATEGORY": "Category:",
+    "CREATE_DRINK_TITLE": "Make your Cocktail",
+    "CREATE_DRINK_NAME": "Drink Name",
+    "CREATE_DRINK_CATEGORY": "Category",
     "CREATE_DRINK_GLASS": "Glass",
     "CREATE_DRINK_GLASS_DROP": "-- Select a glass --",
     "CREATE_DRINK_INSTRUCTIONS": "Instructions",
@@ -131,6 +133,7 @@
     "CREATE_DRINK_ADD_FAVORITE": "Add to Favorites",
     "CREATE_DRINK_MODIFY": "Modify",
     "CREATE_DRINK_DELETE": "Delete",
+    "CREATE_DRINK_DELETE_CONFIRM": "Are you sure you want to delete this drink?",
     "CREATE_DRINK_NO_RESULT": "No drinks found matching your search.",
 
     "MODIFY_DRINK_HEADER": "Modify Drink",
