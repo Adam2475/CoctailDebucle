@@ -151,10 +151,10 @@
             <button pButton icon="pi pi-star-fill" class="actionBtn" (click)="addToFavorites(drink.id)"> {{ 'COCKTAIL_DETAIL.FAVORITES' | translate }}  </button>
           </div>
           <div class="custom-button">
-            <button pButton class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}  </button>
+            <button pButton icon="pi pi-wrench" class="actionBtn" (click)="onModifyClick(drink)"> {{ 'USER_PROFILE.CREATE_DRINK_MODIFY' | translate }}  </button>
           </div>
           <div class="custom-button">
-            <button pButton class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}  </button>
+            <button pButton icon="pi pi-trash" class="actionBtn" (click)="deleteDrink(drink.id)"> {{ 'USER_PROFILE.CREATE_DRINK_DELETE' | translate }}  </button>
           </div>
         </div>
       </ng-template>
