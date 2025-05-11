@@ -4,8 +4,19 @@
   color: var(--bordo) !important;
   font-family: 'Garamond-semi', serif !important;
   font-weight: bold;
+  width:auto !important;
+  display:flex;
+  gap:0.5em;
+  padding:0.8em;
 }
 
 pButton {
   background-color: var(--avorio-scuro);
+}
+
+
+.div_backBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
