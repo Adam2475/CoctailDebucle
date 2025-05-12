@@ -38,7 +38,7 @@
 ## 🔧 Configurazione Visual Studio
 
 1. Cliccare sul file .sln presente nella root del progetto per aprire Visual Studio. ![immagine file in cartella](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/file_sln.png)
-2. Dal menu superiore, cliccare sulla freccia accanto al pulsante "Avvia" e selezionare "Configura progetti di avvio...". ![immagine menu' tendina](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio1.png)
+2. Dal menu superiore, cliccare sulla freccia accanto al pulsante "Avvia" e selezionare dal menu' a tendina "Configura progetti di avvio...". ![immagine menu' tendina](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio1.png)
 3. Impostare il progetto backend e frontend come progetti da avviare contemporaneamente. ![immagine impostazione debug](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio2.png)
 4. Cliccare su "Applica" e poi su "OK".
 
