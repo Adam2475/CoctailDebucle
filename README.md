@@ -18,6 +18,8 @@
 ```json
 "Key": "YourSuperLongSecretKey@1234567890",
 "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=CocktailDB;Trusted_Connection=True;TrustServerCertificate=True;"
+```
+---
 
 ## 🗄️ Configurazione del Database
 
