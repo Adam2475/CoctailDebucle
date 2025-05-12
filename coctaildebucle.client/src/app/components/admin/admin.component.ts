@@ -94,7 +94,7 @@ export class AdminComponent implements OnInit {
   fetchSelectionList()
   {
     this.cocktailService.getSelections().subscribe((data: any[]) => {
-/*      console.log("Selections fetched from API:", data);*/
+      /*console.log("Selections fetched from API:", data);*/
       this.selectionList = data;
     });
   }
@@ -173,9 +173,6 @@ export class AdminComponent implements OnInit {
    *          2) pre-save extracted elements to our DB
    *          3) fetches the full list to estabilish correspondecies
    *          4) generate the payload to save the drink
-   *
-   * @todo :  split the function
-   *          
    */
 
   submitSelection(): void
@@ -192,9 +189,11 @@ export class AdminComponent implements OnInit {
       }
     });
 
+    // preparing the data to suit the backend format
     const ingredientsArray = Array.from(uniqueIngredients).map(name => ({ name }));
     const glassesArray = Array.from(uniqueGlasses).map(name => ({ name }));
 
+    // fetch all ingredients and glasses present from the DB and the user id
     this.cocktailService.saveIngredients(ingredientsArray).pipe(
       switchMap(() => this.cocktailService.saveGlasses(glassesArray)),
       switchMap(() => this.authService.getUser()),
@@ -338,7 +337,6 @@ export class AdminComponent implements OnInit {
   toggleSelection(drink: any): void
   {
     const index = this.selectedDrinks.findIndex(d => d.idDrink === drink.idDrink);
- /*   console.log("ciaone");*/
     if (index !== -1)
       this.selectedDrinks.splice(index, 1);
     else

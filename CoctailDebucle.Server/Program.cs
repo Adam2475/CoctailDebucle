@@ -2,6 +2,8 @@ using CoctailDebucle.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+// application startup code
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Set up the DbContext with SQL Server connection and added loggers
@@ -47,7 +49,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
-// Ideally ensures that files are served correctly
 app.UseStaticFiles();
 
 app.UseRouting();

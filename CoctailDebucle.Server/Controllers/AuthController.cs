@@ -9,7 +9,7 @@ using CoctailDebucle.Server.Models;
 using CoctailDebucle.Server.DTOs;
 using Microsoft.Extensions.Configuration;
 
-// MCV : Model - Controller - View
+// MVC : Model - View - Controller
 namespace CoctailDebucle.Server.Controllers
 {
     [Route("api/auth")]
@@ -42,7 +42,7 @@ namespace CoctailDebucle.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if username already exists
+                // SELECT * FROM Users WHERE Username = XXX
                 var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
 
                 if (existingUser != null)
@@ -80,13 +80,9 @@ namespace CoctailDebucle.Server.Controllers
                 return NotFound("User not found.");
             }
 
-            // Prima di salvare:
-            Console.WriteLine($"Aggiorno consenso GDPR a: {dto.GdprConsent}");
-
-
             user.Username = dto.Username;
             user.Email = dto.Email;
-            user.GdprConsent = dto.GdprConsent;   //mettere gdpr consent in modulo registrazione?
+            user.GdprConsent = dto.GdprConsent;
             user.Name = dto.Name;
             user.Surname = dto.Surname;
             user.BirthDate = dto.BirthDate;
@@ -125,6 +121,7 @@ namespace CoctailDebucle.Server.Controllers
                return Unauthorized("Invalid credentials");
             // Create JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
+            // Take the secret key to sign the JWT token from the configuration file
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {

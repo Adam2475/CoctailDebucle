@@ -30,7 +30,7 @@ import { JsonPipe } from '@angular/common';
 export class FavoriteDrinksComponent
 {
   ////////////////////////////
-  // State Variaables
+  // State Variables
   ////////////////////////////
   userId: number | null = null;
   consentGiven: boolean = false;

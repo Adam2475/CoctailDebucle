@@ -337,21 +337,20 @@ namespace CoctailDebucle.Server.Controllers
             });
         }
 
-        private async Task<string?> DownloadImageAsync(string imageUrl)
-        {
-            _logger.LogInformation("Received imageUrl: {ImageUrl}------------------------------------------------------------------------------------", imageUrl);
-            //Console.WriteLine("Received imageUrl---------------------------------------------------------------------------------------------: " + imageUrl);
-            if (string.IsNullOrEmpty(imageUrl))
-                return null;
+    // old method to download the image and store it locally
+        // private async Task<string?> DownloadImageAsync(string imageUrl)
+        // {
+        //     if (string.IsNullOrEmpty(imageUrl))
+        //         return null;
 
-            var client = new HttpClient();
-            var imageBytes = await client.GetByteArrayAsync(imageUrl);
-            var fileName = $"{Guid.NewGuid()}.jpg";
-            var filePath = Path.Combine("wwwroot", "images", fileName);
-            await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
+        //     var client = new HttpClient();
+        //     var imageBytes = await client.GetByteArrayAsync(imageUrl);
+        //     var fileName = $"{Guid.NewGuid()}.jpg";
+        //     var filePath = Path.Combine("wwwroot", "images", fileName);
+        //     await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
 
-            return $"/images/{fileName}";
-        }
+        //     return $"/images/{fileName}";
+        // }
     }
 
 }

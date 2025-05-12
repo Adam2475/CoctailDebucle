@@ -7,12 +7,16 @@ namespace CoctailDebucle.Server.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        /** Maps a specific table es: [User] to a class 
+         *  - the class contains specific methods to perform query logic
+         *  es:_context.Users.ToListAsync() = SELECT * FROM Users
+         */
         public DbSet<User> Users { get; set; }
         public DbSet<Drink> Drinks { get; set; }
-        public DbSet<Glass> Glasses { get; set; } // Add Glass entity
+        public DbSet<Glass> Glasses { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UserFavoriteDrink> UserFavoriteDrinks { get; set; }
-        // Add this for the join table between Drinks and Ingredients
         public DbSet<DrinkIngredient> DrinkIngredients { get; set; }
 
         public DbSet<Selection> Selections { get; set; }
