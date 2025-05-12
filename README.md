@@ -1,3 +1,12 @@
+# 🥂 CocktailDebucle – Istruzioni di Installazione
+
+## 📥 Clonare il Repository
+
+1. Aprire **Visual Studio**
+2. Selezionare **"Clona una repository"**
+3. Inserire il seguente URL:
+
+
 - Setup Visual Studio Project:
 
 https://learn.microsoft.com/en-us/visualstudio/javascript/tutorial-asp-net-core-with-angular?view=vs-2022#prerequisites
