@@ -20,7 +20,7 @@
 "Key": "YourSuperLongSecretKey@1234567890",
 "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=CocktailDB;Trusted_Connection=True;TrustServerCertificate=True;"
 ```
-[immagine file appsettings]
+![immagine file appsettings](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/appsettings.png)
 
 ---
 
