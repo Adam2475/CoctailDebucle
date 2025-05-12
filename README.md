@@ -31,15 +31,15 @@
 
 2. All'avvio, nel campo "Nome server" inserire: ```localhost\SQLEXPRESS```
 
-      [immagine impostazioni ssms]
-   
+   ![immagine impostazioni ssms](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_sql.png)
+
 ---
 
 ## 🔧 Configurazione Visual Studio
 
-1. Aprire il file .sln presente nella root del progetto. [immagine file in cartella]
-2. Dal menu superiore, cliccare sulla freccia accanto al pulsante "Avvia" e selezionare "Configura progetti di avvio...". [immagine]
-3. Impostare il progetto backend e frontend come progetti da avviare contemporaneamente. [immagine]
+1. Cliccare sul file .sln presente nella root del progetto per aprire Visual Studio. ![immagine file in cartella](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/file_sln.png)
+2. Dal menu superiore, cliccare sulla freccia accanto al pulsante "Avvia" e selezionare "Configura progetti di avvio...". ![immagine menu' tendina](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio1.png)
+3. Impostare il progetto backend e frontend come progetti da avviare contemporaneamente. ![immagine impostazione debug](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio2.png)
 4. Cliccare su "Applica" e poi su "OK".
 
 ---
@@ -88,7 +88,7 @@ dotnet ef database update
 ```
 
 Aprendo SQL Server Management Studio, le tabelle del database dovrebbero essere ora visibili.
-[immagine database]
+![immagine database](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/sql_done.png)
 
 ---
 
@@ -98,31 +98,6 @@ Aprendo SQL Server Management Studio, le tabelle del database dovrebbero essere 
 
 2. Premere "Avvia" (▶) per lanciare sia il frontend che il backend della WebApp.
 
+![avviare progetto](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio3.png)
 
-
-
-
-
------------------------------------
-- Setup Visual Studio Project:
-
-https://learn.microsoft.com/en-us/visualstudio/javascript/tutorial-asp-net-core-with-angular?view=vs-2022#prerequisites
-
-----------------------------------------------------------------
-
-In Visual Studio, launch.json stores the startup settings associated with the Start button in the Debug toolbar. launch.json must be located under the .vscode folder.
-
-----------------------------------------------------------------
-
-Press F5 or select the Start button at the top of the window to start the app.
-
-To choose the default browser modify the 'launch.json' fi
-
----------------------------------------------------------------
-
-- Install primeng library for frontend:
-
-npm install primeng @primeng/themes
-
-docs:
-https://primeng.org/installation
+![progetto avviato](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/finish.png)
