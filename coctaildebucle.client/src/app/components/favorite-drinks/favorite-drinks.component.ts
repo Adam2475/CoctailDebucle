@@ -89,7 +89,7 @@ export class FavoriteDrinksComponent
       return;
     }
 
-    this.http.delete(`https://localhost:7047/api/users/${this.userId}/favorites/${drinkId}`)
+    this.http.delete(`/api/users/${this.userId}/favorites/${drinkId}`)
       .subscribe({
         next: () => {
           this.favoriteDrinks = this.favoriteDrinks.filter(drink => drink.id !== drinkId);

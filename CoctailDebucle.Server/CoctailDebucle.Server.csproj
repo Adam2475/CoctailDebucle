@@ -7,6 +7,7 @@
     <SpaRoot>..\coctaildebucle.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:62695</SpaProxyServerUrl>
+    <IncludeClientProjectReference Condition="'$(IncludeClientProjectReference)' == ''">true</IncludeClientProjectReference>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +33,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(IncludeClientProjectReference)' == 'true'">
     <ProjectReference Include="..\coctaildebucle.client\coctaildebucle.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

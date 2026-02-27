@@ -102,7 +102,7 @@ export class AdminComponent implements OnInit {
 
   toggleSelectionList(id: number)
   {
-  this.http.put<any>(`https://localhost:7047/api/selection/toggle-selection-list/${id}`, {})
+  this.http.put<any>(`/api/selection/toggle-selection-list/${id}`, {})
     .subscribe({
       next: (response) => {
         const updated = this.selectionList.find(s => s.id === id);
@@ -123,7 +123,7 @@ export class AdminComponent implements OnInit {
 
   removeSelection(id: number)
   {
-    this.http.delete(`https://localhost:7047/api/selection/${id}`).subscribe({
+    this.http.delete(`/api/selection/${id}`).subscribe({
       next: (response) => {
         // If the selection was successfully deleted, remove it from the local list
         this.selectionList = this.selectionList.filter(s => s.id !== id);
@@ -252,7 +252,7 @@ export class AdminComponent implements OnInit {
         // Submit all drinks
         forkJoin(
           drinksPayload.map(payload =>
-            this.http.post<{ id: number, duplicate: boolean }>('https://localhost:7047/api/drinkDb/savedrink', payload)
+            this.http.post<{ id: number, duplicate: boolean }>('/api/drinkDb/savedrink', payload)
           )
         ).subscribe({
           next: (responses) => {
@@ -273,7 +273,7 @@ export class AdminComponent implements OnInit {
               drinkIds: allDrinkIds
             };
 
-            this.http.post('https://localhost:7047/api/selection/add-selection', selectionPayload)
+            this.http.post('/api/selection/add-selection', selectionPayload)
               .subscribe({
                 next: res => {
                   window.location.reload();

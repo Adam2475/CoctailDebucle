@@ -61,7 +61,7 @@ export class SignupComponent {
       BirthDate: this.formControls['BirthDate'].value
     };
 
-    this.http.post('https://localhost:7047/api/auth/register', registerData)
+    this.http.post('/api/auth/register', registerData)
       .subscribe(
         response => {
           console.log('Registration successful!', response);

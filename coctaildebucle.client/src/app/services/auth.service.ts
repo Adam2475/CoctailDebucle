@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService
 {
-  private apiUrl = 'https://localhost:7047/api/auth';
+  private apiUrl = '/api/auth';
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userIdSubject = new BehaviorSubject<number | null>(null); // Holds user ID
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.getUserId() !== null);

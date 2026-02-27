@@ -9,7 +9,7 @@ export class GdprService {
   // using a shared service
   private showBannerSubject = new BehaviorSubject<boolean>(false);
   showBanner$ = this.showBannerSubject.asObservable();
-  private apiUrl = 'https://localhost:7047/api/users';
+  private apiUrl = '/api/users';
 
   constructor(private http: HttpClient) { }
 

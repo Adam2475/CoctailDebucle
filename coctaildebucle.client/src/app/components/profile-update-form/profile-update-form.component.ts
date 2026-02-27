@@ -77,7 +77,7 @@ export class ProfileUpdateFormComponent implements OnInit {
   }
 
   private loadUserData(): void {
-    this.http.get<any>(`https://localhost:7047/api/auth/${this.userId}`).subscribe(user => {
+    this.http.get<any>(`/api/auth/${this.userId}`).subscribe(user => {
       const date = new Date(user.birthDate);
       const year = date.getFullYear();
       const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -119,7 +119,7 @@ export class ProfileUpdateFormComponent implements OnInit {
     // Nasconde il messaggio dopo tot millisecondi
     setTimeout(() => this.successMessage = '', 2000);
 
-    this.http.put(`https://localhost:7047/api/auth/update/${this.userId}`, updateData).subscribe({
+    this.http.put(`/api/auth/update/${this.userId}`, updateData).subscribe({
       next: (response: any) => {
         console.log('Successo aggiornamento profilo:', response);
       },

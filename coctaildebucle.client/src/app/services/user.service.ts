@@ -8,20 +8,20 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserService
 {
-  private apiUrl = 'https://localhost:7047/api/users';
+  private apiUrl = '/api/users';
 
   constructor(private http: HttpClient) { }
 
   getGlasses(): Observable<any[]> {
-    return this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses');
+    return this.http.get<any[]>('/api/drinkDb/glasses');
   }
 
   deleteDrink(drinkData: any): Observable<any> {
-    return this.http.delete<any>('https://localhost:7047/api/drinkdb/createdrink', drinkData);
+    return this.http.delete<any>('/api/drinkdb/createdrink', drinkData);
   }
 
   createDrink(drinkData: any): Observable<any> {
-    return this.http.post<any>('https://localhost:7047/api/drinkdb/createdrink', drinkData);
+    return this.http.post<any>('/api/drinkdb/createdrink', drinkData);
   }
 
   getUserFavorites(userId: number): Observable<any> {

@@ -67,14 +67,19 @@ export class HeaderComponent implements OnInit, AfterViewInit
   // Check if the logged-in user is an admin
   checkAdminStatus() {
     if (this.isLoggedIn) {
-      this.authService.getUser().subscribe(user => {
-        if (user.role > 0) {
-          this.isAdmin = true; // User is an admin
-        } else {
-          this.isAdmin = false; // User is not an admin
-          console.log("User is not an admin!");
+      this.authService.getUser().subscribe({
+        next: (user) => {
+          this.isAdmin = !!user && user.role > 0;
+          if (!this.isAdmin) {
+            console.log("User is not an admin or user data is unavailable.");
+          }
+        },
+        error: () => {
+          this.isAdmin = false;
         }
       });
+    } else {
+      this.isAdmin = false;
     }
   }
 

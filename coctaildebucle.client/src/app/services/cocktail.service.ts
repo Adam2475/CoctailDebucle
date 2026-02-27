@@ -11,7 +11,7 @@ import { DrinkImportDTO } from '../models/import-dto.model';
 })
 export class CocktailService {
   private apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
-  private apiUrlDb = 'http://localhost:7047/api/drinkDb'; 
+  private apiUrlDb = '/api/drinkDb'; 
 
   constructor(private http: HttpClient) { }
 
@@ -20,11 +20,11 @@ export class CocktailService {
   //////////////////////////
 
   updateDrink(id: number, drinkData: any) {
-    return this.http.put(`https://localhost:7047/api/drinkDb/${id}`, drinkData);
+    return this.http.put(`/api/drinkDb/${id}`, drinkData);
   }
 
   deleteDrink(id: number) {
-    return this.http.delete(`https://localhost:7047/api/drinkDb/${id}`);
+    return this.http.delete(`/api/drinkDb/${id}`);
   }
 
   ///////////////////////////
@@ -64,19 +64,19 @@ export class CocktailService {
   }
 
   getAllIngredients() {
-    return this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients');
+    return this.http.get<any[]>('/api/drinkDb/ingredients');
   }
 
   getAllGlasses() {
-    return this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses');
+    return this.http.get<any[]>('/api/drinkDb/glasses');
   }
 
   saveIngredients(ingredients: { name: string }[]) {
-    return this.http.post('https://localhost:7047/api/drinkDb/ingredients', ingredients);
+    return this.http.post('/api/drinkDb/ingredients', ingredients);
   }
 
   saveGlasses(glasses: { name: string }[]) {
-    return this.http.post('https://localhost:7047/api/drinkDb/glasses', glasses);
+    return this.http.post('/api/drinkDb/glasses', glasses);
   }
 
   ///////////////////////////////////////////////////////////////
@@ -139,16 +139,16 @@ export class CocktailService {
   }
 
   getSelections(): Observable<any[]> {
-    return this.http.get<any[]>('https://localhost:7047/api/selection');
+    return this.http.get<any[]>('/api/selection');
   }
 
   updateSelection(id: number, updateData: { isActive: boolean }): Observable<any> {
-    return this.http.put(`https://localhost:7047/api/${id}`, updateData);
+    return this.http.put(`/api/${id}`, updateData);
   }
 
 
   getActiveSelectionDrinks(): Observable<DrinkImportDTO[]> {
-    return this.http.get<DrinkImportDTO[]>('https://localhost:7047/api/selection/active-drinks');
+    return this.http.get<DrinkImportDTO[]>('/api/selection/active-drinks');
   }
 
 
@@ -157,6 +157,6 @@ export class CocktailService {
   }
 
   getDrinkByIdDb(id: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:7047/api/drinkDb/${id}`);
+    return this.http.get<any>(`/api/drinkDb/${id}`);
   }
 }

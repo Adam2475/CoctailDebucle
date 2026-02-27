@@ -1,0 +1,116 @@
+cd /home/adam/Desktop/coctail/CoctailDebucle/CoctailDebucle.Server && dotnet run
+
+npm install @fortawesome/fontawesome-free jquery-ui-dist --save && npm install
+
+ dotnet --version
+ dotnet restore
+ dotnet run
+
+cd /home/adam/Desktop/coctail/CoctailDebucle/coctaildebucle.client
+npm install
+npm install @primeng/themes@^19.0.9
+npm run build
+npm start
+
+dotnet run --launch-profile https
+
+
+npm run build -- --configuration development
+
+
+// for prod
+
+node -e "const fs=require('fs');const p='angular.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));const b=j.projects['coctaildebucle.client'].architect.build.configurations.production.budgets;for(const x of b){if(x.type==='initial'){x.maximumWarning='3MB';x.maximumError='4MB';}if(x.type==='anyComponentStyle'){x.maximumWarning='8kB';x.maximumError='12kB';}}fs.writeFileSync(p,JSON.stringify(j,null,2));"
+npm run build
+npm start
+
+cat > appsettings.json <<'EOF' { "Logging": {   "LogLevel": { "Default": "Information", "Microsoft.AspNetCore": "Warning"   } }, "Jwt": {   "Key": "YourSuperLongSecretKey@1234567890" }, "ConnectionStrings": {   "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=CocktailDB;Trusted_Connection=True;TrustServerCertificate=True;" } } EOF
+
+dotnet tool install --global dotnet-ef
+dotnet ef database update
+dotnet run --launch-profile https
+
+// dotnet ef database update now fails because localhost\SQLEXPRESS is not reachable on Linux.
+
+cat > appsettings.json <<'EOF'
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Jwt": {
+    "Key": "YourSuperLongSecretKey@1234567890"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=CocktailDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+  }
+}
+EOF
+
+
+// SQL server container
+
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrong!Passw0rd' -p 1433:1433 --name cocktail-sql --hostname cocktail-sql -d mcr.microsoft.com/mssql/server:2022-latest
+
+// HTTPS certificates
+
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
+dotnet run --launch-profile https
+
+sudo apt update && sudo apt install -y libnss3-tools
+dotnet dev-certs https --trust
+dotnet dev-certs https --check --verbose
+pkill -f "firefox|chrome|chromium" || true
+cd [CoctailDebucle.Server](http://_vscodecontentref_/0) && dotnet run --launch-profile https
+
+
+# 1) Register a user
+curl -k -X POST https://localhost:7047/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","email":"admin@test.com","password":"Admin123!","name":"Admin","surname":"User","birthDate":"1995-01-01"}'
+
+# 2) Login and get userId
+curl -k -X POST https://localhost:7047/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"Admin123!"}'
+# note the returned "UserId" value (example: 1)
+
+# 3) Add base lookup data
+curl -k -X POST https://localhost:7047/api/drinkDb/glasses \
+  -H "Content-Type: application/json" \
+  -d '[{"name":"Highball glass"}]'
+
+curl -k -X POST https://localhost:7047/api/drinkDb/ingredients \
+  -H "Content-Type: application/json" \
+  -d '[{"name":"Vodka"},{"name":"Orange juice"}]'
+
+# 4) Read IDs
+curl -k https://localhost:7047/api/drinkDb/glasses
+curl -k https://localhost:7047/api/drinkDb/ingredients
+# note glass id + ingredient ids
+
+# 5) Create one drink (replace IDs and UserId)
+curl -k -X POST https://localhost:7047/api/drinkDb/createdrink \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Screwdriver","category":"Cocktail","glassId":1,"userId":1,"instructions":"Mix and serve.","ingredients":[{"ingredientId":1,"amount":"50 ml"},{"ingredientId":2,"amount":"100 ml"}]}'
+
+# 6) Get drink id
+curl -k https://localhost:7047/api/drinkDb
+
+# 7) Create active selection (replace userId + drinkId)
+curl -k -X POST https://localhost:7047/api/selection/add-selection \
+  -H "Content-Type: application/json" \
+  -d '{"userId":1,"drinkIds":[1]}'
+
+# 8) Verify
+curl -k https://localhost:7047/api/selection/active-drinks
+
+
+// switch to admin
+
+curl -k -X PUT https://localhost:7047/api/users/role/admin -H "Content-Type: application/json" -d '1'
+
+sudo docker compose build --no-cache api

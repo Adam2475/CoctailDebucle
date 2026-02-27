@@ -20,12 +20,15 @@
     <PackageJsonDependenciesAngularPlatformBrowserDynamic Condition="$(PackageJsonDependenciesAngularPlatformBrowserDynamic) == ''">^19.2.0</PackageJsonDependenciesAngularPlatformBrowserDynamic>
     <PackageJsonDependenciesAngularRouter Condition="$(PackageJsonDependenciesAngularRouter) == ''">^19.2.0</PackageJsonDependenciesAngularRouter>
     <PackageJsonDependenciesColsen1991NgxTranslateExtractMarker Condition="$(PackageJsonDependenciesColsen1991NgxTranslateExtractMarker) == ''">^3.0.1</PackageJsonDependenciesColsen1991NgxTranslateExtractMarker>
+    <PackageJsonDependenciesFortawesomeFontawesomeFree Condition="$(PackageJsonDependenciesFortawesomeFontawesomeFree) == ''">^7.2.0</PackageJsonDependenciesFortawesomeFontawesomeFree>
     <PackageJsonDependenciesNgxTranslateCore Condition="$(PackageJsonDependenciesNgxTranslateCore) == ''">^15.0.0</PackageJsonDependenciesNgxTranslateCore>
     <PackageJsonDependenciesNgxTranslateHttpLoader Condition="$(PackageJsonDependenciesNgxTranslateHttpLoader) == ''">^16.0.1</PackageJsonDependenciesNgxTranslateHttpLoader>
+    <PackageJsonDependenciesPrimengThemes Condition="$(PackageJsonDependenciesPrimengThemes) == ''">^19.1.4</PackageJsonDependenciesPrimengThemes>
     <PackageJsonDependenciesFlagIcons Condition="$(PackageJsonDependenciesFlagIcons) == ''">^7.3.2</PackageJsonDependenciesFlagIcons>
     <PackageJsonDependenciesFontAwesome Condition="$(PackageJsonDependenciesFontAwesome) == ''">^4.7.0</PackageJsonDependenciesFontAwesome>
     <PackageJsonDependenciesJestEditorSupport Condition="$(PackageJsonDependenciesJestEditorSupport) == ''">*</PackageJsonDependenciesJestEditorSupport>
     <PackageJsonDependenciesJquery Condition="$(PackageJsonDependenciesJquery) == ''">^3.7.1</PackageJsonDependenciesJquery>
+    <PackageJsonDependenciesJqueryUiDist Condition="$(PackageJsonDependenciesJqueryUiDist) == ''">^1.13.3</PackageJsonDependenciesJqueryUiDist>
     <PackageJsonDependenciesJwtDecode Condition="$(PackageJsonDependenciesJwtDecode) == ''">^4.0.0</PackageJsonDependenciesJwtDecode>
     <PackageJsonDependenciesPrimeicons Condition="$(PackageJsonDependenciesPrimeicons) == ''">^7.0.0</PackageJsonDependenciesPrimeicons>
     <PackageJsonDependenciesPrimeng Condition="$(PackageJsonDependenciesPrimeng) == ''">^19.0.9</PackageJsonDependenciesPrimeng>

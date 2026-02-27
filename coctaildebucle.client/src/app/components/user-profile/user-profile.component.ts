@@ -65,7 +65,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   consentGiven: boolean = false;
   selectedIngredients: any[] = [];
   ingredientsList: any[] = [];
-  private apiUrl = 'https://localhost:7047/api/users';
+  private apiUrl = '/api/users';
   availableIngredients: any[] = [];
   /////////////////////////////////
   // Cocktail Modification Form
@@ -111,7 +111,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
           this.showGdprBanner = true; // Default to showing banner if error occurs
         }
       );
-      this.http.get<any[]>(`https://localhost:7047/api/drinkDb/user/${this.userId}`)
+      this.http.get<any[]>(`/api/drinkDb/user/${this.userId}`)
         .subscribe({
           next: (data) => {
             this.userDrinks = data;
@@ -128,7 +128,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       this.showGdprBanner = true;  // Default to showing banner if userId is null
     }
     // Load ingredients from DB
-    this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients').subscribe({
+    this.http.get<any[]>('/api/drinkDb/ingredients').subscribe({
       next: (data) => {
         this.availableIngredients = data;
        // console.log('Loaded ingredients:', data);
@@ -136,7 +136,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
       error: (err) => console.error('Failed to load ingredients:', err)
     });
     // Load glasses from DB
-    this.http.get<any[]>('https://localhost:7047/api/drinkDb/glasses').subscribe({
+    this.http.get<any[]>('/api/drinkDb/glasses').subscribe({
       next: (data) => {
         this.glassList = data;
         //console.log('Loaded glasses:', data);
@@ -198,7 +198,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   /////////////////////////
 
   fetchIngredientOptions() {
-    this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients')
+    this.http.get<any[]>('/api/drinkDb/ingredients')
       .subscribe({
         next: (data) => {
           this.ingredientOptions = data;
@@ -228,7 +228,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   }
 
   loadIngredients() {
-    this.http.get<any[]>('https://localhost:7047/api/drinkDb/ingredients').subscribe({
+    this.http.get<any[]>('/api/drinkDb/ingredients').subscribe({
       next: (data) => this.availableIngredients = data,
       error: (err) => console.error('Failed to load ingredients:', err)
     });
@@ -315,7 +315,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
   ////////////////////////////
 
   getUserDrinks(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`https://localhost:7047/api/drinkDb/user/${userId}`);
+    return this.http.get<any[]>(`/api/drinkDb/user/${userId}`);
   }
 
   fetchUserDrinks() {
@@ -350,7 +350,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
 
   loadImageForDrink(drink: any): void {
    /* console.log("ciao cicci");*/
-    this.http.get(`https://localhost:7047/api/drinkDb/${drink.id}/image`, { responseType: 'blob' })
+    this.http.get(`/api/drinkDb/${drink.id}/image`, { responseType: 'blob' })
       .subscribe(blob => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -408,14 +408,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit
     formData.append('ImagePath', imageFile); // must match the DTO
 
     // updated endpoint for DB storage
-    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImageToDb/${drinkId}`, formData);
+    return this.http.post(`/api/drinkDb/uploadImageToDb/${drinkId}`, formData);
   }
 
   uploadDrinkImage(drinkId: number, imageFile: File): Observable<any> {
     const formData = new FormData();
     formData.append('ImagePath', imageFile);
 
-    return this.http.post(`https://localhost:7047/api/drinkDb/uploadImage/${drinkId}`, formData);
+    return this.http.post(`/api/drinkDb/uploadImage/${drinkId}`, formData);
   }
 
   onDeleteDrink(drinkId: number): void {
@@ -559,7 +559,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit
         amount: ing.amount
       }))
     };
-    this.http.put(`https://localhost:7047/api/drinkDb/${drinkId}`, payload).subscribe({
+    this.http.put(`/api/drinkDb/${drinkId}`, payload).subscribe({
       next: () => {
         console.log('Update success');
         this.fetchUserDrinksImage();   

@@ -1,1 +1,3 @@
-C:\Users\39334\Desktop\TerranovaChallenge\CoctailDebucle\coctaildebucle.client\obj\Debug\coctaildebucle.client.esproj.CoreCompileInputs.cache
+C:/Users/39334/Desktop/TerranovaChallenge/CoctailDebucle/coctaildebucle.client/obj/Debug/coctaildebucle.client.esproj.CoreCompileInputs.cache
+/home/adam/Desktop/coctail/CoctailDebucle/coctaildebucle.client/obj/Debug/coctaildebucle.client.esproj.CoreCompileInputs.cache
+

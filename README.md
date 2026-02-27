@@ -101,3 +101,49 @@ Aprendo SQL Server Management Studio, le tabelle del database dovrebbero essere 
 ![avviare progetto](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/settings_visual_studio3.png)
 
 ![progetto avviato](https://github.com/SabinoCarlucci/cocktailimages/blob/main/readme_images/finish.png)
+
+---
+
+## 🐳 Avvio con Docker (API + Angular + SQL Server)
+
+Sono stati aggiunti:
+
+- `docker-compose.yml` nella root
+- `CoctailDebucle.Server/Dockerfile`
+- `coctaildebucle.client/Dockerfile`
+- `coctaildebucle.client/nginx.conf`
+
+### 1) Configurare password SQL Server
+
+Nella root del progetto:
+
+```bash
+cp .env.example .env
+```
+
+Modifica `.env` e imposta una password forte per `MSSQL_SA_PASSWORD`.
+
+### 2) Build e avvio container
+
+```bash
+docker compose up --build -d
+```
+
+### 3) URL utili
+
+- Frontend Angular: `http://localhost:4200`
+- Backend Swagger: `http://localhost:7047/swagger`
+- SQL Server: `localhost,1433`
+
+### 4) Log e stop
+
+```bash
+docker compose logs -f api
+docker compose down
+```
+
+Per fermare e rimuovere anche il volume SQL (reset DB):
+
+```bash
+docker compose down -v
+```
